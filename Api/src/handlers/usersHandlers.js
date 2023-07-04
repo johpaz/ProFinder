@@ -12,6 +12,7 @@ const getUsers = (req, res) => {
 
 const getUser = (req, res) => {
   const { id } = req.params;
+  console.log(id);
   return res.status(200).json({ DIY: `En esta ruta se obtendrá el usuario de id: ${id}` });
 };
 
