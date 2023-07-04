@@ -37,7 +37,7 @@ const createUserProfesional = async (req, res) => {
         name,
         email,
         image,
-        genre,
+        genre, 
         years_exp,
         description,
         active: true,
