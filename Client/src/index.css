@@ -1,1 +1,34 @@
+:root {
+  /* Estos colores son solo de prueba para los componentes card del proveedor y details del proveedor */
+  --principal-color: #202020;
+  --secondary-color: #9932cc;
 
+  --background-color: #151515;
+}
+
+/* Estas son configuraciones iniciales para todos los elementos, igual son de prueba */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
+
+/* Este es para que no me quede ciego con el fondo blanco jaja */
+body {
+  background-color: var(--background-color);
+}
+
+/* Esto lo defino para siempre maquetar dentro de un section y todo lo
+que agrege este centrado, es para trabajar mas comodamente */
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 1rem 2rem;
+  border: solid 2px red;
+}
