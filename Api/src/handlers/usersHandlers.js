@@ -1,6 +1,6 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
-const { Profesional } = require('../db');
+const { Profesional,Client } = require('../db');
 // Resto del código...
 
 
@@ -35,9 +35,11 @@ const getUser = async (req, res) => {
   }
 };
 
-const createUser = async (req, res) => {
+
+
+const createUserClient = async (req, res) => {
   try {
-    const { name, email, image, genre, years_exp, description } = req.body;
+    const { name, email, image, genre, description } = req.body;
 
     // Verificación de las propiedades una por una
     if (!name) {
@@ -56,10 +58,6 @@ const createUser = async (req, res) => {
       return res.status(400).json({ error: 'Falta la propiedad genre' });
     }
 
-    if (!years_exp) {
-      return res.status(400).json({ error: 'Falta la propiedad years_exp' });
-    }
-
     if (!description) {
       return res.status(400).json({ error: 'Falta la propiedad description' });
     }
@@ -67,12 +65,11 @@ const createUser = async (req, res) => {
     // Aquí puedes agregar cualquier otra validación adicional que necesites para los datos recibidos
 
     // Crea el usuario en la base de datos utilizando el modelo Profesional
-    const newUser = await Profesional.create({
+    const newUser = await Client.create({
       name,
       email,
       image,
       genre,
-      years_exp,
       description,
       active: true,
       pro: true
@@ -86,7 +83,6 @@ const createUser = async (req, res) => {
     return res.status(500).json({ error: 'Error al crear el usuario' });
   }
 };
-
 const putUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -119,6 +115,6 @@ const putUser = async (req, res) => {
 module.exports = {
   getUsers,
   getUser,
-  createUser,
-  putUser
+  putUser,
+  createUserClient,
 };
