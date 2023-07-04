@@ -29,6 +29,7 @@ const {Profesional, Ocupation, Client, Post } = sequelize.models;
 // Relacionar los modelos n:n
 
 Profesional.belongsToMany(Ocupation,{through:"ProfesionalOcupations"});
+Ocupation.belongsToMany(Profesional,{through:"ProfesionalOcupations"});
 
 // Relacionar los modelos 1:n
 
