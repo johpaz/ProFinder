@@ -22,6 +22,7 @@ const Navbar = () => {
         <div>
           <Link to="/home">logo</Link>
           <Link to="/comofunciona">Cómo funciona</Link>
+          {/* <Link to="/login">Crear usuario Profesional</Link> */}
         </div>
         <div>
           <ul>
