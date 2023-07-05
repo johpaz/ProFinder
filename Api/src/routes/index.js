@@ -10,11 +10,9 @@ const router = Router();
 
 // Enrutado:
 
-router.use('/profesional',profesionalRouter); //roveedores
-router.use('/ocupations', ocupationsRouter);
-router.use('/category',categoryRouter);
 router.use('/client', clientRouter); // Clientes 
 router.use('/profesional', profesionalRouter); //Proveedores
-router.use('/ocupations', ocupationsRouter); 
+router.use('/category',categoryRouter);
+router.use('/ocupations', ocupationsRouter);
 
 module.exports = router;
