@@ -7,7 +7,7 @@ const { getOcupations, getOcupation, postOcupation, putOcupation,
 
 // Middlewares en caso de usar:
 
-// 
+const postValidate = require('../middlewares/ocupation/postValidate');
 
 // Router:
 
@@ -17,7 +17,7 @@ const ocupationRouter = Router();
 
 ocupationRouter.get('/',getOcupations);
 ocupationRouter.get('/',getOcupation);
-ocupationRouter.post('/',postOcupation);
-ocupationRouter.put('/',getOcupation);
+ocupationRouter.post('/',postValidate,postOcupation);
+ocupationRouter.put('/:id',getOcupation);
 
 module.exports = ocupationRouter;

@@ -15,6 +15,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    password:{
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     image:{
       type: DataTypes.STRING,
       allowNull: true,
@@ -26,7 +30,7 @@ module.exports = (sequelize) => {
     rating:{
       type: DataTypes.FLOAT,
       allowNull: true,
-      defaultValue: null,
+      defaultValue: null, //agregar máximo de 5
     },
     description:{
       type: DataTypes.TEXT,
