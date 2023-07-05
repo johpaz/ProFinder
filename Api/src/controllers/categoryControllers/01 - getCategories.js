@@ -1,9 +1,13 @@
 const { Category } = require('../../db');
+const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
 const getAllCategories = async () => {
 
-  const categories = await Category.findAll();
+  const categories = await Category.findAll({include:{
+    model: Ocupation,
+    attributes: ['id','name'],
+  }});
 
   if(!categories) throw Error (`No hay categorías a mostrar`);
 
@@ -20,8 +24,12 @@ const getCategoriesByName = async (name) => {
       name: {
         [Op.iLike]: formattedQuery,
       },
-    },
+    },include:{
+      model: Ocupation,
+      attributes: ['id','name'],
+    }
   });
+  
   if(categoriesName.length === 0) throw Error (`No hay categorías llamadas: ${query}`);
 
   return categoriesName;
@@ -29,4 +37,4 @@ const getCategoriesByName = async (name) => {
 
 module.exports = {
   getAllCategories, getCategoriesByName
-}
+};
