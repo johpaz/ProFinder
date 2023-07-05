@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
     rating:{
       type: DataTypes.FLOAT,
       allowNull: true,
-      defaultValue: null,
+      defaultValue: null, //agregar máximo de 5
     },
     description:{
       type: DataTypes.TEXT,

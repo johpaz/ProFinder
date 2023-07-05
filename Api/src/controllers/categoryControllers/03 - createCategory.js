@@ -6,7 +6,11 @@ const createCategory = async (name) => {
   
   const newCategory = await Category.create({name: nameCategoryFormat});
 
+  if(!newCategory || newCategory.length === 0) throw Error (`No se pudo crear la categoría ${nameCategoryFormat}`);
+
   return newCategory;
 };
 
 module.exports = createCategory;
+
+//? petición Front -> middlewares -> handler -> controller (crea,busca) -> bdd

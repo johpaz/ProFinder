@@ -7,7 +7,7 @@ const OcupationModel = require('./models/Ocupation');
 const ClientModel = require('./models/Client');
 const PostModel = require('./models/Post');
 const CategoryModel = require('./models/Category');
-
+const PostProfesionalModel = require('./models/PostProfesional');
 // Credenciales
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME} = process.env;
@@ -23,10 +23,11 @@ OcupationModel(sequelize);
 ClientModel(sequelize);
 PostModel(sequelize);
 CategoryModel(sequelize);
+PostProfesionalModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const {Profesional, Category, Ocupation, Client, Post } = sequelize.models;
+const {Profesional, Category, Ocupation, Client, Post, PostProfesional} = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -38,6 +39,10 @@ Category.belongsToMany(Profesional,{through:"ProfesionalCategory"});
 Client.hasMany(Post);
 
 Post.belongsTo(Client);
+
+Profesional.hasMany(PostProfesional);
+
+PostProfesional.belongsTo(Profesional);
 
 //?
 Category.hasMany(Ocupation);
