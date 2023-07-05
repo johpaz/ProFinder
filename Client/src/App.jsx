@@ -1,9 +1,10 @@
 import './App.css'
+import DetailsSupplier from './pages/DetailsSupplier/DetailsSupplier'
 
 function App() {
   return (
     <>
-      <h2>Hola Mundo</h2>
+      <DetailsSupplier />
     </>
   )
 }

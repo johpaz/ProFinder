@@ -1,0 +1,56 @@
+section {
+  border: solid 2px red;
+  color: white;
+}
+
+.containerDetailsHeader {
+  border: solid 2px rebeccapurple;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.containerDetailsHeader .containerImage img {
+  border: solid 4px white;
+  border-radius: 50%;
+  width: 190px;
+}
+
+.containerDetailsHeader .detailsContent .actions, .metrics {
+  /* border: solid 2px red; */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-family: var(--label-font);
+  font-size: 1.2rem;
+}
+
+.containerDetailsHeader .detailsContent .description, .moreDetails {
+  /* border: solid 2px red; */
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-family: var(--button-font);
+  line-height: 20px;
+}
+
+.containerDetailsHeader .detailsContent .actions .buttonAction {
+  border-radius: 0.3rem;
+  padding: 0 0.5rem;
+  width: fit-content;
+  height: 35px;
+  margin-top: 1rem;
+  background: var(--degraded-background);
+  color: white;
+  font-family: var(--button-font);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.containerDetailsHeader .detailsContent .actions .buttonAction:hover {
+  background: var(--text-color);
+  cursor: pointer;
+}
