@@ -20,7 +20,7 @@ const Navbar = () => {
     <div>
       <nav>
         <div>
-          <Link to="/home">aqui viene el logo</Link>
+          <Link to="/home">logo</Link>
           <Link to="/comofunciona">Cómo funciona</Link>
         </div>
         <div>
@@ -28,7 +28,7 @@ const Navbar = () => {
             <li>
               <a href="#" onClick={toggleDropdown}>
                 Registrate ▼
-              </a>
+              </a>  
               {isOpen && (
                 <ul>
                   <li>
