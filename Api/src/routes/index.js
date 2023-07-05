@@ -1,19 +1,9 @@
 const { Router } = require('express');
 
 // Aqui se importan los routers para las diferentes rutas:
-const usersRouter = require('./usersRoutes');
+const clientRouter = require('./usersRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
-const categoryRouter = require('./categoryRoutes');
-const profesionalRouter = require('./profesionalRouter');
-
-/* Endpoints
-!users / all
-!Ocupaciones
-clientes
-Proveedores
-Post(publicaciones del cliente)
-Citas
-*/ 
+const profesionalRouter = require('./profesionalRouter')
 
 const router = Router();
 
@@ -22,5 +12,8 @@ router.use('/users', usersRouter); // Clientes
 router.use('/profesional',profesionalRouter); //roveedores
 router.use('/ocupations', ocupationsRouter);
 router.use('/category',categoryRouter);
+router.use('/client', clientRouter); // Clientes 
+router.use('/profesional', profesionalRouter); //Proveedores
+router.use('/ocupations', ocupationsRouter); 
 
 module.exports = router;
