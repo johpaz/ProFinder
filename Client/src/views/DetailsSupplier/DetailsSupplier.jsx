@@ -1,4 +1,5 @@
 import './DetailsSupplier.css'
+import SupplierGallery from '../../components/SupplierGallery/SupplierGallery'
 
 export default function DetailsSupplier () {
   return (
@@ -30,6 +31,7 @@ export default function DetailsSupplier () {
           </div>
         </div>
       </div>
+      <SupplierGallery />
     </section>
   )
 }
