@@ -1,5 +1,51 @@
 const { Profesional } = require('../db');
 
+const {searchUserProfesional, getAllProfesionals,getProfById} = require ("../Controller/profesionalsControllers")
+
+
+const getProfesionals = async (req, res) => {
+  const {name}= req.query
+
+  try {
+    
+    const names= name?  await searchUserProfesional(name): await getAllProfesionals();
+
+   if(names.length===0) {res.send("The indicated Profesional's name has not been found")}
+   else res.status(200).json(names)
+
+  } catch (error) {
+     res.status(400).json({ error: error.messages});
+  }
+};
+
+
+
+
+const logicDelete=async( req,res)=>{
+  const { id } = req.params;
+  try {
+    const dbProf= await getProfById(id);
+    
+    if(dbProf.length===0) {res.send("The indicated Profesional's id has not been found")}
+    else res.status(200).json(dbProf)
+ 
+  } catch (error) {
+    res.status(400).json({error: error.message})
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 const createUserProfesional = async (req, res) => {
     try {
@@ -56,4 +102,6 @@ const createUserProfesional = async (req, res) => {
 
   module.exports = { 
      createUserProfesional,
+     getProfesionals,
+     logicDelete
  };
