@@ -2,15 +2,15 @@ const { Router } = require('express');
 
 // Handlers:
 
-const { getUsers, getUser,createUserClient, putUser } = require('../handlers/usersHandlers');
+const { getUsers, getUser, createUserClient, putClient } = require('../handlers/clientHandlers');
 
-const usersRouter = Router();
+const clientRouter = Router();
 
-usersRouter.get('/', getUsers);
-usersRouter.get('/:id', getUser);
-usersRouter.post('/', createUserClient);
+clientRouter.get('/', getUsers);
+clientRouter.get('/:id', getUser);
+clientRouter.post('/', createUserClient);
 
 
-usersRouter.put('/:id', putUser);
+clientRouter.put('/:id', putClient);
 
-module.exports = usersRouter;
+module.exports = clientRouter;
