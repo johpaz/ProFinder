@@ -1,9 +1,19 @@
+/* Fuentes de prueba para los maquetados */
+@import url('https://fonts.googleapis.com/css2?family=Hind&family=Khand:wght@700&family=Lato&display=swap');
+
 :root {
-  /* Estos colores son solo de prueba para los componentes card del proveedor y details del proveedor */
+  /* Colores de prueba para los maquetados */
   --principal-color: #202020;
   --secondary-color: #9932cc;
+  --accent-color: #3a0ca3;
 
   --background-color: #151515;
+  --degraded-background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+
+  --text-color: #908E9B;
+
+  --label-font: 'Lato', sans-serif;
+  --button-font: 'Hindi', sans-serif;
 }
 
 /* Estas son configuraciones iniciales para todos los elementos, igual son de prueba */
@@ -16,13 +26,12 @@
   border: none;
 }
 
-/* Este es para que no me quede ciego con el fondo blanco jaja */
+/* Este es color de prueba para el background, lo deje en negro para no dañar las vista */
 body {
   background-color: var(--background-color);
 }
 
-/* Esto lo defino para siempre maquetar dentro de un section y todo lo
-que agrege este centrado, es para trabajar mas comodamente */
+/* Section de prueba para los maquetados*/
 section {
   display: flex;
   flex-direction: column;
@@ -30,5 +39,5 @@ section {
   justify-content: center;
   min-height: 100%;
   padding: 1rem 2rem;
-  border: solid 2px red;
+  /* border: solid 2px red; */
 }
