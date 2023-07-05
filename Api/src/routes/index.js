@@ -9,7 +9,7 @@ const categoryRouter = require('./categoryRoutes');
 const router = Router();
 
 // Enrutado:
-
+//hola
 router.use('/client', clientRouter); // Clientes 
 router.use('/profesional', profesionalRouter); //Proveedores
 router.use('/category',categoryRouter);
