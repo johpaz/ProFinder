@@ -52,5 +52,4 @@ module.exports = (sequelize) => {
   },{
     timestamps: false,
   });
-  return Profesional;
 };
