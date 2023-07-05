@@ -1,0 +1,59 @@
+.containerCard {
+  color: white;
+  width: 280px;
+  height: 430px;
+  background-color: var(--principal-color);
+  border-radius: 0.3rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .13), 0 1px 1px 0 rgba(0, 0, 0, .11);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerCard .headerCard .containerImage img {
+  border: solid 4px white;
+  border-radius: 50%;
+  width: 120px;
+  height: 115px;
+  margin-bottom: 0.5rem;
+}
+
+.containerCard .headerCard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--button-font);
+}
+
+.containerCard .headerCard .name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.containerCard .contentCard {
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--label-font);
+  color: var(--text-color);
+}
+
+.containerCard .contentCard .buttonDetails {
+  border-radius: 0.3rem;
+  width: 170px;
+  height: 35px;
+  margin-top: 1rem;
+  background: var(--degraded-background);
+  color: white;
+  font-family: var(--button-font);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.containerCard .contentCard .buttonDetails:hover {
+  margin-left: 7px;
+  cursor: pointer;
+}
