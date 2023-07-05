@@ -4,7 +4,7 @@ import { images } from '../../utils/mockupsImages'
 
 export default function SupplierGallery () {
   return (
-    <div>
+    <div className='containerGallery'>
     <div className="overlay">
       <div className="slideshow">
         <span className="btnClose">&times;</span>

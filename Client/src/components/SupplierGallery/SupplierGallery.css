@@ -1,31 +1,31 @@
-.gallery {
+.containerGallery .gallery {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   padding: 10px 20px;
 }
 
-.column {
+.containerGallery .gallery .column {
   background-color: var(--principal-color);
   flex: 20%;
   max-width: 20%;
   padding: 0 4px;
 }
 
-.column img {
+.containerGallery .gallery .column img {
   margin-top: 8px;
   vertical-align: middle;
   width: 100%;
   transition: all 0.3s ease;
 }
 
-.column img:hover {
+.containerGallery .gallery .column img:hover {
   cursor: pointer;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transform: scale(1.1);
 }
 
-.overlay {
+.containerGallery .overlay {
   position: fixed;
   left: 0;
   top: 0;
@@ -41,7 +41,7 @@
   opacity: 0;
 }
 
-.overlay .slideshow {
+.containerGallery .overlay .slideshow {
   width: 90%;
   height: 90%;
   background-color: rgba(255, 255, 255, 0.9);
@@ -51,13 +51,13 @@
   justify-content: center;
 }
 
-.slideshow img {
+.containerGallery .overlay .slideshow img {
   height: 100%;
   width: 100%;
   object-fit: contain;
 }
 
-.btnClose {
+.containerGallery .overlay .slideshow .btnClose {
   position: absolute;
   top: -15px;
   right: -15px;
@@ -74,12 +74,12 @@
   transition: all 0.2s ease;
 }
 
-.btnClose:hover {
+.containerGallery .overlay .slideshow .btnClose:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.button {
+.containerGallery .overlay .slideshow .button {
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -95,7 +95,7 @@
   background-color: rebeccapurple;
 }
 
-.button:hover > span {
+.containerGallery .overlay .slideshow .button:hover > span {
   transform: scale(1.1);
   transition: all 0.2s ease;
 }
@@ -110,11 +110,11 @@
 
 /* Tablets */
 @media screen and (max-width: 800px) {
-  .column {
+  .containerGallery .gallery .column {
     flex: 50%;
     max-width: 50%;
   }
-  .button {
+  .containerGallery .overlay .slideshow .button {
     font-size: 55px;
   }
   .previous {
@@ -123,14 +123,14 @@
   .next {
     right: 5px;
   }
-  .slideshow img {
+  .containerGallery .overlay .slideshow img {
     width: 98%;
   }
 }
 
 /* Moviles */
 @media screen and (max-width: 600px) {
-  .column {
+  .containerGallery .gallery .column {
     flex: 100%;
     max-width: 100%;
   }
