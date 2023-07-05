@@ -1,7 +1,7 @@
 const { Profesional } = require('../db');
 
 const {searchUserProfesional, getAllProfesionals,getProfById} = require ("../Controller/profesionalsControllers")
-
+const createProfesional = require('../controllers/profesionalControllers/01 - createProfesional');
 
 const getProfesionals = async (req, res) => {
   const {name}= req.query
@@ -18,9 +18,6 @@ const getProfesionals = async (req, res) => {
   }
 };
 
-
-
-
 const logicDelete=async( req,res)=>{
   const { id } = req.params;
   try {
@@ -35,44 +32,15 @@ const logicDelete=async( req,res)=>{
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 const createUserProfesional = async (req, res) => {
-    try {
-      const { name, email, image, genre, years_exp, description } = req.body;
-
-      // Aquí puedes agregar cualquier otra validación adicional que necesites para los datos recibidos
+  const { name, email, image, genre, years_exp, description } = req.body;
   
-      // Crea el usuario en la base de datos utilizando el modelo Profesional
-      const newUser = await Profesional.create({
-        name,
-        email,
-        image,
-        genre, 
-        years_exp,
-        description,
-        active: true,
-        pro: true
-      });
-
-      if(!newUser) throw Error (`No se pudo crear un usuario`)
-  
-      // Aquí puedes realizar cualquier otra acción adicional después de crear el usuario
-  
-      return res.status(201).json({ user: newUser });
-    } catch (error) {
-      return res.status(400).json({ error: error.message });
-    }
+  try {
+    const newUser = await createProfesional(name,email,image,genre,years_exp,description)
+    return res.status(201).json({ user: newUser });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  };
   };
 
   module.exports = { 
