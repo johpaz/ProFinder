@@ -3,6 +3,7 @@ const { Op } = require("sequelize");
 const { Profesional, sequelize } = require('../db');
 const {Ocupation}= require ('../db')
 const { QueryTypes } = require('sequelize');
+const Category = require("../db");
 
 
 
@@ -24,10 +25,11 @@ const getAllProfesionals=async ()=>{
     const allProf= await Profesional.findAll({//añadir que solo lo devuelva si soft delete es null
     where:{ 
         softDelete: null},
-    include:{
-           model: Ocupation
+    //include:{
+          //model: Category
         }
-     } )
+    //}
+    )
     return allProf
 };
 
