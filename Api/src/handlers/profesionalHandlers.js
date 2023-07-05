@@ -25,7 +25,7 @@ const createUserProfesional = async (req, res) => {
   
       return res.status(201).json({ user: newUser });
     } catch (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(400).json({ error: error.message });
     }
   };
 
