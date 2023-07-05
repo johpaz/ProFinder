@@ -1,5 +1,5 @@
 import './App.css'
-import DetailsSupplier from './pages/DetailsSupplier/DetailsSupplier'
+import DetailsSupplier from './views/DetailsSupplier/DetailsSupplier'
 
 function App() {
   return (

@@ -22,11 +22,11 @@ export default function DetailsSupplier () {
             <p>Servicio de cerrajeria a domicilio 24hs aperturas, cambios de combinacion, copias de llaves, reparacion de cerraduras, venta y colocacion de cerraduras nuevas.</p>
           </div>
           <div className='moreDetails'>
-            <p>Electricista - Plomero - Pintor</p>
-            <p>7 Años de experiencia</p>
-            <p>Capital Federal, Argentina</p>
-            <p>aquino.mariano@gmail.com</p>
-            <p>Masculino</p>
+            <p><span className="material-symbols-outlined">mindfulness</span>Electricista - Plomero - Pintor</p>
+            <p><span className="material-symbols-outlined">hourglass_bottom</span>7 Años de experiencia</p>
+            <p><span className="material-symbols-outlined">location_on</span>Capital Federal, Argentina</p>
+            <p><span className="material-symbols-outlined">patient_list</span>aquino.mariano@gmail.com</p>
+            <p><span className="material-symbols-outlined">man</span>Masculino</p>
           </div>
         </div>
       </div>

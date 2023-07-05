@@ -37,6 +37,11 @@ section {
   line-height: 20px;
 }
 
+.containerDetailsHeader .detailsContent .moreDetails span {
+  margin-right: 0.5rem;
+  color: rebeccapurple;
+}
+
 .containerDetailsHeader .detailsContent .actions .buttonAction {
   border-radius: 0.3rem;
   padding: 0 0.5rem;
