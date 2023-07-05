@@ -1,5 +1,7 @@
 import "./App.css";
 import Navbar from "./components/navBar/Navbar.jsx";
+import HomePage from "../src/views/HomePage/HomePage"
+import {Routes,Route} from "react-router-dom";
 
 
 
@@ -7,7 +9,9 @@ function App() {
   return (
     <div>
       <Navbar />
-      <h2>Hola Mundo</h2>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+      </Routes>
     </div>
   );
 }
