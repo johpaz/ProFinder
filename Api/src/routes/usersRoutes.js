@@ -2,21 +2,15 @@ const { Router } = require('express');
 
 // Handlers:
 
-const { getUsers, getUser, postUser, putUser } = require('../handlers/usersHandlers');
-
-// Middlewares en caso de usar:
-
-//? const postValidate = require('../middlewares/postValidate'); 
-
-// Router
+const { getUsers, getUser,createUserClient, putUser } = require('../handlers/usersHandlers');
 
 const usersRouter = Router();
 
-// Enrutado:
+usersRouter.get('/', getUsers);
+usersRouter.get('/:id', getUser);
+usersRouter.post('/', createUserClient);
 
-usersRouter.get('/',getUsers);
-usersRouter.get('/:id',getUser);
-usersRouter.post('/',postUser);
-usersRouter.put('/:id',putUser);
+
+usersRouter.put('/:id', putUser);
 
 module.exports = usersRouter;

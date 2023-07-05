@@ -18,10 +18,6 @@ module.exports = (sequelize) => {
     unique: true,
     allowNull: false,
    },
-   password:{
-    type: DataTypes.STRING,
-    allowNull:false
-  },
    image:{
     type: DataTypes.STRING, //Podría ser un BLOB
     allowNull: false,
@@ -54,6 +50,7 @@ module.exports = (sequelize) => {
     defaultValue: true,
    },
   },{
-    timestamps: false
+    timestamps: false,
   });
+  return Profesional;
 };
