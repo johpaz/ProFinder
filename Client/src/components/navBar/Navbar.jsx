@@ -21,12 +21,8 @@ const Navbar = () => {
     <div>
       <nav>
         <div>
-          <Link to="/home">logo</Link>
-          <Link to="/comofunciona">Cómo funciona</Link>
-          {/* <Link to="/login">Crear usuario Profesional</Link> */}
-        </div>
-        <Link to='/selectlogin'><a href=""></a></Link>
-        <div>
+          <Link to="/">logo</Link>
+          <Link to="/login">Registro profesional</Link>
           <ul>
             <li>
               <a href="#" onClick={toggleDropdown}>
