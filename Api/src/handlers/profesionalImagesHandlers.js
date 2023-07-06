@@ -3,6 +3,7 @@
 const createProfesionalImage = require('../controllers/profesionalImagesControllers/01 - createProfesionalImage');
 const getAllProfesionalImages = require('../controllers/profesionalImagesControllers/02 - getAllProfesionalImages');
 const updateProfesionalImage = require('../controllers/profesionalImagesControllers/03 - updateProfesionalImage');
+const profesionalImageById = require('../controllers/profesionalImagesControllers/04 - getProfesionalImageById');
 
 // Handlers:
 
@@ -40,10 +41,11 @@ const postProfesionalImage = async (req,res) => {
 
 const putProfesionalImage = async (req,res) => {
   const { id } = req.params;
-  const { image, profesionalId } = req.body;
+  const { image, description, view, profesionalId } = req.body;
   try {
-    const updateProfesionalImage = await updateProfesionalImage(id,image,profesionalId)
-    return res.status(204).json(updateProfesionalImage);
+    const updatedProfesionalImage = await updateProfesionalImage(id ,image, description, view , profesionalId);
+    // console.log(updatedProfesionalImage);
+    return res.status(202).json({updatedProfesionalImage});
   } catch (error) {
     return res.status(404).json({error: error.message});
   }
