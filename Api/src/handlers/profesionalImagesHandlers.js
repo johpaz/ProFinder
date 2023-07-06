@@ -1,6 +1,8 @@
 // Controllers:
 
 const createProfesionalImage = require('../controllers/profesionalImagesControllers/01 - createProfesionalImage');
+const getAllProfesionalImages = require('../controllers/profesionalImagesControllers/02 - getAllProfesionalImages');
+const updateProfesionalImage = require('../controllers/profesionalImagesControllers/03 - updateProfesionalImage');
 
 // Handlers:
 
@@ -36,15 +38,16 @@ const postProfesionalImage = async (req,res) => {
   // return res.status(200).json({DIY: "En esta ruta se creará una ocupación"})
 };
 
-const putProfesionalImage = (req,res) => {
+const putProfesionalImage = async (req,res) => {
   const { id } = req.params;
-  const { images, categoryId} = req.body;
+  const { image, profesionalId } = req.body;
   try {
-    
+    const updateProfesionalImage = await updateProfesionalImage(id,image,profesionalId)
+    return res.status(204).json(updateProfesionalImage);
   } catch (error) {
-    
+    return res.status(404).json({error: error.message});
   }
-  return res.status(200).json({DIY: `En esta ruta se actualizará la profesionalImage de id: ${id}`});
+  // return res.status(200).json({DIY: `En esta ruta se actualizará la profesionalImage de id: ${id}`});
 };
 
 
