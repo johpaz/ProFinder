@@ -30,10 +30,11 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
   const categoryOcupations = resolvedOcupations.filter((ocupation) => ocupation.categoryId === categoriesInBDD.id);
 
     return {
-      name: categoriesInBDD.name,
+      category: categoriesInBDD.name,
       ocupations: categoryOcupations.map((ocupation)=>({name: ocupation.name}))
     };
   });
+
 
   const resolvedCategories = await Promise.all(categoriesFormat);
   // console.log(resolvedCategories);
@@ -54,6 +55,11 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
   //? Relación del profesional con la categoría
   const categoriesBDD = await Category.findAll({where:{name: resolvedCategories.map((category)=>category.name)}});
   await newProfesional.addCategories(categoriesBDD);
+  
+  //? Relación del profesional con las ocupaciones
+
+  const ocupationsBDD = await Ocupation.findAll({where:{name:resolvedOcupations.map((ocupation)=>ocupation.name)}});
+  await newProfesional.addOcupations(ocupationsBDD);
 
   if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
 
@@ -64,7 +70,7 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
     description: newProfesional.description,
-    categories: resolvedCategories
+    professions: resolvedCategories
   };
 };
 
