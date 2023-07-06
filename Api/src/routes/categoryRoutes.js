@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers:
 
-const { getCategories, getCategory, putCategory, postCategory
+const { getCategories, getCategory, putCategory, postCategory,postCateInProfes
 } = require('../handlers/categoryHandlers');
 
 // Middlewares en caso de usar:
@@ -20,5 +20,6 @@ categoryRouter.get('/',getCategories);
 categoryRouter.get('/:id',getValidateId,getCategory);
 categoryRouter.put('/:id',putCategory);
 categoryRouter.post('/',postValidate,postCategory);
+categoryRouter.post('/profesional', postCateInProfes)
 
 module.exports = categoryRouter;

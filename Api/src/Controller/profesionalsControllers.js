@@ -4,7 +4,7 @@ const { Profesional, sequelize } = require('../db');
 const {Ocupation}= require ('../db')
 const { QueryTypes } = require('sequelize');
 const Category = require("../db");
-
+const {ProfesionalCategory}= require('../db');
 
 
 const searchUserProfesional=async (name)=>{
@@ -21,17 +21,31 @@ const searchUserProfesional=async (name)=>{
 
 
 
+//const getAllProfesionals=async ()=>{
+   // const allProf= await Profesional.findAll()
+    //const idProf= allProf[0].id//me da el id del profesional 
+    //const profesionalCategory= await ProfesionalCategory.findAll()
+   // const profCateFiltered= profesionalCategory.filter((elem)=>elem.ProfesionalId===idProf)
+    //const profesional= allProf[0];
+    //profesional['Category']=profCateFiltered
+
+
+//return profesional
+//}
+    //return profesionalCategory
+    //return {...allProf} //falta añadirle la categoria
+//};
+
 const getAllProfesionals=async ()=>{
     const allProf= await Profesional.findAll({//añadir que solo lo devuelva si soft delete es null
     where:{ 
-        softDelete: null},
-    //include:{
-          //model: Category
+        softDelete: null}
         }
-    //}
-    )
+      )
     return allProf
 };
+
+
 
 const getProfById= async (id)=>{
 
