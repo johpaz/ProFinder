@@ -1,4 +1,4 @@
-const { Client } = require("../db.js")
+const { Client } = require("../../db.js")
 
 
 const createClient = async (name, email, image, genre, description) => {
@@ -13,8 +13,9 @@ const createClient = async (name, email, image, genre, description) => {
             image,
             genre,
             description,
+            rating: 0,
             active: true,
-            pro: true
+            pro: false
         });
         return newClient
     }

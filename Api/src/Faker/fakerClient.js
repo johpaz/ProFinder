@@ -9,7 +9,7 @@ for (let i = 0; i < 5; i++) {
   const genre = faker.random.word();
   const description = faker.lorem.sentence();
   
-  const professional = {
+  const clients = {
     name,
     email,
     image,

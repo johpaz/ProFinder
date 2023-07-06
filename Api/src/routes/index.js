@@ -5,6 +5,7 @@ const clientRouter = require('./clientRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
 const profesionalRouter = require('./profesionalRouter');
 const categoryRouter = require('./categoryRoutes');
+const postRouter = require("./postRoutes")
 
 const router = Router();
 
@@ -12,8 +13,8 @@ const router = Router();
 //hola
 router.use('/client', clientRouter); // Clientes 
 router.use('/profesional', profesionalRouter); //Proveedores
-router.use('/category',categoryRouter);
-
+router.use('/category', categoryRouter);
 router.use('/ocupations', ocupationsRouter);
+router.use("/post", postRouter)
 
 module.exports = router;
