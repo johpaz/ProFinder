@@ -13,6 +13,7 @@ const router = Router();
 router.use('/client', clientRouter); // Clientes 
 router.use('/profesional', profesionalRouter); //Proveedores
 router.use('/category',categoryRouter);
+
 router.use('/ocupations', ocupationsRouter);
 
 module.exports = router;
