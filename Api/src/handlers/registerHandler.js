@@ -1,10 +1,6 @@
 const {sequelize} = require("../db");
 const { Users } = require('../db');
 
-
-
-
-
 const registerUser= async (req,res)=>{
     const {name,email,password}= req.body;
     
@@ -15,7 +11,6 @@ const registerUser= async (req,res)=>{
         return res.status(201).json({message: "User created successfully"})}
     } catch (error) {
         res.status(400).json({error: error.message})
-        
     }
 }
 

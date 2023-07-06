@@ -1,6 +1,6 @@
 const { Profesional } = require('../db');
 
-const {searchUserProfesional, getAllProfesionals,getProfById} = require ("../Controller/profesionalsControllers")
+const {searchUserProfesional, getAllProfesionals,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
 const createProfesional = require('../controllers/profesionalControllers/01 - createProfesional.js');
 
 const getProfesionals = async (req, res) => {
