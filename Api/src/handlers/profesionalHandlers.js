@@ -1,22 +1,31 @@
 const { Profesional } = require('../db');
 
-const {searchUserProfesional, getAllProfesionals,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
+const {searchUserProfesional,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
 const createProfesional = require('../controllers/profesionalControllers/01 - createProfesional.js');
+const getAllProfesionals = require('../controllers/profesionalControllers/02 - getAllProfesionals')
+// const getProfesionals = async (req, res) => {
+//   const {name}= req.query
 
-const getProfesionals = async (req, res) => {
-  const {name}= req.query
-
-  try {
+//   try {
     
-    const names= name?  await searchUserProfesional(name): await getAllProfesionals();
+//     const names= name?  await searchUserProfesional(name): await getAllProfesionals();
 
-   if(names.length===0) {res.send("The indicated Profesional's name has not been found")}
-   else res.status(200).json(names)
+//    if(names.length===0) {res.send("The indicated Profesional's name has not been found")}
+//    else res.status(200).json(names)
 
-  } catch (error) {
-     res.status(400).json({ error: error.messages});
-  }
-};
+//   } catch (error) {
+//      res.status(400).json({ error: error.messages});
+//   }
+// };
+  const getProfesionals = async (req,res) => {
+    const { name } = req.query;
+    try {
+      const profesionals = await getAllProfesionals();
+      return res.status(200).json(profesionals);
+    } catch (error) {
+      return res.status(404).json({error: error.message});
+    }
+  };
 
 const logicDelete=async( req,res)=>{
   const { id } = req.params;
