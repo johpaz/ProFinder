@@ -21,9 +21,17 @@ const Navbar = () => {
     <div>
       <nav>
         <div>
-          <Link to="/home">Logo</Link>
-          <Link to="/howDoesItWork">Cómo funciona</Link>
-       
+<<<<<<< HEAD
+          <Link to="/home"><a href="#">Logo</a></Link>
+          <Link to="/howDoesItWork"><a href="howDoesItWork">Cómo funciona</a></Link>
+=======
+          <Link to="/home">logo</Link>
+          <Link to="/comofunciona">Cómo funciona</Link>
+          {/* <Link to="/login">Crear usuario Profesional</Link> */}
+>>>>>>> 3a9b135a4cf4374f65389a34f6847ce5dad8b1f6
+        </div>
+        <Link to='/selectlogin'><a href=""></a></Link>
+        <div>
           <ul>
             <li>
               <a href="#" onClick={toggleDropdown}>

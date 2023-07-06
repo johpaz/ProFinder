@@ -1,8 +1,7 @@
 import "./App.css";
 import Navbar from "./components/navBar/Navbar";
 import HowDoesItWork from "./components/HowDoesItWork/HowDoesItWork";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FromProvider from "./views/FromProvider/FromProvider";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -10,8 +9,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/comofunciona" element={<HowDoesItWork />} />
-        <Route path="/login" element={<FromProvider />} />
-        <Route path="/" element={<h2>Hola Mundo</h2>} />
+        <h2>Hola Mundo</h2>
       </Routes>
     </div>
   );
