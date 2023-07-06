@@ -5,15 +5,21 @@ const clientRouter = require('./clientRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
 const profesionalRouter = require('./profesionalRouter');
 const categoryRouter = require('./categoryRoutes');
-
+const registerRouter= require('./registerRoutes')
+const loginRouter= require ('./loginRoutes')
 const router = Router();
 
 // Enrutado:
 //hola
 router.use('/client', clientRouter); // Clientes 
 router.use('/profesional', profesionalRouter); //Proveedores
+
 router.use('/category',categoryRouter);
 
 router.use('/ocupations', ocupationsRouter);
+
+router.use('/register', registerRouter);
+
+router.use('/login', loginRouter);
 
 module.exports = router;

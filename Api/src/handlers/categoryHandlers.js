@@ -1,7 +1,7 @@
 // Controllers:
 
 // const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory } = require('../controllers/categoryControllers'); 
-const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory } = require('../controllers/categoryControllers/index');
+const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory,createCateProf} = require('../controllers/categoryControllers/index');
 
 // Handlers:
 
@@ -43,6 +43,18 @@ const postCategory = async (req,res) => {
   // return res.status(200).json({DIY: `En esta ruta se creará una categoría de nombre: ${name}` });
 };
 
+const postCateInProfes= async (req,res)=>{
+  try {
+    const {profesionalId,categoryId}= req.body;
+    const newProfWithCategory= await createCateProf(profesionalId,categoryId);
+    res.status(201).json(newProfWithCategory)
+    
+  } catch (error) {
+    return res.status(400).json({error: error.message});
+  }
+}
+
+
 module.exports = {
-  getCategories, getCategory, putCategory, postCategory
+  getCategories, getCategory, putCategory, postCategory,postCateInProfes
 }
