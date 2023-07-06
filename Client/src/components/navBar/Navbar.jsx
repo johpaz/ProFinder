@@ -20,22 +20,18 @@ const Navbar = () => {
     <div>
       <nav>
         <div>
-<<<<<<< HEAD
-          <Link to="/home"><a href="#">Logo</a></Link>
-          <Link to="/howDoesItWork"><a href="howDoesItWork">Cómo funciona</a></Link>
-=======
           <Link to="/home">logo</Link>
           <Link to="/comofunciona">Cómo funciona</Link>
           {/* <Link to="/login">Crear usuario Profesional</Link> */}
->>>>>>> 3a9b135a4cf4374f65389a34f6847ce5dad8b1f6
+          <Link to="/selectlogin"></Link>
         </div>
-        <Link to='/selectlogin'><a href=""></a></Link>
+
         <div>
           <ul>
             <li>
               <a href="#" onClick={toggleDropdown}>
                 Registrate ▼
-              </a>  
+              </a>
               {isOpen && (
                 <ul>
                   <li>
