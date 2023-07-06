@@ -21,6 +21,7 @@ const Navbar = () => {
     <div>
       <nav>
         <div>
+          {/* navabar arreglo */}
           <Link to="/">logo</Link>
           <Link to="/login">Registro profesional</Link>
           <ul>
