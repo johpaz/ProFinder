@@ -1,28 +1,39 @@
 const { Router } = require('express');
 
 // Aqui se importan los routers para las diferentes rutas:
+
 const clientRouter = require('./clientRoutes');
+
 const ocupationsRouter = require('./ocupationsRoutes');
+
 const profesionalRouter = require('./profesionalRouter');
+
 const categoryRouter = require('./categoryRoutes');
-const registerRouter= require('./registerRoutes')
-const loginRouter= require ('./loginRoutes')
+
+const registerRouter= require('./registerRoutes');
+
+const loginRouter= require ('./loginRoutes');
+
 const profesionalImagesRouter = require('./profesionalImagesRouter');
+
+// Router: 
 
 const router = Router();
 
 // Enrutado:
-//hola
+
 router.use('/client', clientRouter); // Clientes 
+
 router.use('/profesional', profesionalRouter); //Proveedores
 
-router.use('/category',categoryRouter);
-router.use('/profesional-images',profesionalImagesRouter)
+router.use('/category',categoryRouter); //Categorias
 
-router.use('/ocupations', ocupationsRouter);
+router.use('/profesional-images',profesionalImagesRouter); //Profesional-images
 
-router.use('/register', registerRouter);
+router.use('/ocupations', ocupationsRouter); //ocupations
 
-router.use('/login', loginRouter);
+router.use('/register', registerRouter); // register
+
+router.use('/login', loginRouter); //login
 
 module.exports = router;

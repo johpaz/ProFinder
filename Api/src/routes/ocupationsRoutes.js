@@ -16,8 +16,11 @@ const ocupationRouter = Router();
 // Enrutado:
 
 ocupationRouter.get('/',getOcupations);
+
 ocupationRouter.get('/',getOcupation);
+
 ocupationRouter.post('/',postValidate,postOcupation);
+
 ocupationRouter.put('/:id',getOcupation);
 
 module.exports = ocupationRouter;

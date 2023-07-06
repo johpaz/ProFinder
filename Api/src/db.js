@@ -13,9 +13,6 @@ const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 
 // Credenciales
 
-
-
-
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME} = process.env;
 
 // Instanciamos sequelize
@@ -30,8 +27,6 @@ ClientModel(sequelize);
 PostModel(sequelize);
 CategoryModel(sequelize);
 PostProfesionalModel(sequelize);
-
-
 ProfesionalImagesPostModel(sequelize);
 UserModel(sequelize)
 
