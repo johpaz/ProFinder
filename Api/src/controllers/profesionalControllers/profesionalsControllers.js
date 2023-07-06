@@ -59,19 +59,25 @@ const searchUserProfesional=async (name)=>{
     return dbInf
 };
 
+
 const getAllProfesionals=async ()=>{
-    const allProf= await Profesional.findAll({//añadir que solo lo devuelva si soft delete es null
-    where:{ 
-        softDelete: null},
-   include:{
-        model: Category,Ocupation
-        }
-    })
-
+    const allProf= await Profesional.findAll( {
+        include: [
+          {
+            model: Category,
+            attributes: ["name"],
+            through: [],
+          },
+          {
+            model: Ocupation,
+            attributes: ["name"],
+            through: [],
+          }]}
+      )
     const profClean= cleanArray(allProf) 
-
     return profClean
 };
+
 
 
 
