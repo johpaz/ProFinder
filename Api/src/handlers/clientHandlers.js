@@ -1,35 +1,30 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
 const { Profesional, Client } = require('../db');
-const createClient = require('../controllers/createClient');
-const updateClient = require('../controllers/updateClient');
+const { getClients, createClient, updateClient, getClientById } = require("../controllers/clientController/index")
 // Resto del código...
 
 
 
-const getUsers = async (req, res) => {
+const getClientsHandler = async (req, res) => {
+
+  const clients = await getClients()
   try {
     // Lógica para obtener todos los usuarios                     
 
-    return res.status(200).json({ users });
+    return res.status(200).json(clients);
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Error al obtener los usuarios' });
+    return res.status(204).json({ error: 'Error al obtener los usuarios' });
   }
 };
 
-const getUser = async (req, res) => {
+const getClientByIdHandler = async (req, res) => {
   try {
     const { id } = req.params;
-
+    const clientFound = await getClientById(id)
     // Lógica para obtener un usuario por su ID
-    const user = await Profesional.findByPk(id);
 
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-
-    return res.status(200).json({ user });
+    return res.status(200).json({ clientFound });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Error al obtener el usuario' });
@@ -69,8 +64,8 @@ const putClient = async (req, res) => {
 };
 
 module.exports = {
-  getUsers,
-  getUser,
+  getClientsHandler,
+  getClientByIdHandler,
   putClient,
   createUserClient,
 };

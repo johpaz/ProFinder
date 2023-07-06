@@ -28,7 +28,7 @@ PostModel(sequelize);
 CategoryModel(sequelize);
 PostProfesionalModel(sequelize);
 ProfesionalImagesPostModel(sequelize);
-UserModel(sequelize)
+UserModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
@@ -38,6 +38,9 @@ const {Profesional, Category, Ocupation, Client, Post, PostProfesional, User, Pr
 
 Profesional.belongsToMany(Category,{through:"ProfesionalCategory"});
 Category.belongsToMany(Profesional,{through:"ProfesionalCategory"});
+
+Profesional.belongsToMany(Ocupation,{through: "ProfesionalOcupations"});
+Ocupation.belongsToMany(Profesional,{through: "ProfesionalOcupations"});
 
 // Relacionar los modelos 1:n
 
@@ -49,6 +52,7 @@ Profesional.hasMany(PostProfesional);
 
 PostProfesional.belongsTo(Profesional);
 
+//? Esto es para el detalle del profesional (Front)
 Profesional.hasMany(ProfesionalImagesPost);
 
 ProfesionalImagesPost.belongsTo(Profesional);

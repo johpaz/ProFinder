@@ -17,10 +17,10 @@ const ocupationRouter = Router();
 
 ocupationRouter.get('/',getOcupations);
 
-ocupationRouter.get('/',getOcupation);
+ocupationRouter.get('/:id',getOcupation);
 
 ocupationRouter.post('/',postValidate,postOcupation);
 
-ocupationRouter.put('/:id',getOcupation);
+ocupationRouter.put('/:id',putOcupation);
 
 module.exports = ocupationRouter;
