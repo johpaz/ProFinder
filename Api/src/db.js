@@ -8,7 +8,7 @@ const ClientModel = require('./models/Client');
 const PostModel = require('./models/Post');
 const CategoryModel = require('./models/Category');
 const PostProfesionalModel = require('./models/PostProfesional');
-const UserModel= require ('./models/user')
+const UserModel= require ('./models/User')
 const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 
 // Credenciales
