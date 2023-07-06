@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createPostHandler } = require('../handlers/postHandlers');
+const { getAllPostsClientsHandler, createPostHandler } = require('../handlers/postHandlers');
 
 //Router
 const postRouter = Router();
@@ -7,6 +7,7 @@ const postRouter = Router();
 //Controllers
 
 //Enrutado
+postRouter.get("/", getAllPostsClientsHandler)
 postRouter.post("/", createPostHandler)
 
 module.exports = postRouter

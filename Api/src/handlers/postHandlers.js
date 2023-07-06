@@ -1,6 +1,15 @@
 //Controllers
-const createPost = require("../controllers/postsClientControllers/03 - createPost")
+const { getAllPostsByClients, createPost } = require("../controllers/postsClientControllers/index")
 //Handlers
+
+const getAllPostsClientsHandler = async (req, res) => {
+    try {
+        const allPosts = await getAllPostsByClients()
+        return res.status(200).json(allPosts)
+    } catch (error) {
+        return res.status(204).json({ error: error })
+    }
+}
 
 const createPostHandler = async (req, res) => {
     const { title, image, content, clientId } = req.body
@@ -13,5 +22,6 @@ const createPostHandler = async (req, res) => {
 }
 
 module.exports = {
+    getAllPostsClientsHandler,
     createPostHandler
 }

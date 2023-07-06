@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 
 // Handlers
-const { getClientsHandler, createUserClient, putClient } = require('../handlers/clientHandlers');
+const { getClientsHandler, getClientByIdHandler, createUserClient, putClient } = require('../handlers/clientHandlers');
 
 //Midlewares 
 
@@ -13,7 +13,7 @@ const clientRouter = Router();
 
 //Enrutado
 clientRouter.get('/', getClientsHandler);
-// clientRouter.get('/:id', getUser);
+clientRouter.get('/:id', getClientByIdHandler);
 clientRouter.post('/', postValidate, createUserClient);
 
 
