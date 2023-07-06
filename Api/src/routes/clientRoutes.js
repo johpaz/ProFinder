@@ -1,17 +1,24 @@
 const { Router } = require('express');
 
-// Handlers:
 
-const { getUsers, getUser, createUserClient, putClient } = require('../handlers/clientHandlers');
+// Handlers
+const { getClientsHandler, getClientByIdHandler, createUserClient, putClient } = require('../handlers/clientHandlers');
 
+//Midlewares 
+
+const postValidate = require("../middlewares/clients/postValidate.js")
+
+//Router
 const clientRouter = Router();
 
-clientRouter.get('/', getUsers);
-
-clientRouter.get('/:id', getUser);
+//Enrutado
+clientRouter.get('/', getClientsHandler);
+clientRouter.get('/:id', getClientByIdHandler);
+clientRouter.post('/', postValidate, createUserClient);
 
 clientRouter.post('/', createUserClient);
 
 clientRouter.put('/:id', putClient);
 
 module.exports = clientRouter;
+

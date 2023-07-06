@@ -9,11 +9,10 @@ const ocupationsRouter = require('./ocupationsRoutes');
 const profesionalRouter = require('./profesionalRouter');
 
 const categoryRouter = require('./categoryRoutes');
-
-const registerRouter= require('./registerRoutes');
-
-const loginRouter= require ('./loginRoutes');
-
+const postClientRouter = require("./postClientRoutes");
+const registerRouter = require('./registerRoutes');
+const loginRouter = require('./loginRoutes');
+const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 
 // Router: 
@@ -25,10 +24,13 @@ const router = Router();
 router.use('/client', clientRouter); // Clientes 
 
 router.use('/profesional', profesionalRouter); //Proveedores
+router.use('/category', categoryRouter);
 
-router.use('/category',categoryRouter); //Categorias
+router.use('/category', categoryRouter); //Categorias
 
-router.use('/profesional-images',profesionalImagesRouter); //Profesional-images
+router.use('/ocupations', ocupationsRouter);
+router.use("/postClient", postClientRouter);
+router.use("/postProfesional", postProfesional)
 
 router.use('/ocupations', ocupationsRouter); //ocupations
 

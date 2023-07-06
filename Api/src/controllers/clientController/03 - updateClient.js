@@ -1,4 +1,4 @@
-const { Client } = require("../db.js");
+const { Client } = require("../../db.js");
 
 // Lógica para actualizar un usuario por su ID
 const updateClient = async (clientInfo, id) => {
