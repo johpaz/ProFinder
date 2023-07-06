@@ -17,9 +17,13 @@ const categoryRouter = Router();
 // Enrutado:
 
 categoryRouter.get('/',getCategories);
+
 categoryRouter.get('/:id',getValidateId,getCategory);
+
 categoryRouter.put('/:id',putCategory);
+
 categoryRouter.post('/',postValidate,postCategory);
-categoryRouter.post('/profesional', postCateInProfes)
+
+categoryRouter.post('/profesional', postCateInProfes);
 
 module.exports = categoryRouter;

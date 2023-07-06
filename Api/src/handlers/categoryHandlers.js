@@ -1,6 +1,5 @@
 // Controllers:
 
-// const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory } = require('../controllers/categoryControllers'); 
 const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory,createCateProf} = require('../controllers/categoryControllers/index');
 
 // Handlers:
@@ -13,7 +12,6 @@ const getCategories = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message})
   }
-  // return res.status(200).json({DIY: "En esta ruta se traerían todas las categorías"})
 };
 
 const getCategory = async (req,res) => {
@@ -24,7 +22,6 @@ const getCategory = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message})
   }
-  // return res.status(200).json({DIY: `En esta ruta se traerá la categoría de id: ${id}`})
 };
 
 const putCategory = (req,res) => {
@@ -40,7 +37,6 @@ const postCategory = async (req,res) => {
   } catch (error) {
     return res.status(400).json({error: error.message});
   }
-  // return res.status(200).json({DIY: `En esta ruta se creará una categoría de nombre: ${name}` });
 };
 
 const postCateInProfes= async (req,res)=>{
@@ -48,12 +44,10 @@ const postCateInProfes= async (req,res)=>{
     const {profesionalId,categoryId}= req.body;
     const newProfWithCategory= await createCateProf(profesionalId,categoryId);
     res.status(201).json(newProfWithCategory)
-    
   } catch (error) {
     return res.status(400).json({error: error.message});
   }
 }
-
 
 module.exports = {
   getCategories, getCategory, putCategory, postCategory,postCateInProfes

@@ -16,6 +16,7 @@ clientRouter.get('/', getClientsHandler);
 clientRouter.get('/:id', getClientByIdHandler);
 clientRouter.post('/', postValidate, createUserClient);
 
+clientRouter.post('/', createUserClient);
 
 clientRouter.put('/:id', putClient);
 
