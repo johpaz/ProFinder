@@ -1,9 +1,6 @@
 // Controllers:
 
-const createProfesionalImage = require('../controllers/profesionalImagesControllers/01 - createProfesionalImage');
-const getAllProfesionalImages = require('../controllers/profesionalImagesControllers/02 - getAllProfesionalImages');
-const updateProfesionalImage = require('../controllers/profesionalImagesControllers/03 - updateProfesionalImage');
-const profesionalImageById = require('../controllers/profesionalImagesControllers/04 - getProfesionalImageById');
+const { createProfesionalImage, getAllProfesionalImages, updateProfesionalImage, profesionalImageById} = require('../controllers/profesionalImagesControllers/index');
 
 // Handlers:
 
@@ -14,7 +11,6 @@ const getProfesionalImages = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message});
   }
-  // return res.status(200).json({DIY: "En esta ruta se obtendran todas las ocupaciones"});
 };
 
 const getProfesionalImage = async (req,res) => {
@@ -25,7 +21,6 @@ const getProfesionalImage = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error : error.message});
   }
-  // return res.status(200).json({DIY: `En esta ruta se obtendrá una ocupación por id: ${id}`});
 };
 
 const postProfesionalImage = async (req,res) => {
@@ -36,7 +31,6 @@ const postProfesionalImage = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message});
   }
-  // return res.status(200).json({DIY: "En esta ruta se creará una ocupación"})
 };
 
 const putProfesionalImage = async (req,res) => {
@@ -44,14 +38,11 @@ const putProfesionalImage = async (req,res) => {
   const { image, description, view, profesionalId } = req.body;
   try {
     const updatedProfesionalImage = await updateProfesionalImage(id ,image, description, view , profesionalId);
-    // console.log(updatedProfesionalImage);
     return res.status(202).json({updatedProfesionalImage});
   } catch (error) {
     return res.status(404).json({error: error.message});
   }
-  // return res.status(200).json({DIY: `En esta ruta se actualizará la profesionalImage de id: ${id}`});
 };
-
 
 module.exports = {
   getProfesionalImages, getProfesionalImage, postProfesionalImage, putProfesionalImage
