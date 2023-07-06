@@ -7,9 +7,10 @@ const { getUsers, getUser, createUserClient, putClient } = require('../handlers/
 const clientRouter = Router();
 
 clientRouter.get('/', getUsers);
-clientRouter.get('/:id', getUser);
-clientRouter.post('/', createUserClient);
 
+clientRouter.get('/:id', getUser);
+
+clientRouter.post('/', createUserClient);
 
 clientRouter.put('/:id', putClient);
 

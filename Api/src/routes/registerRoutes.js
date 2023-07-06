@@ -4,12 +4,9 @@ const {sequelize} = require("../db");
 
 const bcrypt= require("bcrypt");
 
-
-const {registerUser}=require('../handlers/registerHandler')
-
+const { registerUser }=require('../handlers/registerHandler');
 
 const registerRouter = Router();
-
 
 registerRouter.post('/', async (req,res)=>{
     const {name,email,password}= req.body;
@@ -25,7 +22,5 @@ registerRouter.post('/', async (req,res)=>{
         res.status(400).json({error: error.message})
         
     }});
- 
-
 
 module.exports = registerRouter;
