@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
       unique: true,
       validate:{
         is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
-        len: [3,15]
+        len: [3,15]  //El nombre de la category debe tener mínimo 3 caracteres y máximo 20
       }
     }
   },{
