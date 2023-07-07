@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate:{
-        is: /^[a-zA-Z\s]+$/, // El title debe ser una palabra o frase sin números ni símbolos
+        is: /^[a-zA-ZñÑ\s]+$/, // El título debe ser una palabra o frase sin números ni símbolos, pero puede incluir la letra "ñ" o "Ñ"
         len:[5,200] // El nombre del title debe tener mínimo 3 caracteres y máximo 200
       }
     },
@@ -22,14 +22,6 @@ module.exports = (sequelize) => {
         isUrl: {
           msg: 'La URL de la imagen no es válida',
           args: true,
-        },
-        isImageURL: (value) => {
-          if (!isURL(value, { protocols: ['http', 'https'] })) {
-            throw new Error('El formato de la imagen no es válido');
-          }
-          if (!value.match(/\.(jpeg|jpg|gif|png)$/i)) {
-            throw new Error('La imagen debe tener un formato válido (jpeg, jpg, gif, png)');
-          }
         },
       },
     },
