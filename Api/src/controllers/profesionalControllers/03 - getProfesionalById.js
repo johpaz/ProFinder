@@ -33,7 +33,6 @@ const getProfesionalById = async (id) =>{
 
   if(!profesional) throw Error(`No existe el profesional de id: ${id}`);
   const formattedProfesional = cleanArrayProfesionalId([profesional]);
-
   return formattedProfesional;
 };
 
