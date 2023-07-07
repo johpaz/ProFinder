@@ -19,6 +19,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate:{
+        isEmail: true,
+      }
     },
       //  password:{
       //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado
