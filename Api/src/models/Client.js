@@ -15,10 +15,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-      //  password:{
-      //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado
-      //   allowNull:false
-      //  },
+    //  password:{
+    //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado
+    //   allowNull:false
+    //  },
     image: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -46,6 +46,11 @@ module.exports = (sequelize) => {
       allowNull: false,
       defaultValue: false,
     },
+    softDelete: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: null,
+    }
   }, {
     timestamps: false,
   })
