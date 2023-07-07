@@ -23,10 +23,13 @@ module.exports = (sequelize) => {
         isEmail: true,
       }
     },
-    //  password:{
-    //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado
-    //   allowNull:false
-    //  },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
+      }
+    },
     image: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -62,6 +65,14 @@ module.exports = (sequelize) => {
         len: [5,120]
       }
     },
+    ubication: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [5, 50], // Ubicación entre 5 a 50 caracteres
+        is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
+      }
+    },
     active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -79,5 +90,5 @@ module.exports = (sequelize) => {
     }
   }, {
     timestamps: false,
-  })
+  });
 };
