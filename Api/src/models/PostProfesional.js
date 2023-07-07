@@ -1,5 +1,4 @@
 const { DataTypes } = require('sequelize');
-const { isURL } = require('validator');
 
 module.exports = (sequelize) => {
   sequelize.define("PostProfesional",{

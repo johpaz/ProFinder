@@ -3,7 +3,7 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
-const updateProfesional = async (id, name, email, image, genre, years_exp, description, categories, ocupations) => {
+const updateProfesional = async (id, name, email, image, genre, years_exp, description, categories, ocupations, phone, ubication) => {
 
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
@@ -61,6 +61,8 @@ const updateProfesional = async (id, name, email, image, genre, years_exp, descr
   profesionalInBDD.genre = genre || profesionalInBDD.genre;
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
+  profesionalInBDD.phone = phone || profesionalInBDD.phone; 
+  profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
   await profesionalInBDD.save();
 
   // Set associations
@@ -93,6 +95,8 @@ const updateProfesional = async (id, name, email, image, genre, years_exp, descr
     genre: profesionalInBDD.genre,
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,
+    phone:profesionalInBDD.phone,
+    ubication: profesionalInBDD.ubication,
     categories: resolvedCategories
   };
 };
