@@ -1,9 +1,7 @@
-
-import "./App.css";
-import Navbar from "./components/navBar/Navbar";
-
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./views/HomePage/HomePage";
+import './App.css'
+import Navbar from "./components/navBar/Navbar.jsx";
+import HomePage from "../src/views/HomePage/HomePage"
+import { Routes, Route } from "react-router-dom";
 import FromProvider from "./views/FromProvider/FromProvider";
 
 function App() {
@@ -11,11 +9,11 @@ function App() {
     <div>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<FromProvider />} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<FromProvider />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
