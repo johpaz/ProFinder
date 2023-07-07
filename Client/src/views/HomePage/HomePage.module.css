@@ -1,4 +1,4 @@
-HomePage.module.css
+/* HomePage.module.css */
 
 /* Estilos generales */
 body, html {
@@ -15,12 +15,22 @@ body, html {
     justify-content: center;
     align-items: center;
     background: linear-gradient(180deg, #F4F4F4, #E0E0E0);
+    background-image: URL("../../assets/img-home-1.png") I !important ;
     color: #333333;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-  
+  .featuresGrid{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #E8E8E8, #D0D0D0);
+    color: #333333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
   .publicOpinion {
-    height: 100vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -138,4 +148,5 @@ body, html {
     list-style: none;
     padding-left: 0;
   }
+  
   
