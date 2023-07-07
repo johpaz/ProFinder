@@ -34,6 +34,12 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
         allowNull: false,
+        validate: {
+          isUrl: {
+            msg: 'La URL de la imagen no es válida',
+            args: true,
+          },
+        },
       },
       genre: {
         type: DataTypes.STRING(25),
