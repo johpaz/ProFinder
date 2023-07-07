@@ -12,7 +12,8 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate:{
-        len:[5,200] // El nombre de la category debe tener mínimo 3 caracteres y máximo 200
+        is: /^[a-zA-Z\s]+$/, // El title debe ser una palabra o frase sin números ni símbolos
+        len:[5,200] // El title debe tener mínimo 3 caracteres y máximo 200
       }
     },
     image: {
