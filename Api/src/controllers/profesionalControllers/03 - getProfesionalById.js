@@ -6,7 +6,6 @@ const { ProfesionalImagesPost } = require('../../db');
 const cleanArrayProfesionalId = require('../../helpers/cleanArrayProfesionalById');
 
 const getProfesionalById = async (id) =>{
-  console.log(id);
   
   if(!Number(id)) throw Error(`El id debe ser númerico!`);
 
@@ -33,8 +32,7 @@ const getProfesionalById = async (id) =>{
   });
 
   if(!profesional) throw Error(`No existe el profesional de id: ${id}`);
-  // const formattedProfesional = cleanArrayProfesionalId([profesional]);
-  return profesional;
+  const formattedProfesional = cleanArrayProfesionalId([profesional]);
   return formattedProfesional;
 };
 
