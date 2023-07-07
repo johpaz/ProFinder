@@ -1,7 +1,7 @@
 // Controllers:
 
 const {searchUserProfesional,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
-const { createProfesional, getAllProfesionals, getProfesionalById, getPresionalsByName} = require('../controllers/profesionalControllers/index');
+const { createProfesional, getAllProfesionals, getProfesionalById, getPresionalsByName,updateProfesional} = require('../controllers/profesionalControllers/index');
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
 
@@ -63,8 +63,20 @@ const createUserProfesional = async (req, res) => {
   };
 };
 
+const putProfesional = async (req,res) => {
+  const { id } = req.params;
+  console.log(id);
+  const { name, email, image, genre, years_exp, description, categories, ocupations } = req.body;
+  try {
+    const updatedProfesional = await updateProfesional(id, name, email, image, genre, years_exp, description, categories, ocupations);
+    return res.status(200).json(updatedProfesional);
+  } catch (error) {
+    return res.status(404).json({error: error.message});
+  }
+};
+
 module.exports = { 
     createUserProfesional,
     getProfesionals, getProfesional,
-    logicDelete
+    logicDelete, putProfesional
 };
