@@ -1,3 +1,5 @@
+const { PostProfesional } = require("../models/PostProfesional");
+
 const cleanArray = (profesionals) => {
   return profesionals.map((profesional) => {
     const professions = profesional.Categories.map((category) => {
@@ -5,13 +7,12 @@ const cleanArray = (profesionals) => {
       return {
         id: category.id,
         category: category.name,
-        ocupations: ocupations.map((ocupation) => ({ 
+        ocupations: ocupations.map((ocupation) => ({
           id: ocupation.id,
-          name: ocupation.name 
+          name: ocupation.name
         }))
       };
     });
-
     return {
       id: profesional.id,
       name: profesional.name,
@@ -19,7 +20,8 @@ const cleanArray = (profesionals) => {
       genre: profesional.genre,
       years_exp: profesional.years_exp,
       description: profesional.description,
-      professions: professions
+      professions: professions,
+      posts: profesional.PostProfesionals
     };
   });
 };
