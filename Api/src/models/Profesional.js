@@ -20,17 +20,26 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false, //Agregar phone
-        validatE:{
+        validate:{
           isEmail: true,
         }
       },
-      //  password:{
-      //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado
-      //   allowNull:false
-      //  },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
+        }
+      },
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
         allowNull: false,
+        validate: {
+          isUrl: {
+            msg: 'La URL de la imagen no es válida',
+            args: true,
+          },
+        },
       },
       genre: {
         type: DataTypes.STRING(25),
@@ -49,6 +58,14 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      ubication: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [5, 50], // Ubicación entre 5 a 50 caracteres
+          is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
+        }
+      },
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -66,5 +83,5 @@ module.exports = (sequelize) => {
       }
     }, {
     timestamps: false,
-  })
-}
+  });
+};

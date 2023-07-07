@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -16,19 +16,20 @@ const Navbar = () => {
     console.log("Selected option:", option);
     setIsOpen(false); // Cerrar el desplegable al seleccionar una opción
   };
-
   return (
     <div>
       <nav>
         <div>
-          {/* navabar arreglo */}
-          <Link to="/">logo</Link>
-          <Link to="/login">Registro profesional</Link>
+          <Link to="/home">logo</Link>
+          <Link to="/comofunciona">Cómo funciona</Link>
+          {/* <Link to="/login">Crear usuario Profesional</Link> */}
+        </div>
+        <div>
           <ul>
             <li>
               <a href="#" onClick={toggleDropdown}>
                 Registrate ▼
-              </a>
+              </a>  
               {isOpen && (
                 <ul>
                   <li>
@@ -53,5 +54,4 @@ const Navbar = () => {
     </div>
   );
 };
-
 export default Navbar;

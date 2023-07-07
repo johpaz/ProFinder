@@ -85,7 +85,7 @@ const HomePage = () => {
               to={`#`} // Reemplaza la ruta con la ruta correcta ///category/${category}
               key={index}
               className={styles.categoryItem}
-              activeClassName={styles.active} // Agrega estilos para el enlace activo si lo deseas
+              activeclassname={styles.active} // Agrega estilos para el enlace activo si lo deseas
             >
               <img src={categoryLogos[index]} alt={category} className={styles.logo} />
               <p>{category}</p>

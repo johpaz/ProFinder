@@ -2,7 +2,7 @@ const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 
-const createProfesional = async (name,email,image,genre,years_exp,description,categories, ocupations) => {
+const createProfesional = async (name,email,image,genre,years_exp,description,categories, ocupations, phone, ubication) => {
 
   //! Que coicidan las ocupations con las existentes en la base de datos:
   const ocupationsFormat = ocupations.map(async(ocupationName)=>{
@@ -45,6 +45,8 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
     genre, 
     years_exp,
     description,
+    phone, 
+    ubication,
     active: true,
     pro: true
   };
@@ -68,6 +70,8 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
     description: newProfesional.description,
+    phone:newProfesional.phone,
+    ubication: newProfesional.ubication,
     categories: resolvedCategories
   };
 };
