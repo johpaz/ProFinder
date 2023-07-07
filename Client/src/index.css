@@ -1,17 +1,22 @@
-/* Fuentes de prueba para los maquetados */
+/* Google Fonts de prueba para los maquetados */
 @import url('https://fonts.googleapis.com/css2?family=Hind&family=Khand:wght@700&family=Lato&display=swap');
 
 :root {
-  /* Colores de prueba para los maquetados */
+  /* Variables de prueba para los maquetados */
+  /* Puedes agregar las que gustes */
+  /* colores */
   --principal-color: #202020;
   --secondary-color: #9932cc;
   --accent-color: #3a0ca3;
 
+  /* colores para el fondo */
   --background-color: #151515;
   --degraded-background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
 
+  /* colores para textos */
   --text-color: #908E9B;
 
+  /* fuentes de google fonts para textos */
   --label-font: 'Lato', sans-serif;
   --button-font: 'Hindi', sans-serif;
 }
@@ -32,6 +37,7 @@ body {
 }
 
 /* Section de prueba para los maquetados*/
+/* Esta comentado porque es utilizado para pruebas en maquetados, asi no afecta al CSS de los demas */
 section {
   display: flex;
   flex-direction: column;
@@ -42,7 +48,7 @@ section {
   /* border: solid 2px red; */
 }
 
-/* Estilo por defecto para los iconos de google usados para las pruebas de maquetado */
+/* Estilo por defecto para los iconos de google icons usados para las pruebas de maquetado */
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
