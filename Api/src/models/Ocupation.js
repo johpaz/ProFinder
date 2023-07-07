@@ -11,6 +11,11 @@ module.exports = (sequelize) => {
     name:{
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      validate:{
+        is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
+        len: [3,15]
+      }
     }
   },{
     timestamps: false,
