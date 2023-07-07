@@ -1,7 +1,7 @@
 const validateName = (name) => {
   const namevalidated = /^[a-zA-ZñÑ\s]+$/.test(name);
   const firstNameLastName = name.split(" ");
-  
+
   if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
   if(name.trim() === "") throw Error(`El nombre no puede estar vacío`);
   if(!namevalidated) throw Error(`El nombre no puede contener expresiones especiales o símbolos`);
@@ -22,11 +22,19 @@ const validateImage = (image) => {
   if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
 };
 
-const validateGenre = (genre) => {};
+const validateGenre = (genre) => {
+  if(typeof genre !== "string") throw Error(`El tipo de dato de genre debe ser un string`);
+  if(genre.trim() === "") throw Error(`El género no puede estar vacío`);
+};
 
-const validateYearsExp = (years_exp) => {};
+const validateYearsExp = (years_exp) => {
+  if(typeof years_exp !== "string") throw Error (`El tipo de dato de los años de experiencia debe ser un string`);
+};
 
-const validateDescription = (description) => {};
+const validateDescription = (description) => {
+  if(typeof description !== "string") throw Error(`El tipo de dato de la descripción debe ser un string`);
+  if(description.length > 250) throw Error(`La descripción no puede tener más de 250 caracteres`);
+};
 
 const validateCategories = (categories) => {};
 
