@@ -24,15 +24,16 @@ const router = Router();
 router.use('/client', clientRouter); // Clientes 
 
 router.use('/profesional', profesionalRouter); //Proveedores
-router.use('/category', categoryRouter);
 
 router.use('/category', categoryRouter); //Categorias
 
-router.use('/ocupations', ocupationsRouter);
-router.use("/postClient", postClientRouter);
-router.use("/postProfesional", postProfesional)
+router.use('/ocupations', ocupationsRouter); // Ocupaciones
 
-router.use('/ocupations', ocupationsRouter); //ocupations
+router.use("/postClient", postClientRouter); // Posts del cliente
+
+router.use("/postProfesional", postProfesional) // Post del profesional
+
+router.use('/profesional-images',profesionalImagesRouter); // Posts de las imagenes de los profesionales (detail)
 
 router.use('/register', registerRouter); // register
 

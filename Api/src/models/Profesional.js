@@ -9,14 +9,20 @@ module.exports = (sequelize) => {
         autoIncrement: true,
       },
       name: {
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
+        validate:{
+          is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
+          len:[5,40] // Nombre entre 5 y 40 caracteres
+        }
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false, //Agregar phone
+        validatE:{
+          isEmail: true,
+        }
       },
       //  password:{
       //   type: DataTypes.STRING, -> Lo veré con una libreria para cifrado

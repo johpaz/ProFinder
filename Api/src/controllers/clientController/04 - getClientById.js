@@ -10,5 +10,7 @@ const getClientById = async (id) => {
     if (!searchClient) throw Error(`No existe un cliente con id ${id}`)
 };
 
+
+
 module.exports = getClientById;
 
