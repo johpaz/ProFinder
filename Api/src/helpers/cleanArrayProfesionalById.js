@@ -1,5 +1,5 @@
-const cleanArray = (profesionals) => {
-  return profesionals.map((profesional) => {
+const cleanArrayProfesionalId = (profesionalId) => {
+  return profesionalId.map((profesional) => {
     const professions = profesional.Categories.map((category) => {
       const ocupations = profesional.Ocupations.filter((ocupation) => ocupation.CategoryId === category.id);
       return {
@@ -19,9 +19,10 @@ const cleanArray = (profesionals) => {
       genre: profesional.genre,
       years_exp: profesional.years_exp,
       description: profesional.description,
-      professions: professions
+      professions: professions,
+      jobimages: profesional.ProfesionalImagesPosts
     };
   });
 };
 
-module.exports = cleanArray;
+module.exports = cleanArrayProfesionalId;

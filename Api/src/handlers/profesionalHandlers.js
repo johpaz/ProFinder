@@ -1,8 +1,10 @@
-const { Profesional } = require('../db');
+// Controllers:
 
 const {searchUserProfesional,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
 const createProfesional = require('../controllers/profesionalControllers/01 - createProfesional.js');
 const getAllProfesionals = require('../controllers/profesionalControllers/02 - getAllProfesionals')
+const getProfesionalById = require('../controllers/profesionalControllers/03 - getProfesionalById');
+
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
 
@@ -17,13 +19,26 @@ const getAllProfesionals = require('../controllers/profesionalControllers/02 - g
 //      res.status(400).json({ error: error.messages});
 //   }
 // };
-  const getProfesionals = async (req,res) => {
+  
+// Handlers: 
+
+const getProfesionals = async (req,res) => {
     const { name } = req.query;
     try {
       const profesionals = await getAllProfesionals();
       return res.status(200).json(profesionals);
     } catch (error) {
       return res.status(404).json({error: error.message});
+    }
+  };
+
+  const getProfesional = async (req,res) => {
+    const { id } = req.params;
+    try {
+      const profesional = await getProfesionalById(id);
+      return res.status(200).json(profesional);
+    } catch (error) {
+      return res.status(404).json({error: error.message})
     }
   };
 
@@ -54,6 +69,6 @@ const createUserProfesional = async (req, res) => {
 
   module.exports = { 
      createUserProfesional,
-     getProfesionals,
+     getProfesionals, getProfesional,
      logicDelete
  };

@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers: 
 
-const {createUserProfesional,logicDelete, getProfesionals} = require ('../handlers/profesionalHandlers')
+const {createUserProfesional,logicDelete, getProfesionals,getProfesional} = require ('../handlers/profesionalHandlers')
 
 // Middleware: 
 const postValidate = require('../middlewares/profesional/postValidate');
@@ -15,7 +15,7 @@ const profesionalRouter = Router();
 
 profesionalRouter.get('/', getProfesionals);
 
-profesionalRouter.post('/', createUserProfesional);
+profesionalRouter.get('/:id', getProfesional);
 
 profesionalRouter.post('/', postValidate,createUserProfesional);
 
