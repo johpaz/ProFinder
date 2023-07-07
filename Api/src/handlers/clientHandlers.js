@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
 const { Profesional, Client } = require('../db');
-const { getClients, createClient, updateClient, getClientById } = require("../controllers/clientController/index")
+const { getClients, createClient, updateClient, getClientById, logicDeleteClient } = require("../controllers/clientController/index")
 // Resto del código...
 
 
@@ -63,9 +63,24 @@ const putClient = async (req, res) => {
   }
 };
 
+const logicDeleteHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbProf = await logicDeleteClient(id);
+
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    else res.status(200).json(dbProf)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+
+  }
+}
+
 module.exports = {
   getClientsHandler,
   getClientByIdHandler,
   putClient,
   createUserClient,
+  logicDeleteHandler
 };

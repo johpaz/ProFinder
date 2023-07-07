@@ -4,6 +4,9 @@ const { Client, Post } = require("../../db.js")
 
 const getClients = async () => {
     const clients = await Client.findAll({
+        where: {
+            softDelete: null
+        },
         include: {
             model: Post,
             attributes: ['id', "title", "image", "content"],
@@ -14,5 +17,7 @@ const getClients = async () => {
 
     return clients;
 }
+
+
 
 module.exports = getClients

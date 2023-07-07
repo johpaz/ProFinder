@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 
 // Handlers
-const { getClientsHandler, getClientByIdHandler, createUserClient, putClient } = require('../handlers/clientHandlers');
+const { getClientsHandler, getClientByIdHandler, createUserClient, putClient, logicDeleteHandler } = require('../handlers/clientHandlers');
 
 //Midlewares 
 
@@ -19,6 +19,7 @@ clientRouter.post('/', postValidate, createUserClient);
 clientRouter.post('/', createUserClient);
 
 clientRouter.put('/:id', putClient);
+clientRouter.put('/delete/:id', logicDeleteHandler)
 
 module.exports = clientRouter;
 
