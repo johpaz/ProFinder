@@ -1,30 +1,75 @@
+const validateName = (name) => {
+  const namevalidated = /^[a-zA-ZñÑ\s]+$/.test(name)
+  const firstNameLastName = name.split(" ")
+  if(name.trim() === "") throw Error(`El nombre no puede estar vacío`);
+  if(!namevalidated) throw Error(`El nombre no puede contener expresiones especiales o símbolos`);
+  if(firstNameLastName.length < 1) throw Error('El nombre de usuario debe estar conformado por nombre y apellido');
+};
+
+const validateEmail = (email) => {
+  const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if(!emailregex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
+};
+
+const validateImage = (image) => {
+  const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
+  if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
+};
+
+const validateGenre = (genre) => {};
+
+const validateYearsExp = (years_exp) => {};
+
+const validateDescription = (description) => {};
+
+const validateCategories = (categories) => {};
+
+const validateOcupations = (ocupations) => {};
+
+const validatePhone = (phone) => {};
+
+const validateUbication = (ubication) => {};
+
 module.exports = (req,res,next) => {
 
-  const { name, email, image, genre, years_exp, description } = req.body;
+  const { name, email, image, genre, years_exp, description ,categories, ocupations, phone, ubication } = req.body;
 
-  if (!name) {
-    return res.status(400).json({ error: 'Falta la propiedad name' });
-  }
-
-  if (!email) {
-    return res.status(400).json({ error: 'Falta la propiedad email' });
-  }
-
-  if (!image) {
-    return res.status(400).json({ error: 'Falta la propiedad image' });
-  }
-
-  if (!genre) {
-    return res.status(400).json({ error: 'Falta la propiedad genre' });
-  }
-
-  if (!years_exp) {
-    return res.status(400).json({ error: 'Falta la propiedad years_exp' });
-  }
-
-  if (!description) {
-    return res.status(400).json({ error: 'Falta la propiedad description' });
-  }
-
-  next();
+  try {
+    validateName(name);
+    validateEmail(email);
+    validateImage(image);
+    validateGenre(genre);
+    validateYearsExp(years_exp);
+    validateDescription(description);
+    validateCategories(categories);
+    validateOcupations(ocupations);
+    validatePhone(phone);
+    validateUbication(ubication);
+    next();
+} catch (error) {
+  return res.status(400).json({error: error.message});
+}
 };
+ // if (!name) {
+ //   return res.status(400).json({ error: 'Falta la propiedad name' });
+ // }
+
+ // if (!email) {
+ //   return res.status(400).json({ error: 'Falta la propiedad email' });
+ // }
+
+ // if (!image) {
+ //   return res.status(400).json({ error: 'Falta la propiedad image' });
+ // }
+
+ // if (!genre) {
+ //   return res.status(400).json({ error: 'Falta la propiedad genre' });
+ // }
+
+ // if (!years_exp) {
+ //   return res.status(400).json({ error: 'Falta la propiedad years_exp' });
+ // }
+
+ // if (!description) {
+ //   return res.status(400).json({ error: 'Falta la propiedad description' });
+ // }
