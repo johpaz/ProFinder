@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { isURL } = require('validator');
 
 module.exports = (sequelize) => {
   sequelize.define("PostProfesional",{
@@ -7,18 +8,55 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    title:{
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate:{
+        is: /^[a-zA-Z\s]+$/, // El title debe ser una palabra o frase sin números ni símbolos
+        len:[5,200] // El nombre del title debe tener mínimo 3 caracteres y máximo 200
+      }
     },
-    image:{
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isUrl: {
+          msg: 'La URL de la imagen no es válida',
+          args: true,
+        },
+        isImageURL: (value) => {
+          if (!isURL(value, { protocols: ['http', 'https'] })) {
+            throw new Error('El formato de la imagen no es válido');
+          }
+          if (!value.match(/\.(jpeg|jpg|gif|png)$/i)) {
+            throw new Error('La imagen debe tener un formato válido (jpeg, jpg, gif, png)');
+          }
+        },
+      },
     },
-    content:{
+    content: {
       type: DataTypes.TEXT,
       allowNull: false,
-    }
+      validate: {
+        notEmpty: {
+          msg: 'El contenido no puede estar vacío',
+        },
+        checkContent(value) {
+          if (typeof value !== 'string') {
+            throw new Error('El contenido debe ser una cadena de texto');
+          }
+          if (value.length > 1000) {
+            throw new Error('El contenido no puede exceder los 1000 caracteres');
+          }
+          if (/^\d+$/.test(value)) {
+            throw new Error('El contenido no puede consistir solo de números');
+          }
+          if (/^[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/.test(value)) {
+            throw new Error('El contenido no puede consistir solo de símbolos');
+          }
+        },
+      },
+    },
   },{
     timestamps: false,
   })

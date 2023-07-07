@@ -10,10 +10,43 @@ module.exports = (sequelize) => {
     image:{
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
+      validate: {
+        isUrl: {
+          msg: 'La URL de la imagen no es válida',
+          args: true,
+        },
+        isImageURL: (value) => {
+          if (!isURL(value, { protocols: ['http', 'https'] })) {
+            throw new Error('El formato de la imagen no es válido');
+          }
+          if (!value.match(/\.(jpeg|jpg|gif|png)$/i)) {
+            throw new Error('La imagen debe tener un formato válido (jpeg, jpg, gif, png)');
+          }
+        },
+      },
     },
     description:{
       type: DataTypes.TEXT,
       allowNull: true,
+      validate: {
+        notEmpty: {
+          msg: 'El contenido no puede estar vacío',
+        },
+        checkContent(value) {
+          if (typeof value !== 'string') {
+            throw new Error('El contenido debe ser una cadena de texto');
+          }
+          if (value.length > 1000) {
+            throw new Error('El contenido no puede exceder los 1000 caracteres');
+          }
+          if (/^\d+$/.test(value)) {
+            throw new Error('El contenido no puede consistir solo de números');
+          }
+          if (/^[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/.test(value)) {
+            throw new Error('El contenido no puede consistir solo de símbolos');
+          }
+        },
+      },
     },
     view: {
       type: DataTypes.BOOLEAN,
