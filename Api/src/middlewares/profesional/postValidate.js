@@ -1,6 +1,8 @@
 const validateName = (name) => {
-  const namevalidated = /^[a-zA-ZñÑ\s]+$/.test(name)
-  const firstNameLastName = name.split(" ")
+  const namevalidated = /^[a-zA-ZñÑ\s]+$/.test(name);
+  const firstNameLastName = name.split(" ");
+  
+  if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
   if(name.trim() === "") throw Error(`El nombre no puede estar vacío`);
   if(!namevalidated) throw Error(`El nombre no puede contener expresiones especiales o símbolos`);
   if(firstNameLastName.length < 1) throw Error('El nombre de usuario debe estar conformado por nombre y apellido');
@@ -8,11 +10,15 @@ const validateName = (name) => {
 
 const validateEmail = (email) => {
   const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
+  if(email.trim() === "") throw Error(`El email no puede ser un string`);
   if(!emailregex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
 };
 
 const validateImage = (image) => {
+  if(typeof image !== "string") throw Error(`El tipo de dato de image debe ser un string`);
   const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
+  if(image.trim() === "") throw Error(`La imagen no puede ser un string vacío`)
   if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
 };
 
