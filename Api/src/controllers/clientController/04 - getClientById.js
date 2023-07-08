@@ -7,7 +7,14 @@ const getClientById = async (id) => {
             attributes: ["title", "image", "content"]
         }
     })
-    if (!searchClient) throw Error(`No existe un cliente con id ${id}`)
+    if (searchClient) return searchClient
+    else if(error)
+    {throw error}
+        
+        //(`No existe un cliente con id ${id}`)}
+  //  else {}
+
+    
 };
 
 
