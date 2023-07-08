@@ -30,10 +30,10 @@ const getClientByIdHandler = async (req, res) => {
     const clientFound = await getClientById(id)
     // Lógica para obtener un usuario por su ID
 
-    return res.status(200).json({ clientFound });
+    res.status(200).json({clientFound });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error al obtener el usuario' });
+    res.status(500).json({ error: 'Error al obtener el usuario' });
   }
 };
 

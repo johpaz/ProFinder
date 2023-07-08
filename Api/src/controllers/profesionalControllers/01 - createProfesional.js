@@ -36,7 +36,8 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
   });
 
   const resolvedCategories = await Promise.all(categoriesFormat);
-  // console.log(resolvedCategories);
+  // console.log(resolvedCategories.map((category)=>category.name))
+  // console.log(resolvedCategories.map((category)=> category.ocupations.map((ocupation)=>ocupation.name)));
 
   const profesionalFormat = { 
     name,
@@ -55,6 +56,7 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
 
   //? Relación del profesional con la categoría
   const categoriesBDD = await Category.findAll({where:{name: resolvedCategories.map((category)=>category.name)}});
+  // const categoriesBDD = resolvedCategories.map((category)=>category.name);
   await newProfesional.addCategories(categoriesBDD);
   //? Relación del profesional con la ocupación
 
