@@ -1,14 +1,56 @@
 const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
-const getAllOcupations = async () => {
+const axios = require('axios');
 
-  const ocupations = await Ocupation.findAll();
 
-  if(!ocupations || ocupations.length === 0) throw Error (`No hay ocupaciones a mostrar`);
+const getAllOcupationApi = async () => {
+  try {
+    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/ocupation.json');
+    const apiData = response.data;
 
-  return ocupations;
+    console.log(apiData);
+
+    // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
+    const normalizedOcupations = apiData.profesiones.map(apiOcupation => {
+      const normalizedOcupation = {
+        name: apiOcupation.nombre.trim().slice(0, 40),
+        CategoryId: apiOcupation.idcategoria,
+      };
+
+      return normalizedOcupation;
+    });
+
+    console.log(normalizedOcupations);
+
+    // Crear todas las ocupaciones de una sola vez en la base de datos
+    await Ocupation.bulkCreate(normalizedOcupations);
+
+    console.log('Base de datos llenada exitosamente.');
+  } catch (error) {
+    console.error('Error al llenar la base de datos:', error.message);
+  }
 };
+
+
+const getAllOcupations = async () => {
+  try {
+    let ocupations = await Ocupation.findAll();
+
+    if (!ocupations || ocupations.length === 0) {
+      // La base de datos está vacía, llamar a la función para obtener las ocupaciones de la API y llenar la base de datos
+      await getAllOcupationApi();
+
+      // Obtener las ocupaciones actualizadas
+      ocupations = await Ocupation.findAll();
+    }
+
+    return ocupations;
+  } catch (error) {
+    throw new Error('Error al obtener las ocupaciones: ' + error.message);
+  }
+};
+
 
 const getOcupationsByName = async (name) => {
 
@@ -29,5 +71,5 @@ const getOcupationsByName = async (name) => {
 };
 
 module.exports = {
-  getAllOcupations, getOcupationsByName
+  getAllOcupations, getOcupationsByName,getAllOcupationApi,
 };
