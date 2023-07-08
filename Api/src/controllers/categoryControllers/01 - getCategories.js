@@ -1,6 +1,39 @@
+const axios = require('axios');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
+
+
+const getAllCategoriesApi = async () => {
+  try {
+    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json');
+    const apiData = response.data;
+
+    console.log(apiData);
+
+    // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
+    const normalizedCategories = apiData.categorias.map(apiCategory => {
+      const normalizedCategory = {
+        id: apiCategory.idcategoria,
+        name: apiCategory.nombre.trim().slice(0, 20),
+      };
+
+      return normalizedCategory;
+    });
+
+    console.log(normalizedCategories);
+
+    // Crear todos las categorías de una sola vez en la base de datos
+    await Category.bulkCreate(normalizedCategories);
+
+    console.log('Base de datos llenada exitosamente.');
+  } catch (error) {
+    console.error('Error al llenar la base de datos:', error.message);
+  }
+};
+
+
+
 
 const getAllCategories = async () => {
 
@@ -36,5 +69,5 @@ const getCategoriesByName = async (name) => {
 };
 
 module.exports = {
-  getAllCategories, getCategoriesByName
+  getAllCategories, getCategoriesByName,getAllCategoriesApi
 };
