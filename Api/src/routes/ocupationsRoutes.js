@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers:
 
-const { getOcupations, getOcupation, postOcupation, putOcupation,
+const { getOcupations, getOcupation, postOcupation, putOcupation,getProfesionals
 } = require('../handlers/ocupationsHandlers');
 
 // Middlewares en caso de usar:
@@ -11,16 +11,18 @@ const postValidate = require('../middlewares/ocupation/postValidate');
 
 // Router:
 
-const ocupationRouter = Router();
+const ocupationsRouter = Router();
 
 // Enrutado:
 
-ocupationRouter.get('/',getOcupations);
+ocupationsRouter.get('/',getOcupations);
 
-ocupationRouter.get('/:id',getOcupation);
+ocupationsRouter.get('/:id',getOcupation);
 
-ocupationRouter.post('/',postValidate,postOcupation);
+ocupationsRouter.post('/',postValidate,postOcupation);
 
-ocupationRouter.put('/:id',putOcupation);
+ocupationsRouter.put('/:id',putOcupation);
 
-module.exports = ocupationRouter;
+
+
+module.exports = ocupationsRouter;

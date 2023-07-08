@@ -1,6 +1,6 @@
 // Controllers:
 
-const {getAllOcupations, getOcupationsByName, createOcupation, getOcupationById,updateOcupation } = require('../controllers/ocupationControllers/index');
+const {getAllOcupations, getOcupationsByName, createOcupation, getOcupationById,updateOcupation, getProfesionalsByOcupation,getAllProfesionals} = require('../controllers/ocupationControllers/index');
 
 // Handlers:
 
@@ -45,6 +45,10 @@ const putOcupation = async (req,res) => {
     return res.status(404).json({error: error.message});
   }
 };
+
+
+
+
 
 
 module.exports = {
