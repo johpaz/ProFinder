@@ -1,44 +1,44 @@
 /* Google Fonts de prueba para los maquetados */
-@import url('https://fonts.googleapis.com/css2?family=Hind&family=Khand:wght@700&family=Lato&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Hind&family=Khand:wght@700&family=Lato&display=swap');
 
-:root {
+:root { */
   /* Variables de prueba para los maquetados */
   /* Puedes agregar las que gustes */
   /* colores */
-  --principal-color: #202020;
+  /* --principal-color: #202020;
   --secondary-color: #9932cc;
-  --accent-color: #3a0ca3;
+  --accent-color: #3a0ca3; */
 
   /* colores para el fondo */
-  --background-color: #151515;
-  --degraded-background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+  /* --background-color: #151515;
+  --degraded-background: linear-gradient(to right, var(--secondary-color), var(--accent-color)); */
 
   /* colores para textos */
-  --text-color: #908E9B;
+  /* --text-color: #908E9B; */
 
   /* fuentes de google fonts para textos */
-  --label-font: 'Lato', sans-serif;
+  /* --label-font: 'Lato', sans-serif;
   --button-font: 'Hindi', sans-serif;
-}
+} */
 
 /* Estas son configuraciones iniciales para todos los elementos, igual son de prueba */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   outline: none;
   border: none;
-}
+} */
 
 /* Este es color de prueba para el background, lo deje en negro para no dañar las vista */
-body {
+/* body {
   background-color: var(--background-color);
-}
+} */
 
 /* Section de prueba para los maquetados*/
 /* Esta comentado porque es utilizado para pruebas en maquetados, asi no afecta al CSS de los demas */
-section {
+/* section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,13 +46,12 @@ section {
   min-height: 100%;
   padding: 1rem 2rem;
   /* border: solid 2px red; */
-}
 
-/* Estilo por defecto para los iconos de google icons usados para las pruebas de maquetado */
+/* Estilo por defecto para los iconos de google icons usados para las pruebas de maquetado
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
-}
+} */
