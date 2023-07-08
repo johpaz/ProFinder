@@ -1,18 +1,24 @@
 // Controllers:
 
-const {getAllCategories, getCategoriesByName ,getCategoryById,createCategory,createCateProf} = require('../controllers/categoryControllers/index');
+const {getAllCategories, getAllCategoriesApi, getCategoriesByName ,getCategoryById,createCategory,createCateProf} = require('../controllers/categoryControllers/index');
 
 // Handlers:
 
-const getCategories = async (req,res) => {
+const getCategories = async (req, res) => {
   const { name } = req.query;
   try {
-    const categories = name ? await getCategoriesByName(name) : await getAllCategories();
+    let categories;
+    if (name) {
+      categories = await getCategoriesByName(name);
+    } else {
+      categories = await getAllCategoriesApi();
+    }
     return res.status(200).json(categories);
   } catch (error) {
-    return res.status(404).json({error: error.message})
+    return res.status(404).json({ error: error.message });
   }
 };
+
 
 const getCategory = async (req,res) => {
   const { id } = req.params;
