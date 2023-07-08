@@ -12,19 +12,18 @@ const getAllCategoriesApi = async () => {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json');
     const apiData = response.data;
 
-    console.log(apiData);
+    // console.log(apiData);
 
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedCategories = apiData.categorias.map(apiCategory => {
       const normalizedCategory = {
-        id: apiCategory.idcategoria,
         name: apiCategory.nombre.trim().slice(0, 20),
       };
 
       return normalizedCategory;
     });
 
-    console.log(normalizedCategories);
+    // console.log(normalizedCategories);
 
     // Crear todos las categorías de una sola vez en la base de datos
     await Category.bulkCreate(normalizedCategories);
@@ -39,16 +38,38 @@ const getAllCategoriesApi = async () => {
 
 
 
-const getAllCategories = async () => {
+const getAllCategories = () => {
+  return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json')
+  .then((response)=>{
+    const categories = response.data.categorias
+    // console.log(categories.map((category)=>category.nombre))
+    const categoriesMap = categories.map((category)=>({name: category.nombre}))
+    // console.log(categoriesMap)
+    const promises = categoriesMap.map((category)=>{
+      return Category.findOrCreate({where:category})
+    });
 
-  const categories = await Category.findAll({include:{
-    model: Ocupation,
-    attributes: ['id','name'],
-  }});
+    return Promise.all(promises)
+      .then(()=>{
+        const allCategories = Category.findAll({include:{
+          model: Ocupation,
+          attributes: ['id','name'],
+        }});
+        console.log(allCategories)
+        return allCategories;
+      })
+  })
+  .catch((error)=>{
+    throw Error(error.message)
+  })
+  // const categories = await Category.findAll({include:{
+  //   model: Ocupation,
+  //   attributes: ['id','name'],
+  // }});
 
-  if(!categories) throw Error (`No hay categorías a mostrar`);
+  // if(!categories) throw Error (`No hay categorías a mostrar`);
 
-  return categories;
+  // return categories;
 };
 
 

@@ -7,18 +7,12 @@ const {getAllCategories, getAllCategoriesApi, getCategoriesByName ,getCategoryBy
 const getCategories = async (req, res) => {
   const { name } = req.query;
   try {
-    let categories;
-    if (name) {
-      categories = await getCategoriesByName(name);
-    } else {
-      categories = await getAllCategoriesApi();
-    }
+    const categories = name ? await getCategoriesByName(name) : await getAllCategories()
     return res.status(200).json(categories);
   } catch (error) {
     return res.status(404).json({ error: error.message });
   }
 };
-
 
 const getCategory = async (req,res) => {
   const { id } = req.params;

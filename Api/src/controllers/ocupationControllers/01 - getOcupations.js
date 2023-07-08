@@ -9,7 +9,7 @@ const getAllOcupationApi = async () => {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/ocupation.json');
     const apiData = response.data;
 
-    console.log(apiData);
+    // console.log(apiData);
 
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedOcupations = apiData.profesiones.map(apiOcupation => {
@@ -21,7 +21,7 @@ const getAllOcupationApi = async () => {
       return normalizedOcupation;
     });
 
-    console.log(normalizedOcupations);
+    // console.log(normalizedOcupations);
 
     // Crear todas las ocupaciones de una sola vez en la base de datos
     await Ocupation.bulkCreate(normalizedOcupations);
