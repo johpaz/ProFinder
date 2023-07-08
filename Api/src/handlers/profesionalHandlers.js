@@ -1,7 +1,7 @@
 // Controllers:
 
 const {searchUserProfesional,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
-const { createProfesional, getAllProfesionals, getProfesionalById, getPresionalsByName,updateProfesional} = require('../controllers/profesionalControllers/index');
+const { createProfesional, getAllProfesionals,getAllProfesionalApi, getProfesionalById, getPresionalsByName,updateProfesional} = require('../controllers/profesionalControllers/index');
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
 

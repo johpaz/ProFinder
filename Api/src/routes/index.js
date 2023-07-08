@@ -5,7 +5,7 @@ const { Router } = require('express');
 const clientRouter = require('./clientRoutes');
 
 const ocupationsRouter = require('./ocupationsRoutes');
-
+const ocupationspRouter = require('./ocupationspRouter')
 const profesionalRouter = require('./profesionalRouter');
 
 const categoryRouter = require('./categoryRoutes');
@@ -28,6 +28,8 @@ router.use('/profesional', profesionalRouter); //Proveedores
 router.use('/category', categoryRouter); //Categorias
 
 router.use('/ocupations', ocupationsRouter); // Ocupaciones
+
+router.use('/ocupationsp', ocupationspRouter); // profesionales por Ocupacion
 
 router.use("/postClient", postClientRouter); // Posts del cliente
 
