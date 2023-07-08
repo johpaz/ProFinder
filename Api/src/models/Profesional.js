@@ -20,9 +20,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false, //Agregar phone
-        validate:{
-          isEmail: true,
-        }
+        validate: {
+          isEmail: {
+            msg: 'El email no tiene un formato válido',
+          },
+        },
       },
       phone: {
         type: DataTypes.STRING,

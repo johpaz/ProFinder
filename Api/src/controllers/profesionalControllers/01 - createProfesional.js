@@ -25,12 +25,12 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
   // console.log(categoryName) ////? Educación Ingenieria
   const categoriesInBDD = await Category.findOne({where:{name: categoryName}});
   // console.log(categoriesInBDD.dataValues);
-  if(!categoriesInBDD) throw Error (`Las categorías ${categoryName} no existen en la base de datos`);
+  if(!categoriesInBDD) throw Error (`La categoría ${categoryName} no existen en la base de datos`);
 
   const categoryOcupations = resolvedOcupations.filter((ocupation) => ocupation.categoryId === categoriesInBDD.id);
-
+    if(!categoryOcupations || categoryOcupations.length === 0) throw Error(`Ingrese las ocupaciones que estén vinculadas con las categorías ingresadas`);
     return {
-      name: categoriesInBDD.name,
+      category: categoriesInBDD.name,
       ocupations: categoryOcupations.map((ocupation)=>({name: ocupation.name}))
     };
   });
@@ -72,7 +72,7 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
     description: newProfesional.description,
     phone:newProfesional.phone,
     ubication: newProfesional.ubication,
-    categories: resolvedCategories
+    professions: resolvedCategories
   };
 };
 
