@@ -4,6 +4,9 @@ const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
 
+
+
+
 const getAllCategoriesApi = async () => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json');
@@ -29,6 +32,7 @@ const getAllCategoriesApi = async () => {
     console.log('Base de datos llenada exitosamente.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
+    return (getAllCategories())
   }
 };
 
@@ -46,6 +50,9 @@ const getAllCategories = async () => {
 
   return categories;
 };
+
+
+
 
 const getCategoriesByName = async (name) => {
 
