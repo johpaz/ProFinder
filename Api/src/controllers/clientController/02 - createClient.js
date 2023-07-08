@@ -20,7 +20,6 @@ const createClient = async (name, email, phone, image, genre, description, ubica
             pro: false,
             softDelete: null
         });
-        console.log(newClient);
         return newClient
     }
 
