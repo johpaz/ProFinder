@@ -1,22 +1,28 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
 const { Profesional, Client } = require('../db');
-const { getClients, createClient, updateClient, getClientById, logicDeleteClient } = require("../controllers/clientController/index")
+const { getClients,getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient } = require("../controllers/clientController/index")
 // Resto del código...
 
 
-
 const getClientsHandler = async (req, res) => {
-
-  const clients = await getClients()
   try {
-    // Lógica para obtener todos los usuarios                     
+    let clients = await getClients();
+
+    if (!clients || clients.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      await getAllClientsApi();
+
+      // Obtener los clientes actualizados
+      clients = await getClients();
+    }
 
     return res.status(200).json(clients);
   } catch (error) {
-    return res.status(204).json({ error: 'Error al obtener los usuarios' });
+    return res.status(204).json({ error: 'Error al obtener los clientes' });
   }
 };
+
 
 const getClientByIdHandler = async (req, res) => {
   try {
