@@ -70,12 +70,12 @@ const validateOcupations = (ocupations) => {
   if(ocupations.length > 0 && ocupations.length > 5) throw Error(`El profesional no puede tener más de 5 ocupaciones`);
 };
 
-const validatePhone = (phone) => {
-  if(!phone) throw Error(`La propiedad phone es obligatoria`);
-  if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
-  if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
-  if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
-};
+// const validatePhone = (phone) => {
+//   if(!phone) throw Error(`La propiedad phone es obligatoria`);
+//   if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
+//   if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
+//   if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
+// };
 
 const validateUbication = (ubication) => {
   if(!ubication) throw Error('La propiedad ubication es obligatoria');
@@ -98,7 +98,7 @@ module.exports = async (req,res,next) => {
     validateDescription(description);
     validateCategories(categories);
     validateOcupations(ocupations);
-    validatePhone(phone);
+    // validatePhone(phone);
     validateUbication(ubication);
     next();
   } catch (error) {

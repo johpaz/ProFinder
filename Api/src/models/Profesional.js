@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate:{
-          is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
           len:[5,40] // Nombre entre 5 y 40 caracteres
         }
       },
@@ -29,9 +28,7 @@ module.exports = (sequelize) => {
       phone: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
-        }
+       
       },
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
@@ -65,7 +62,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
           len: [5, 50], // Ubicación entre 5 a 50 caracteres
-          is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
         }
       },
       active: {
