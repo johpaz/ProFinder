@@ -1,7 +1,7 @@
 // Controllers:
 
 const {searchUserProfesional,getProfById} = require ("../controllers/profesionalControllers/profesionalsControllers")
-const { createProfesional, getAllProfesionals, getProfesionalById, getPresionalsByName,updateProfesional} = require('../controllers/profesionalControllers/index');
+const { createProfesional, getAllProfesionals,getAllProfesionalApi, getProfesionalById, getPresionalsByName,updateProfesional} = require('../controllers/profesionalControllers/index');
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
 
@@ -57,7 +57,7 @@ const getProfesionals = async (req,res) => {
     
     try {
       const newUser = await createProfesional(name,email,image,genre,years_exp,description, categories,ocupations, phone, ubication);
-      return res.status(201).json({ user: newUser });
+      return res.status(201).json({ profesionalCreated: newUser });
     } catch (error) {
       return res.status(400).json({ error: error.message });
     };
