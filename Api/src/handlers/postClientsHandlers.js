@@ -1,7 +1,7 @@
 //Controllers
 const { getAllPostsByClients, getAllPostsByClientsApi, createPost } = require("../controllers/postsClientControllers/index")
 //Handlers
-const axios = require('axios');
+
 
 
 
