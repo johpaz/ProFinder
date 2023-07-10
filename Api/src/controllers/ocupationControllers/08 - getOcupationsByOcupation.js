@@ -50,7 +50,8 @@ profesionalsWithThisOcupation.push(profesionals[i])
         }
   }
 }
-const cleandProfesionals = cleanArray(profesionalsWithThisOcupation)
+const cleandProfesionals = cleanArray(profesionalsWithThisOcupation);
+if(cleandProfesionals.length === 0) throw Error(`No hay profesionales con la ocupación: ${name}`)
 return cleandProfesionals
 
 
