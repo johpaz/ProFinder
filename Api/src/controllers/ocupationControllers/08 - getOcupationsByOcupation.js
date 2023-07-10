@@ -41,7 +41,7 @@ const profesionalsWithThisOcupation= []
 
      for (let j=0; j<ocupaciones.length;j++){
        
-       if(ocupaciones[j].name.toUpperCase()===name.toUpperCase()){
+       if(ocupaciones[j].name.toUpperCase()===name.toUpperCase()|| (ocupaciones[j].name.includes(name)|| (ocupaciones[j].name.includes(name.toLowerCase())))){
 profesionalsWithThisOcupation.push(profesionals[i])
             
 
