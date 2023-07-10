@@ -88,7 +88,7 @@ module.exports = async (req,res,next) => {
   const { name, email, image, genre, years_exp, description ,categories, ocupations, phone, ubication } = req.body;
 
   try {
-
+    console.log(name)
     const matchEmail = await Profesional.findOne({where:{email: email}});
     if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
