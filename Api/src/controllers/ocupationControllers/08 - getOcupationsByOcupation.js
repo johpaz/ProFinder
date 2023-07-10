@@ -2,6 +2,7 @@ const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
+const cleanArray = require('../../helpers/cleanArrayProfesionals')
 
 const getOcupationsByOcupation= async (name)=>{
     
@@ -48,7 +49,9 @@ profesionalsWithThisOcupation.push(profesionals[i])
 
         }
   }
-}return profesionalsWithThisOcupation
+}
+const cleandProfesionals = cleanArray(profesionalsWithThisOcupation)
+return cleandProfesionals
 
 
 }
