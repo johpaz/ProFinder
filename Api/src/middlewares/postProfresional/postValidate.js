@@ -44,25 +44,23 @@ const validateContent = (content) => {
 }
 
 const validateIdProfesional = (profesionalId) => {
-    if (!profesionalId) {
-        throw Error("El posteo debe estar relacionado con el id de un profesional.")
-    };
+    if (!profesionalId) throw Error("El posteo debe estar relacionado con el id de un profesional.")
+    // if(/\d/.test(profesionalId)) throw Error(``)
 }
 
 
 
 module.exports = async (req, res, next) => {
     const { title, image, content, profesionalId } = req.body
-    const profesionalFound = await Profesional.findByPk(profesionalId)
-    if (!profesionalFound) {
-        return res.status(404).send(`No existe un profesional que tenga el id ${profesionalId}`)
-    }
     try {
+        const profesionalFound = await Profesional.findByPk(profesionalId)
+        if (!profesionalFound) throw Error(`No existe un profesional que tenga el id ${profesionalId}`);
         validateTitle(title)
         validateImage(image),
-            validateContent(content),
-            validateIdProfesional(profesionalId)
+        validateContent(content),
+        validateIdProfesional(profesionalId)
     } catch (error) {
-
-    }
+        return res.status(400).json({error: error.message});
+    };
+    next()
 }
