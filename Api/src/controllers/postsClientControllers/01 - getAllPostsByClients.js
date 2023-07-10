@@ -41,7 +41,7 @@ const getPostsClient = () => {
   return axios.get(`https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsclient.json`)
     .then((response) => {
       const clientPosts = response.data.postClient;
-
+      if(clientPosts.length === 0) throw Error(`Error con los datos en la api - no hay información`)
       const promises = clientPosts.map((post) => {
         const postFormat = {
           title: post.title,
