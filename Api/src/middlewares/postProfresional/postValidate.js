@@ -38,13 +38,13 @@ const validateContent = (content) => {
         throw new Error('El contenido no puede consistir solo de números');
     }
     const regexContent = /^[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+$/
-    if (regexContent.test(value)) {
+    if (regexContent.test(content)) {
         throw new Error('El contenido no puede consistir solo de símbolos');
     }
 }
 
 const validateIdProfesional = (profesionalId) => {
-    if (!profesionalId) throw Error("El posteo debe estar relacionado con el id de un profesional.")
+    if (!profesionalId) throw Error("El posteo debe estar relacionado con el id de un profesional válido.")
     // if(/\d/.test(profesionalId)) throw Error(``)
 }
 
@@ -53,12 +53,12 @@ const validateIdProfesional = (profesionalId) => {
 module.exports = async (req, res, next) => {
     const { title, image, content, profesionalId } = req.body
     try {
+        validateIdProfesional(profesionalId);
         const profesionalFound = await Profesional.findByPk(profesionalId)
         if (!profesionalFound) throw Error(`No existe un profesional que tenga el id ${profesionalId}`);
-        validateTitle(title)
-        validateImage(image),
-        validateContent(content),
-        validateIdProfesional(profesionalId)
+        validateTitle(title);
+        validateImage(image);
+        validateContent(content);
     } catch (error) {
         return res.status(400).json({error: error.message});
     };
