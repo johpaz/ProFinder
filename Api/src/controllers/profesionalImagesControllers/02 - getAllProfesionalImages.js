@@ -1,31 +1,28 @@
 const { ProfesionalImagesPost } = require('../../db');
 const axios = require('axios');
 
-const getAllProfesionalImagesApi = async () => {
-  try {
-    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsimages.json');
-    const apiData = response.data;
-
-    //console.log(apiData);
-
-    // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
-    const normalizedPostImages = apiData.postImages.map(apiPost => {
-      const normalizedPostImage = {
-        image: apiPost.image, // Seleccionar la primera URL de imagen del array
-        description: apiPost.content,
-        ProfesionalId: apiPost.profesionalId,
+const getAllProfesionalImagesApi = () => {
+  return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsimages.json')
+  .then((response)=>{
+    const galeryProfesionals = response.data.postImages;
+    console.log(galeryProfesionals)
+    const promises = galeryProfesionals.map((galery)=>{
+      const galeryFormat = {
+        image: galery.image, // Seleccionar la primera URL de imagen del array
+        description: galery.content,
+        ProfesionalId: galery.profesionalId,
       }
-      return normalizedPostImage;
+      return ProfesionalImagesPost.findOrCreate({where:galeryFormat})
     });
-    console.log(normalizedPostImages);
-
-  // Crear todas las ocupaciones de una sola vez en la base de datos
-  await ProfesionalImagesPost.bulkCreate(normalizedPostImages);
-
-  console.log('Base de datos llenada exitosamente.');
-} catch (error) {
-  console.error('Error al llenar la base de datos:', error.message);
-}
+    return Promise.all(promises)
+    .then(()=>{
+      const allGalery = ProfesionalImagesPost.findAll();
+      return allGalery;
+    });
+  })
+  .catch((error)=>{
+    throw Error(error.message)
+  })
 };
 
 const getAllProfesionalImages = async () => {
