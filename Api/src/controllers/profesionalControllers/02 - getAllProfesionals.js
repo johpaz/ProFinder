@@ -16,8 +16,12 @@ const getAllProfesionalApi = async () => {
 
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedProfessionals = apiData.profesionales.map(apiProfessional => {
+      const nameParts = apiProfessional.name ? apiProfessional.name.trim().split('.') : [];
+      const name = nameParts.length > 1 ? nameParts.slice(1).join('.').trim() : apiProfessional.name.trim();
+    
       const normalizedProfessional = {
-        name: apiProfessional.name ? apiProfessional.name.trim().slice(0, 40) : '',
+        
+        name: name.slice(0, 40),
         email: apiProfessional.email ? apiProfessional.email.trim() : '',
         phone: apiProfessional.phone ? apiProfessional.phone.replace(/\D/g, "").slice(0, 10) : '',
         image: apiProfessional.image ? apiProfessional.image.trim() : '',
