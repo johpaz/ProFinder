@@ -5,7 +5,7 @@ const { Ocupation } = require('../../db');
 const cleanArray = require('../../helpers/cleanArrayProfesionals');
 
 const getProfesionalsByName = async (name) => {
-  //const query = name.toLowerCase().trim();
+  const query = name.toLowerCase().trim();
   const formattedQuery = `%${name}%`
 
   const profesionalsByName = await Profesional.findAll({
