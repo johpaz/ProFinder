@@ -12,6 +12,7 @@
   align-items: center;
 }
 .profesionalContainer {
+  border: solid 2px red;
     position: relative;
 }
 
