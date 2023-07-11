@@ -19,7 +19,7 @@ const validateEmail = (email) => {
   const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
   const emailEnd = email.split(".")[1];
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
-  if(email.trim() === "") throw Error(`El email no puede ser un string`);
+  if(email.trim() === "") throw Error(`El email no puede estar vacío`);
   if(!emailRegex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
   if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
 };
@@ -48,6 +48,8 @@ const validateGenre = (genre) => {
 const validateYearsExp = (years_exp) => {
   if(!years_exp) throw Error(`La propiedad years_exp es obligatoria`);
   if(typeof years_exp !== "string") throw Error (`El tipo de dato de los años de experiencia debe ser un string`);
+  if(years_exp > 85) throw Error(`No es probable que haya trabajado más de 85 años en un trabajo`);
+  if(years_exp.length > 2) throw Error(`Los años de experiencia no puede ser centenares`);
 };
 
 const validateDescription = (description) => {
@@ -70,12 +72,12 @@ const validateOcupations = (ocupations) => {
   if(ocupations.length > 0 && ocupations.length > 5) throw Error(`El profesional no puede tener más de 5 ocupaciones`);
 };
 
-// const validatePhone = (phone) => {
-//   if(!phone) throw Error(`La propiedad phone es obligatoria`);
-//   if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
-//   if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
-//   if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
-// };
+const validatePhone = (phone) => {
+  if(!phone) throw Error(`La propiedad phone es obligatoria`);
+  if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
+  // if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
+  if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
+};
 
 const validateUbication = (ubication) => {
   if(!ubication) throw Error('La propiedad ubication es obligatoria');
@@ -86,7 +88,7 @@ module.exports = async (req,res,next) => {
   const { name, email, image, genre, years_exp, description ,categories, ocupations, phone, ubication } = req.body;
 
   try {
-
+    console.log(name)
     const matchEmail = await Profesional.findOne({where:{email: email}});
     if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
@@ -98,7 +100,7 @@ module.exports = async (req,res,next) => {
     validateDescription(description);
     validateCategories(categories);
     validateOcupations(ocupations);
-    // validatePhone(phone);
+    validatePhone(phone);
     validateUbication(ubication);
     next();
   } catch (error) {

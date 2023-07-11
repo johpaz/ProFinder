@@ -2,6 +2,7 @@ const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
+const cleanArray = require('../../helpers/cleanArrayProfesionals')
 
 const getOcupationsByOcupation= async (name)=>{
     
@@ -41,14 +42,17 @@ const profesionalsWithThisOcupation= []
 
      for (let j=0; j<ocupaciones.length;j++){
        
-       if(ocupaciones[j].name.toUpperCase()===name.toUpperCase()){
+       if(ocupaciones[j].name.toUpperCase()===name.toUpperCase()|| (ocupaciones[j].name.includes(name)|| (ocupaciones[j].name.includes(name.toLowerCase())))){
 profesionalsWithThisOcupation.push(profesionals[i])
             
 
 
         }
   }
-}return profesionalsWithThisOcupation
+}
+const cleandProfesionals = cleanArray(profesionalsWithThisOcupation);
+if(cleandProfesionals.length === 0) throw Error(`No hay profesionales con la ocupación: ${name}`)
+return cleandProfesionals
 
 
 }
