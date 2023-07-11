@@ -59,7 +59,7 @@ const validateImage = (image) => {
     }
 
 };
-
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
 const validatePhone = (phone) => {
     if (!phone) {
         throw Error("La propiedad phone no puede estar vacia");

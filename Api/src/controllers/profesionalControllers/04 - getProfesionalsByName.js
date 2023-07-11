@@ -34,4 +34,4 @@ const getProfesionalsByName = async (name) => {
   return formattedProfesionals;
 };
 
-module.exports = getProfesionalsByName;
+module.exports = getProfesionalsByName;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

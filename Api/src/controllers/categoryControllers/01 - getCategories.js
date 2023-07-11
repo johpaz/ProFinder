@@ -29,7 +29,7 @@ const getAllCategoriesApi = async () => {
     console.error('Error al llenar la base de datos:', error.message);
     return (getAllCategories())
   }
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
 
 const getAllCategories = () => {
   return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json')

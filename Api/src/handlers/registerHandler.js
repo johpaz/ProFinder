@@ -22,4 +22,4 @@ const userRegister= async (req,res)=>{
     })
     };
 
-module.exports = {userRegister};
+module.exports = {userRegister};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
