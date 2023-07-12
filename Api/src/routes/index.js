@@ -23,6 +23,8 @@ const router = Router();
 
 // Enrutado:
 
+router.use('/cash', pasarelaRouter); // Clientes 
+
 router.use('/client', clientRouter); // Clientes 
 
 router.use('/profesional', profesionalRouter); //Proveedores
