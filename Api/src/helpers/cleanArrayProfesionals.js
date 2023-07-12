@@ -23,11 +23,10 @@ const cleanArray = (profesionals) => {
       years_exp: profesional.years_exp,
       phone: profesional.phone,
       ubication: profesional.ubication,
-      description: profesional.description,
       professions: professions,
       posts: profesional.PostProfesionals
     };
   });
 };
 
-module.exports = cleanArray;
+module.exports = cleanArray;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
