@@ -5,7 +5,7 @@ const {sequelize} = require("../db");
 
 
 const userRegister= async (req,res)=>{
-    const {name,email,password}= req.body;
+    const {usuario,name,email,password}= req.body;
 
     bcrypt.hash(password, 8, async (error, hash)=>{
 
