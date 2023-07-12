@@ -7,7 +7,7 @@ const clientRouter = require('./clientRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
 const ocupationspRouter = require('./ocupationspRouter')
 const profesionalRouter = require('./profesionalRouter');
-
+const pasarelaRouter = require('../pasarelapagos/pasarelaRouter')
 const categoryRouter = require('./categoryRoutes');
 const postClientRouter = require("./postClientRoutes");
 const registerRouter = require('./registerRoutes');
@@ -15,6 +15,8 @@ const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 
+
+const passport= require ('passport')
 // Router: 
 
 const router = Router();
