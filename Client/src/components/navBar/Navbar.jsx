@@ -40,7 +40,20 @@ const Navbar = () => {
           </Link>
         </Box>
 
-        <Box display={{ base: "block", md: "none" }}>
+        <Box display={{ base: 'none', md: 'block' }}>
+          <Link to='/pasarela' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
+            Haste Premium
+          </Link>
+        </Box>
+
+
+        <Box display={{ base: 'none', md: 'block' }}>
+          <Link to='/comofunciona' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
+            ¿Cómo funciona?
+          </Link>
+        </Box>
+
+        <Box display={{ base: 'block', md: 'none' }}>
           <Menu>
             <MenuButton
               as={IconButton}
