@@ -29,7 +29,7 @@ const getProfesionalById = async (id) => {
       }
     ]
   });
-  console.log(profesional);
+  // console.log(profesional);
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
   const formattedProfesional = cleanArrayProfesionalId([profesional]);
   return formattedProfesional;

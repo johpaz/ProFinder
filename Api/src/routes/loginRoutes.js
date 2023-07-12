@@ -18,7 +18,6 @@ loginRouter.post('/', loginUser)
     failureFlash: true //mensaje flash de error activado
 })); */
 
-const a = a
 
 
 module.exports= loginRouter;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

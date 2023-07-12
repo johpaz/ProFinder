@@ -24,6 +24,7 @@ const getAllProfesionalApi = async () => {
         name: name.slice(0, 40),
         email: apiProfessional.email ? apiProfessional.email.trim() : '',
         phone: apiProfessional.phone ? apiProfessional.phone.replace(/\D/g, "").slice(0, 10) : '',
+        password: apiProfessional.password,
         image: apiProfessional.image ? apiProfessional.image.trim() : '',
         genre: apiProfessional.genre ? apiProfessional.genre.trim() : '',
         rating: apiProfessional.rating && !isNaN(apiProfessional.rating) ? Math.min(parseFloat(apiProfessional.rating), 5) : null,
