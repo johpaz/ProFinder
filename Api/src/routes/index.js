@@ -15,6 +15,8 @@ const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 
+
+const passport= require ('passport')
 // Router: 
 
 const router = Router();

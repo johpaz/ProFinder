@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
       }
@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
     },
     genre: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.FLOAT,
@@ -59,7 +59,7 @@ module.exports = (sequelize) => {
     },
     ubication: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         len: [5, 50], // Ubicación entre 5 a 50 caracteres
         is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
