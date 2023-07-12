@@ -3,61 +3,62 @@ import {
   Container,
   Stack,
   SimpleGrid,
+  Link,
   useColorModeValue,
   Heading,
-  Text
-} from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+  Text,
+} from "@chakra-ui/react";
+
 const footerStyles = {
-  minH: '100vh',
+  minH: "100vh",
   left: 0,
   bottom: 0,
-  width: '100%',
+  width: "100%",
   dark: {
-    900: '#151515',
-    700: '#202020'
+    900: "#151515",
+    700: "#202020",
   },
   text: {
-    800: '#908E9B'
-  }
-}
+    800: "#908E9B",
+  },
+};
 
-function Footer () {
-  const bgColor = useColorModeValue('gray.200', 'gray.800')
-  const textColor = useColorModeValue('gray.900', 'gray.600')
+function Footer() {
+  const bgColor = useColorModeValue("gray.50", "gray.900");
+  const textColor = useColorModeValue("gray.700", "gray.200");
 
   return (
     <Box bg={bgColor} color={textColor} style={footerStyles}>
-      <Container maxW='6xl' py={10}>
+      <Container maxW={"6xl"} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 1, md: 2 }} spacing={8}>
-          <Stack align='center' justify='flex-end'>
-            <Heading as='h2' fontWeight='bold' fontSize='xl' color='blue.400'>
+          <Stack align={"center"} justify="flex-end">
+            <Heading as="h2" fontWeight="bold" fontSize="xl" color="blue.500">
               Información
             </Heading>
-            <Link to='./'><Text color='gray.400'>Sobre nosotros</Text></Link>
-            <Link to='./'><Text color='gray.400'>Contáctanos</Text></Link>
-            <Link to='./comofunciona'><Text color='gray.400'>Cómo funciona</Text></Link>
-            <Link to='./'><Text color='gray.400'>Home</Text></Link>
+            <Link href={"#"}>Sobre nosotros</Link>
+            <Link href={"#"}>Contáctanos</Link>
+            <Link href={"#"}>Cómo funciona</Link>
+            <Link href={"#"}>Home</Link>
           </Stack>
 
-          <Stack align='center' justify='flex-end'>
-            <Heading as='h2' fontWeight='bold' fontSize='xl' color='blue.500'>
+          <Stack align={"center"} justify="flex-end">
+            <Heading as="h2" fontWeight="bold" fontSize="xl" color="blue.500">
               Ingresos
             </Heading>
-            <Link to='./'><Text color='gray.400'>Registro Usuario</Text></Link>
-            <Link to='./registerProvider'><Text color='gray.400'>Registro Profesional</Text></Link>
-            <Link to='./userLogin'><Text color='gray.400'>Inicia Sesion</Text></Link>
-            <Link to='./categories'><Text color='gray.400'>Categorias</Text></Link>
+            <Link href={"#"}>Registro usuario</Link>
+            <Link href={"#"}>Registro Profesional</Link>
+            <Link href={"#"}>Inicia sesión</Link>
+            <Link href={"#"}>Categorías</Link>
           </Stack>
         </SimpleGrid>
-        <Stack align='center' mt={8}>
-          <Text fontSize='sm' textAlign='center' color='gray.600'>
+        <Stack align={"center"} mt={8}>
+          <Text fontSize={"sm"} textAlign="center">
             © 2023 Profinder create. All rights reserved
           </Text>
         </Stack>
       </Container>
     </Box>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
