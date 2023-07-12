@@ -12,4 +12,4 @@ const postClientRouter = Router();
 postClientRouter.get("/", getAllPostsClientsHandler)
 postClientRouter.post("/", postValidate,createPostHandler)
 
-module.exports = postClientRouter
+module.exports = postClientRouter// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

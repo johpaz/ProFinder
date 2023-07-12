@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
           len:[5,40] // Nombre entre 5 y 40 caracteres
         }
       },
+      password:{
+        type: DataTypes.STRING(25),
+        allowNull: true,
+        defaultValue: null,
+      },
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -79,4 +84,4 @@ module.exports = (sequelize) => {
     }, {
     timestamps: false,
   });
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

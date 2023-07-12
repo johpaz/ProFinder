@@ -29,41 +29,7 @@ const {User}= require("../db")
     }
     }; 
 
-
-
-
-/* const passportHandler=  (passport)=>{
-    passport.serializeUser(function(user,done){done(null,user)});
-
-    passport.deserializeUser(function(obj,done){ done(null,obj)});
-
-    passport.use(new LocalStrategy(function (username, password, cb) {
-       const sql= sequelize.query(`SELECT * FROM "Users" WHERE email = '${username}'`,[username])
-        
-        console.log(sql)
-        
-        /* , [ username ], function(err, user) {
-          if (err) { return cb(err); }
-          if (!user) { return cb(null, false, { message: 'Incorrect username or password.' }); }
-      
-          bcrypt.compare(password, user.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-            console.log(user)
-            if (err) { return cb(err); }
-            if (!crypto.timingSafeEqual(user.hashed_password, hashedPassword)) {
-              return cb(null, false, { message: 'Incorrect username or password.' });
-            }
-            return cb(null, user);
-          });
-        } */;
-    
-        
-    
-
-
-
-
-
-module.exports = { loginUser};
+module.exports = {loginUser};
 
 
 
