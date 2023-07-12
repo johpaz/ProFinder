@@ -31,10 +31,10 @@ const validateImage = (image) => {
   // // console.log(imageEnd) // com
   // const imageL = image.split(".")[1].split("/")
   // console.log(imageL) //profile
-  if(typeof image !== "string") throw Error(`El tipo de dato de image debe ser un string`);
-  const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
-  if(image.trim() === "") throw Error(`La imagen no puede ser un string vacío`)
-  if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
+  // if(typeof image !== "string") throw Error(`El tipo de dato de image debe ser un string`);
+  // const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
+  // if(image.trim() === "") throw Error(`La imagen no puede ser un string vacío`)
+  // if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
 };
 
 const validateGenre = (genre) => {
@@ -50,12 +50,6 @@ const validateYearsExp = (years_exp) => {
   if(typeof years_exp !== "string") throw Error (`El tipo de dato de los años de experiencia debe ser un string`);
   if(years_exp > 85) throw Error(`No es probable que haya trabajado más de 85 años en un trabajo`);
   if(years_exp.length > 2) throw Error(`Los años de experiencia no puede ser centenares`);
-};
-
-const validateDescription = (description) => {
-  if(!description) throw Error(`La propiedad description es obligatoria`);
-  if(typeof description !== "string") throw Error(`El tipo de dato de la descripción debe ser un string`);
-  if(description.length > 250) throw Error(`La descripción no puede tener más de 250 caracteres`);
 };
 
 const validateCategories = (categories) => {
@@ -85,10 +79,10 @@ const validateUbication = (ubication) => {
 
 module.exports = async (req,res,next) => {
 
-  const { name, email, image, genre, years_exp, description ,categories, ocupations, phone, ubication } = req.body;
+  const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication } = req.body;
 
   try {
-    console.log(name)
+    // console.log(name)
     const matchEmail = await Profesional.findOne({where:{email: email}});
     if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
@@ -97,7 +91,6 @@ module.exports = async (req,res,next) => {
     validateImage(image);
     validateGenre(genre);
     validateYearsExp(years_exp);
-    validateDescription(description);
     validateCategories(categories);
     validateOcupations(ocupations);
     validatePhone(phone);

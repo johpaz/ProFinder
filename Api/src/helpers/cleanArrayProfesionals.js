@@ -23,7 +23,6 @@ const cleanArray = (profesionals) => {
       years_exp: profesional.years_exp,
       phone: profesional.phone,
       ubication: profesional.ubication,
-      description: profesional.description,
       professions: professions,
       posts: profesional.PostProfesionals
     };

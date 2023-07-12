@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
           len:[5,40] // Nombre entre 5 y 40 caracteres
         }
       },
+      password:{
+        type: DataTypes.STRING(25),
+        allowNull: true,
+        defaultValue: null,
+      },
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -33,12 +38,6 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
         allowNull: false,
-        validate: {
-          isUrl: {
-            msg: 'La URL de la imagen no es válida',
-            args: true,
-          },
-        },
       },
       genre: {
         type: DataTypes.STRING(25),
@@ -55,7 +54,7 @@ module.exports = (sequelize) => {
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       ubication: {
         type: DataTypes.STRING,
