@@ -1,4 +1,5 @@
 const { Profesional } = require('../../db');
+const { Client } = require('../../db');
 
 const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
@@ -83,8 +84,12 @@ module.exports = async (req,res,next) => {
 
   try {
     // console.log(name)
-    const matchEmail = await Profesional.findOne({where:{email: email}});
-    if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
+    const clientEmail = await Client.findOne({where:{email:email}});
+    if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    
+    const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
+
 
     validateName(name);
     validateEmail(email);
