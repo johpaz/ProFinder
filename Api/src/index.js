@@ -57,18 +57,18 @@ server.use('/', mainRouter)
 
 
 //Configuracion autenticacion google
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:5173/auth/google/"//primera autentica y por ahora lleva a home
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        console.log("llegue aca")
-      return cb(err, user);
-    });
-  }
-));
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     callbackURL: "http://localhost:5173/auth/google/"//primera autentica y por ahora lleva a home
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//         console.log("llegue aca")
+//       return cb(err, user);
+//     });
+//   }
+// ));
 
 
 
