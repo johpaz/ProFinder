@@ -32,16 +32,22 @@ module.exports = (sequelize) => {
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
        
       },
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
-        allowNull: false,
+        allowNull: true,
+        validate: {
+          isUrl: {
+            msg: 'La URL de la imagen no es válida',
+            args: true,
+          },
+        },
       },
       genre: {
         type: DataTypes.STRING(25),
-        allowNull: false,
+        allowNull: true,
       },
       rating: {
         type: DataTypes.STRING,
@@ -50,7 +56,7 @@ module.exports = (sequelize) => {
       },
       years_exp: {
         type: DataTypes.STRING, // Podría ser INTEGER pero string en caso que no tenga experiencia?
-        allowNull: false,
+        allowNull: true,
       },
       description: {
         type: DataTypes.TEXT,
@@ -58,7 +64,7 @@ module.exports = (sequelize) => {
       },
       ubication: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       active: {
         type: DataTypes.BOOLEAN,

@@ -5,21 +5,66 @@ const {sequelize} = require("../db");
 
 
 const userRegister= async (req,res)=>{
-    const {name,email,password}= req.body;
+    const {usuario,name,email,password}= req.body;
 
     bcrypt.hash(password, 8, async (error, hash)=>{
 
        if (error) {res.status(400).json({error: error.message})};
 
        try {
-        const sql= await sequelize.query(`INSERT INTO "Users" (name,email,password) VALUES ('${name}','${email}','${hash}')`)
-        if(sql.length!==0){
-        return res.status(201).json({message: "User created successfully"})};
+        const sql= await sequelize.query(`INSERT INTO "Users" (usuario,name,email,password) VALUES ('${usuario}','${name}','${email}','${hash}')`);
 
+
+        if(sql.length!==0){
+
+            switch (usuario) {
+                case 'c':
+                    console.log("soy c")
+
+                    const newClient= await sequelize.query(`INSERT INTO "Clients" (name,email) VALUES ('${name}','${email}')`);
+
+                    console.log(newClient)
+
+
+
+
+                    break;
+                case 'p':
+                    console.log("soy p")
+
+                 const newProf= await sequelize.query(`INSERT INTO "Profesionals" (name,email) VALUES ('${name}','${email}')`);
+
+
+                    break;
+                case 'a':
+                    console.log ("soy a")
+
+                    break;
+                default:
+                    break;
+            }
+
+
+
+
+
+            req.flash('info', "Se ha registrado correctamente, ya puede iniciar sesion");//en la vista front se llamaria con la palabra info
+            res.status(200).json({message:  req.flash('info')});
+        
+        
+        }
+        
+        
+        
+
+        
        } catch (error) {
         res.status(400).json({error: error.message});
        };
     })
     };
 
-module.exports = {userRegister};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = {userRegister};
+
+
+    
