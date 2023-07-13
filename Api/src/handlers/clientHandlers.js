@@ -19,7 +19,7 @@ const getClientsHandler = async (req, res) => {
 
     return res.status(200).json(clients);
   } catch (error) {
-    return res.status(204).json({ error: 'Error al obtener los clientes' });
+    return res.status(404).json({ error: error.message });
   }
 };
 

@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import logo from '../../assets/categoriesIcons/Logo.png'
+import { useState } from "react";
 import {
   Box,
   IconButton,
@@ -7,46 +6,46 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+
   Flex,
-  Image
-} from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
-import { Link } from 'react-router-dom'
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import Styles from "./NavBar.module.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  // Estado para controlar la visibilidad del menú desplegable
-  const [isOpen, setIsOpen] = useState(false)
+  // Estado para controlar la visibilidad
+  const [isOpen, setIsOpen] = useState(false);
 
-  // Función para alternar la visibilidad del menú desplegable
+  // Función para alternar la visibilidad del desplegable
   const toggleDropdown = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
-  // Función para manejar el clic en una opción del menú desplegable
-  const handleOptionClick = () => {
-    setIsOpen(false) // Cerrar el menú desplegable al seleccionar una opción
-  }
+  // Función para manejar el clic en una opción
+  const handleOptionClick = (option) => {
+    console.log("Selected option:", option);
+    setIsOpen(false); // Cerrar el desplegable al seleccionar una opción
+  };
 
   return (
     <nav>
       <Flex
-        justifyContent='space-between'
-        alignItems='center'
-        padding={4}
-        bg='gray.200'
-        as='div'
-        textTransform='uppercase'
-        fontWeight='bold'
-        fontSize='2xl'
-        fontFamily='body'
-        color='gray.700'
+        justifyContent={{ base: "center", md: "space-between" }}
+        alignItems="center"
       >
-        {/* Logo */}
-        <Box flex={{ base: '0 0 100%', md: '0 0 20%' }}>
-          <Link to='/' textDecoration='none'>
-            <Image src={logo} alt='Logo' width='70%' height='auto' />
+        <Box className={Styles.logoContainer}>
+          <Link to="/" className={Styles.logo} textDecor="none">
+            Logo
           </Link>
         </Box>
+
+        <Box display={{ base: 'none', md: 'block' }}>
+          <Link to='/pasarela' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
+            Haste Premium
+          </Link>
+        </Box>
+
 
         <Box display={{ base: 'none', md: 'block' }}>
           <Link to='/comofunciona' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
@@ -59,83 +58,87 @@ const Navbar = () => {
             <MenuButton
               as={IconButton}
               icon={<HamburgerIcon />}
-              variant='ghost'
-              textDecoration='none'
+              variant="ghost"
             />
             <MenuList>
-              <MenuItem fontSize='lg'>
-                <Link to='/comofunciona' textDecoration='none'>
+              <MenuItem>
+                <Link to="/comofunciona" textDecoration="none">
                   ¿Cómo funciona?
                 </Link>
               </MenuItem>
-
-              <MenuItem
-                onClick={() => handleOptionClick('cliente')}
-                fontSize='lg'
-              >
+              <MenuItem onClick={() => handleOptionClick("cliente")}>
                 Soy Cliente
               </MenuItem>
-
               <MenuItem
-                as='a'
-                href='/login'
-                onClick={() => handleOptionClick('profesional')}
-                fontSize='lg'
+                as="a"
+                href="/login"
+                onClick={() => handleOptionClick("profesional")}
               >
                 Soy Profesional
               </MenuItem>
             </MenuList>
           </Menu>
         </Box>
-
-        <Box
-          display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
-          mt={{ base: 4, md: 0 }}
-        >
-          <ul>
-            <li>
-              <a style={{ fontSize: '20px' }} href='#' onClick={toggleDropdown} textDecoration='none'>
-                Registrate ▼
-              </a>
-              {isOpen && (
-                <ul>
-                  {/* Opción: Soy Cliente */}
-                  <li>
-                    <a
-                      href='#'
-                      onClick={() => handleOptionClick('cliente')}
-                      textDecoration='none'
-                      style={{ fontSize: '12px' }}
-                    >
-                      Soy Cliente
-                    </a>
-                  </li>
-
-                  {/* Opción: Soy Profesional */}
-                  <li>
-                    <a
-                      href='/registerProvider'
-                      onClick={() => handleOptionClick('profesional')}
-                      textDecoration='none'
-                      style={{ fontSize: '12px' }}
-                    >
-                      Soy Profesional
-                    </a>
-                  </li>
-                </ul>
-              )}
-            </li>
-          </ul>
-        </Box>
-
-        <Box display={{ base: 'none', md: 'block' }}>
-          <Link to='/userLogin' textDecoration='none' style={{ fontSize: '20px' }}>
-            Login
-          </Link>
-        </Box>
       </Flex>
-    </nav>
-  )
-}
 
-export default Navbar
+      <Box
+        display={{ base: "none", md: "block" }}
+        className={Styles.comoFuncionaContainer}
+      >
+        <Link className={Styles.comoFunciona} to="/comofunciona">
+          ¿Cómo funciona?
+        </Link>
+      </Box>
+
+      <Box
+        display={{ base: "none", md: "block" }}
+        className={Styles.menuContainer}
+      >
+        <ul className={Styles.menu}>
+          <li>
+            <a
+              href="#"
+              onClick={toggleDropdown}
+              className={Styles.dropdownToggle}
+              textDecoration="none"
+            >
+              Registrate ▼
+            </a>
+            {isOpen && (
+              <ul>
+                <li className={Styles.liDropdown}>
+                  <a href="#" onClick={() => handleOptionClick("cliente")}>
+                    Soy Cliente
+                  </a>
+                </li>
+                <li className={Styles.liDropdown}>
+                  <a
+                    href="/login"
+                    onClick={() => handleOptionClick("profesional")}
+                  >
+                    Soy Profesional
+                  </a>
+                </li>
+              </ul>
+            )}
+          </li>
+        </ul>
+      </Box>
+
+      <Box
+        display={{ base: "none", md: "block" }}
+        className={Styles.loginContainer}
+      >
+        <Link
+          to="/selectlogin"
+          className={Styles.loginLink}
+          textDecoration="none"
+        >
+          Login
+        </Link>
+      </Box>
+    </nav>
+  );
+};
+
+export default Navbar;

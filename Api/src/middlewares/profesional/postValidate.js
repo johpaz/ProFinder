@@ -1,4 +1,5 @@
 const { Profesional } = require('../../db');
+const { Client } = require('../../db');
 
 const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
@@ -24,6 +25,14 @@ const validateEmail = (email) => {
   if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
 };
  
+const validatePassword = (password) => {
+  if (!password) throw Error(`La contraseña es obligatoria`);
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
+};
+
 const validateImage = (image) => {
   if(!image) throw Error(`La propiedad image es obligatoria`);
   // // console.log(image)  //https://example.com/profile.jpg
@@ -82,12 +91,17 @@ module.exports = async (req,res,next) => {
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication } = req.body;
 
   try {
+    validateEmail(email);
     // console.log(name)
-    const matchEmail = await Profesional.findOne({where:{email: email}});
-    if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
+    const clientEmail = await Client.findOne({where:{email:email}});
+    if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    
+    const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
+
 
     validateName(name);
-    validateEmail(email);
+    validatePassword(password);
     validateImage(image);
     validateGenre(genre);
     validateYearsExp(years_exp);

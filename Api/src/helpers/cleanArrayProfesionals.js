@@ -1,5 +1,3 @@
-const { PostProfesional } = require("../models/PostProfesional");
-
 const cleanArray = (profesionals) => {
   return profesionals.map((profesional) => {
     const professions = profesional.Categories.map((category) => {
@@ -17,6 +15,7 @@ const cleanArray = (profesionals) => {
       id: profesional.id,
       name: profesional.name,
       email: profesional.email,
+      password: profesional.password,
       image: profesional.image,
       rating: profesional.rating,
       genre: profesional.genre,

@@ -7,7 +7,7 @@ const clientRouter = require('./clientRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
 const ocupationspRouter = require('./ocupationspRouter')
 const profesionalRouter = require('./profesionalRouter');
-
+const pasarelaRouter = require('../pasarelapagos/pasarelaRouter')
 const categoryRouter = require('./categoryRoutes');
 const postClientRouter = require("./postClientRoutes");
 const registerRouter = require('./registerRoutes');
@@ -15,11 +15,15 @@ const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 
+
+const passport= require ('passport')
 // Router: 
 
 const router = Router();
 
 // Enrutado:
+
+router.use('/cash', pasarelaRouter); // Clientes 
 
 router.use('/client', clientRouter); // Clientes 
 
@@ -42,4 +46,3 @@ router.use('/register', registerRouter); // register
 router.use('/login', loginRouter); //login
 
 module.exports = router;
-// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

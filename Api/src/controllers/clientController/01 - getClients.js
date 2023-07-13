@@ -1,5 +1,6 @@
 const { Client, Post } = require("../../db.js")
 const axios = require('axios');
+const cleanArrayClient = require('../../helpers/cleanArrayClient.js')
 
 const getAllClientsApi = async () => {
   try {
@@ -13,6 +14,7 @@ const getAllClientsApi = async () => {
       const normalizedClient = {
         name: apiClient.name ? apiClient.name.trim().slice(0, 40) : '',
         email: apiClient.email ? apiClient.email.trim() : '',
+        password: apiClient.password,
         phone: apiClient.phone ? apiClient.phone.replace(/\D/g, "").slice(0, 10) : '',
         image: apiClient.image ? apiClient.image.trim() : '',
         genre: apiClient.genre ? apiClient.genre.trim() : '',
@@ -30,8 +32,7 @@ const getAllClientsApi = async () => {
 
     // Crear todos los clientes de una sola vez en la base de datos
     await Client.bulkCreate(normalizedClients);
-
-    console.log('Base de datos llenada exitosamente.');
+    console.log('Base de datos llenada exitosamente con los clientes.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }
@@ -49,6 +50,8 @@ const getClients = async () => {
     });
 
     if (!clients) throw Error(`No hay clientes a mostrar`);
+    const cleanArray = await cleanArrayClient (clients);
+    return cleanArray
 
     return clients;
 };
