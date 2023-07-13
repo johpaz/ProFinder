@@ -8,7 +8,7 @@ const MercadoPagoForm = () => {
   const [totalAmount, setTotalAmount] = useState(1);
 
   const [preferenceId, setPreferenceId]= useState(null)
-  initMercadoPago('TEST-1094906479210663-070610-3a99b74510b6734630d8c8023163820f-5708218');
+  initMercadoPago('TEST-0d4f34e1-6344-46d8-bb18-7342da1c5c6b');
 
   const handleDonationChange = (donationAmount) => {
     setDonationAmount(donationAmount);
@@ -43,8 +43,8 @@ const MercadoPagoForm = () => {
         const id = await createPreference();
         if (id) {
             setPreferenceId(id);
-        }console.log(id);
-    }
+        }
+    }; 
 
 
     return (
