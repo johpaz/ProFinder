@@ -40,11 +40,10 @@ const getClientByIdHandler = async (req, res) => {
 
 
 const createUserClient = async (req, res) => {
-  const { name, email, password, phone, } = req.body;
-  console.log(req.body);
+  const { name, phone, } = req.body
   try {
 
-    const clientCreated = await createClient(name, email, password, phone)
+    const clientCreated = await createClient(name, phone)
 
     //constante donde guardo lo que retorna el controller createClient y envio la respuesta
 
@@ -57,9 +56,9 @@ const createUserClient = async (req, res) => {
 };
 const putClient = async (req, res) => {
   const { id } = req.params;
-  const { name, email, image, genre, description } = req.body;
+  const { name, image, phone, genre, description, ubication } = req.body;
   //Guardamos la info de req.body en un objeto, para trabajar mas organizado cuando la funcion reciba el id y el mismo objeto.
-  const clientInfo = { name, email, image, genre, description }
+  const clientInfo = { name, image, phone, genre, description, ubication }
   try {
     const updatedClient = await updateClient(clientInfo, id)
 
