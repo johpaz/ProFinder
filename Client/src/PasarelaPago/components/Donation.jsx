@@ -9,7 +9,7 @@ const MercadoPagoForm = () => {
   const [totalAmount, setTotalAmount] = useState(1);
   const [preferenceId, setPreferenceId] = useState(null);
 
-  initMercadoPago('TEST-0d4f34e1-6344-46d8-bb18-7342da1c5c6b');
+  initMercadoPago('TEST-ba200465-92d0-4e0d-ad63-68dae9b8466f');
 
   const handleDonationChange = (donationAmount) => {
     setDonationAmount(donationAmount);
@@ -68,7 +68,7 @@ const MercadoPagoForm = () => {
         </Button>
       </Stack>
       <Stack direction="row" spacing={2} align="center" mb={4}>
-             <NumberInput size="sm" min={1} value={donationAmount} onChange={(_, value) => handleDonate(value)}>
+        <NumberInput size="sm" min={1} value={donationAmount} onChange={(_, value) => handleDonate(value)}>
           <NumberInputField />
           <NumberInputStepper>
             <NumberIncrementStepper bgColor="#141313" color="#fff" />
@@ -83,7 +83,7 @@ const MercadoPagoForm = () => {
         <Button colorScheme="blue" onClick={handleBuy}>
           Paga
         </Button>
-        {preferenceId && <Wallet customization={{ preferenceId }} />}
+        {preferenceId && <Wallet initialization={{ preferenceId }} />}
       </Stack>
     </Box>
   );
