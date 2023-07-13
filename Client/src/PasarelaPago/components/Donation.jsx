@@ -1,90 +1,91 @@
 import { useState } from 'react';
-import './Donation.css';
-import { initMercadoPago,Wallet} from '@mercadopago/sdk-react'
+import { Box, Button, Heading, Stack, Text, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import axios from 'axios';
+import imageLogo from './logo.png';
 
 const MercadoPagoForm = () => {
   const [donationAmount, setDonationAmount] = useState(1);
   const [totalAmount, setTotalAmount] = useState(1);
+  const [preferenceId, setPreferenceId] = useState(null);
 
-  const [preferenceId, setPreferenceId]= useState(null)
-  initMercadoPago('TEST-0d4f34e1-6344-46d8-bb18-7342da1c5c6b');
+  initMercadoPago('TEST-ba200465-92d0-4e0d-ad63-68dae9b8466f');
 
   const handleDonationChange = (donationAmount) => {
     setDonationAmount(donationAmount);
-    setTotalAmount(donationAmount*1)
+    setTotalAmount(donationAmount * 1);
   };
 
-  const handleDonate = (e) => {
-    setDonationAmount(e.target.value);
-    setTotalAmount(e.target.value*1);
- };
+  const handleDonate = (value) => {
+    setDonationAmount(value);
+    setTotalAmount(value * 1);
+  };
 
- // Mercado pago funtions
+  const createPreference = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/cash', {
+        description: 'Gracias por los Cafesitos',
+        price: totalAmount,
+        quantity: 1,
+      });
+      console.log(response);
+      const { id } = response.data;
+      console.log(id);
+      return id;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
- const createPreference = async () =>
-{
-    try{
-        const response = await axios.post('http://localhost:3001/cash',{
-            description: "Gracias por los Cafesitos",
-            price: totalAmount,
-            quantity:1,
-        });
-        console.log(response);
-        const {id} = response.data;
-        console.log(id);
-        return id;
-        }catch(error){
-            console.log(error.message);
-        }
-    };
+  const handleBuy = async () => {
+    const id = await createPreference();
+    if (id) {
+      setPreferenceId(id);
+    }
+  };
 
-    const handleBuy = async () => {
-        const id = await createPreference();
-        if (id) {
-            setPreferenceId(id);
-        }
-    }; 
-
-
-    return (
-    <div className="mercado-pago-form">
-      <h2>Ayúdame con un Café</h2>
-      <div className="donation-buttons">
-            <button type="button" className="donate-button" onClick={()=>handleDonationChange(3)}>
-            😁 ☕ x3
-            </button>
-            <button type="button" className="donate-button" onClick={()=>handleDonationChange(5)}>
-            
-            😁 ☕ x5
-            </button>
-            <button type="button" className="donate-button" onClick={()=> handleDonationChange(10)}>
-            😁 ☕ x10
-            </button>
-       </div>
-        <div className="input-container">
-            <button className="decrement-button"  onClick={() => { if (donationAmount > 1) {handleDonationChange(donationAmount - 1);} }}>-</button>
-                <button className="increment-button" onClick={() => handleDonationChange(donationAmount + 1)}>+</button>
-                
-                <input
-                    className="donate-input"
-                    type="number"
-                    min="1"
-                    value={donationAmount}
-                    onChange={handleDonate}
-                />
-            
-                <p className="donate-amount">
-                    Invitame {donationAmount} {donationAmount === 1 ? "Cafesito $" : "Cafesitos $"} {totalAmount}❣
-                </p>
-        </div>
-
-        <div>
-        <button className="donate-button" onClick={handleBuy}>Paga</button>
-        {preferenceId &&  <Wallet initialization={{ preferenceId}} />}
-        </div>
-
-    </div>
+  return (
+    <Box maxW="400px" mx="auto" p={4} bg="#f2f2f2" borderRadius="8px">
+      <Box
+        bg={`url(${imageLogo}) center center / cover`}
+        w="350px"
+        h="90px"
+        borderRadius="8px"
+        mb={4}
+      />
+      <Heading as="h2" textAlign="center" mb={4}>
+        Ayúdame con un Café
+      </Heading>
+      <Stack direction="row" spacing={2} mb={4}>
+        <Button onClick={() => handleDonationChange(3)} bgColor="#e64949" color="#fff">
+          😁 ☕ x3
+        </Button>
+        <Button onClick={() => handleDonationChange(5)} bgColor="#e64949" color="#fff">
+          😁 ☕ x5
+        </Button>
+        <Button onClick={() => handleDonationChange(10)} bgColor="#e64949" color="#fff">
+          😁 ☕ x10
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} align="center" mb={4}>
+        <NumberInput size="sm" min={1} value={donationAmount} onChange={(_, value) => handleDonate(value)}>
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper bgColor="#141313" color="#fff" />
+            <NumberDecrementStepper bgColor="#141313" color="#fff" />
+          </NumberInputStepper>
+        </NumberInput>
+        <Text className="donate-amount">
+          Invitame {donationAmount} {donationAmount === 1 ? 'Cafesito $' : 'Cafesitos $'} {totalAmount}❣
+        </Text>
+      </Stack>
+      <Stack direction="row" mb={4}>
+        <Button colorScheme="blue" onClick={handleBuy}>
+          Paga
+        </Button>
+        {preferenceId && <Wallet initialization={{ preferenceId }} />}
+      </Stack>
+    </Box>
   );
 };
 
