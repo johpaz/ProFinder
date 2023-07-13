@@ -14,7 +14,7 @@ const registerRouter = require('./registerRoutes');
 const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
-
+const countryRouter = require('./countryRoutes');
 
 const passport= require ('passport')
 // Router: 
@@ -44,5 +44,7 @@ router.use('/profesional-images',profesionalImagesRouter); // Posts de las image
 router.use('/register', registerRouter); // register
 
 router.use('/login', loginRouter); //login
+
+router.use('/country',countryRouter); // Country
 
 module.exports = router;
