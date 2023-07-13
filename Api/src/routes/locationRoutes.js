@@ -4,6 +4,10 @@ const { Router } = require('express');
 
 const {getAllLocations, postLocation} = require('../handlers/locationHandlers')
 
+// Middleware
+
+const postValidate = require('../middlewares/location/postValidate');
+
 // Router
 
 const locationRouter = Router();
@@ -12,6 +16,6 @@ const locationRouter = Router();
 
 locationRouter.get('/',getAllLocations);
 
-locationRouter.post('/',postLocation);
+locationRouter.post('/',postValidate,postLocation);
 
 module.exports = locationRouter;
