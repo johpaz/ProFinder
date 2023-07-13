@@ -10,6 +10,8 @@ const CategoryModel = require('./models/Category');
 const PostProfesionalModel = require('./models/PostProfesional');
 const UserModel= require ('./models/User')
 const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
+const CountryModel = require('./models/Country');
+const LocationModel = require('./models/Location');
 
 // Credenciales
 
@@ -29,10 +31,12 @@ CategoryModel(sequelize);
 PostProfesionalModel(sequelize);
 ProfesionalImagesPostModel(sequelize);
 UserModel(sequelize);
+CountryModel(sequelize);
+LocationModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const {Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost } = sequelize.models;
+const {Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost, Country, Location } = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -61,6 +65,9 @@ ProfesionalImagesPost.belongsTo(Profesional);
 Category.hasMany(Ocupation);
 
 Ocupation.belongsTo(Category);
+
+Country.hasMany(Location);
+Location.belongsTo(Country);
 
 // Relacionar ambos modelos:
 
