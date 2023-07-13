@@ -26,6 +26,10 @@ const getProfesionalById = async (id) => {
       {
         model: ProfesionalImagesPost,
         attributes: ["image", "description"],
+      },
+      {
+        model: PostProfesional,
+        attributes: ["title", "category", "ocupation", "image", "content"]
       }
     ]
   });

@@ -10,17 +10,24 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
+      validate: {
         is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
-        len:[5,40] // Nombre entre 5 y 40 caracteres
+        len: [5, 40] // Nombre entre 5 y 40 caracteres
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate:{
+      validate: {
         isEmail: true,
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ //Expresion regular que valida si el nombre tiene por lo menos 1 mayuscula/minuscula/numero/caracter 
       }
     },
     phone: {
@@ -42,7 +49,7 @@ module.exports = (sequelize) => {
     },
     genre: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     rating: {
       type: DataTypes.FLOAT,
@@ -52,14 +59,14 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
-      validate:{
+      validate: {
         is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
-        len: [5,120]
+        len: [5, 120]
       }
     },
     ubication: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         len: [5, 50], // Ubicación entre 5 a 50 caracteres
         is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
@@ -83,4 +90,5 @@ module.exports = (sequelize) => {
   }, {
     timestamps: false,
   });
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+};
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

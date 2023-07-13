@@ -8,16 +8,16 @@ const ClientModel = require('./models/Client');
 const PostModel = require('./models/Post');
 const CategoryModel = require('./models/Category');
 const PostProfesionalModel = require('./models/PostProfesional');
-const UserModel= require ('./models/User')
+const UserModel = require('./models/User')
 const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 
 // Credenciales
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME,DB_PORT} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 
 // Instanciamos sequelize
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,{logging:false});
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, { logging: false });
 
 // Definimos los modelos -> usando una función que recibe una instancia de sequelize
 
@@ -32,15 +32,15 @@ UserModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const {Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost } = sequelize.models;
+const { Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost } = sequelize.models;
 
 // Relacionar los modelos n:n
 
-Profesional.belongsToMany(Category,{through:"ProfesionalCategory"});
-Category.belongsToMany(Profesional,{through:"ProfesionalCategory"});
+Profesional.belongsToMany(Category, { through: "ProfesionalCategory" });
+Category.belongsToMany(Profesional, { through: "ProfesionalCategory" });
 
-Profesional.belongsToMany(Ocupation,{through: "ProfesionalOcupations"});
-Ocupation.belongsToMany(Profesional,{through: "ProfesionalOcupations"});
+Profesional.belongsToMany(Ocupation, { through: "ProfesionalOcupations" });
+Ocupation.belongsToMany(Profesional, { through: "ProfesionalOcupations" });
 
 // Relacionar los modelos 1:n
 
@@ -64,8 +64,8 @@ Ocupation.belongsTo(Category);
 
 // Relacionar ambos modelos:
 
-Profesional.belongsToMany(Client,{through:"ProfesionalClientRelation"});
-Client.belongsToMany(Profesional,{through:"ProfesionalClientRelation"});
+Profesional.belongsToMany(Client, { through: "ProfesionalClientRelation" });
+Client.belongsToMany(Profesional, { through: "ProfesionalClientRelation" });
 
 
 // Relacionar 1:1:
