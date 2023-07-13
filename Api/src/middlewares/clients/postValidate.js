@@ -46,14 +46,14 @@ const validateEmail = (email) => {
 
 };
 
-// const validateImage = (image) => {
-
-//     const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
-//     if (!regexImage.test(image)) {
-//         throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
-//     }
-
-// };
+const validatePassword = (password) => {
+    if (!password) {
+        throw Error("Ingrese una contraseña.")
+    }
+    if (password.length < 6) {
+        throw Error("La contraseña debe contar con al menos 6 caracteres.")
+    }
+}
 
 const validatePhone = (phone) => {
     if (!phone) {
@@ -73,30 +73,7 @@ const validatePhone = (phone) => {
     };
 };
 
-// const validateGenre = (genre) => {
-//     if (typeof genre !== "string") {
-//         throw Error("El tipo de dato de genre debe ser un string")
-//     };
-//     const genres = ["Male", "Female"]
-//     if (!genres.includes(genre)) {
-//         throw Error("Eliga un genero correcto.")
-//     };
-// };
 
-// const validateDescription = (description) => {
-//     if (typeof description !== "string") {
-//         throw Error("El tipo de dato de description debe ser un string.")
-//     }
-//     if (description.length > 150) {
-//         throw Error("La descripcion no puede contar con mas de 150 caracteres.")
-//     };
-// };
-
-// const validateUbication = (ubication) => {
-//     if (typeof ubication !== "string") {
-//         throw Error("El tipo de dato de ubication debe ser un string.");
-//     };
-// };
 
 module.exports = async (req, res, next) => {
     const { name, email, phone, image, genre, description, ubication } = req.body
@@ -104,7 +81,7 @@ module.exports = async (req, res, next) => {
 
         const matchEmail = await Client.findOne({ where: { email: email } });
         if (matchEmail) {
-            return res.status(404).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
+            return res.status(400).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
         };
         validateName(name);
         validateEmail(email);
