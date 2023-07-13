@@ -23,7 +23,11 @@ const userRegister= async (req,res)=>{
 
                     console.log(newClient)
 
-
+                    // if (newClient[0][0]===undefined) res.status(200).json({
+                    //     usuario:usuario,
+                    //     email:email,
+                    //     password:password,
+                    //     message:"No pertenece al tipo de usuario seleccionado"})
 
                     break;
                 case 'p':
@@ -42,9 +46,14 @@ const userRegister= async (req,res)=>{
 
 
 
-
-            req.flash('info', "Se ha registrado correctamente, ya puede iniciar sesion");//en la vista front se llamaria con la palabra info
-            res.status(200).json({message:  req.flash('info')});
+            {res.status(200).json({
+                name:name,
+                usuario:usuario,
+                email:email,
+                password:password,
+                message:"El usuario se ha registrado exitosamente"})}
+           
+            //res.status(200).json({message:  req.flash('info')});
         
         
         }

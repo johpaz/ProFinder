@@ -7,12 +7,14 @@ import HowDoesItWork from '../src/components/HowDoesItWork/HowDoesItWork'
 import Footer from './components/Footer/Footer'
 import DetailSupplier from './views/DetailsSupplier/DetailsSupplier'
 import UserLogin from './views/UserLogin/UserLogin'
+import Donation from './PasarelaPago/components/Donation.jsx'
 
 function App() {
   return (
     <div>
       <Navbar />
       <Routes>
+        <Route path='/pasarela' element={<Donation/>}/>
         <Route path='/' element={<HomePage />} />
         <Route path='/categories' element={<Categories />} />
         <Route path='/comofunciona' element={<HowDoesItWork />} />
