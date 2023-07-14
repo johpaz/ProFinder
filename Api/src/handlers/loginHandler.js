@@ -45,6 +45,7 @@ const {sequelize} = require("../db");
                 message:"No pertenece al tipo de usuario seleccionado"})    ;break; }
 
                 else{res.status(200).json({
+                    id:loginClient[0][0].id,
                     usuario:usuario,
                     email:email,
                     password:password,
@@ -56,7 +57,7 @@ const {sequelize} = require("../db");
 
                 const loginProf= await sequelize.query(`SELECT * FROM "Profesionals" WHERE "email"= '${email}'`);
 
-                console.log(loginProf[0][0])
+                console.log(loginProf[0][0].id)
 
                 if (loginProf[0][0]==undefined){ res.status(200).json({
                     usuario:usuario,
@@ -65,6 +66,7 @@ const {sequelize} = require("../db");
                     message:"No pertenece al tipo de usuario seleccionado"})  ; break;}
 
 else{res.status(200).json({
+    id:loginProf[0][0].id,
     usuario:usuario,
     email:email,
     password:password,
