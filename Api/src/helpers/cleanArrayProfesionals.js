@@ -1,5 +1,17 @@
-const cleanArray = (profesionals) => {
+const {Country,Location} = require('../db');
+
+const cleanArray = async (profesionals) => {
+
+  const countries = await Country.findAll();
+  const locations = await Location.findAll();
   return profesionals.map((profesional) => {
+    // console.log(profesional.dataValues);
+    const country = countries.find((country) => country.id === profesional.CountryId)?.name;
+    const location = locations.find((location) => location.id === profesional.LocationId)?.name;
+    console.log(country)
+    console.log(location);
+
+
     const professions = profesional.Categories.map((category) => {
       const ocupations = profesional.Ocupations.filter((ocupation) => ocupation.CategoryId === category.id);
       return {
@@ -11,20 +23,23 @@ const cleanArray = (profesionals) => {
         }))
       };
     });
-    return {
-      id: profesional.id,
-      name: profesional.name,
-      email: profesional.email,
-      password: profesional.password,
-      image: profesional.image,
-      rating: profesional.rating,
-      genre: profesional.genre,
-      years_exp: profesional.years_exp,
-      phone: profesional.phone,
-      ubication: profesional.ubication,
-      professions: professions,
-      posts: profesional.PostProfesionals
-    };
+  return {
+    id: profesional.id,
+    name: profesional.name,
+    email: profesional.email,
+    password: profesional.password,
+    image: profesional.image,
+    rating: profesional.rating,
+    genre: profesional.genre,
+    years_exp: profesional.years_exp,
+    phone: profesional.phone,
+    ubication: {
+      country: country,
+      location: location,
+    },
+    professions: professions,
+    posts: profesional.PostProfesionals
+  };
   });
 };
 
