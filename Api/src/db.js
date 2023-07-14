@@ -36,11 +36,7 @@ LocationModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-<<<<<<< HEAD
-const { Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost } = sequelize.models;
-=======
-const {Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost, Country, Location } = sequelize.models;
->>>>>>> 7ff58b1d924af3dfec3ca7c557b884942615de70
+const { Profesional, Category, Ocupation, Client, Post, PostProfesional, User, ProfesionalImagesPost, Country, Location } = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -85,4 +81,4 @@ User.hasOne(Profesional)
 module.exports = {
   sequelize,
   ...sequelize.models
-};
+}
