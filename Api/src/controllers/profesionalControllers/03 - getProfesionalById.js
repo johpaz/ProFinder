@@ -29,7 +29,7 @@ const getProfesionalById = async (id) => {
       },
       {
         model: PostProfesional,
-        attributes: ["title", "category", "ocupation", "image", "content"]
+        attributes: ["id", "title", "category", "ocupation", "image", "content"]
       }
     ]
   });
