@@ -9,7 +9,7 @@ const cleanArrayClientById = (client) => {
     description: client.description,
     genre: client.genre,
     ubication: client.ubication,
-    Post: client.Posts
+    post: client.Posts
   };
 };
 
