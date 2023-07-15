@@ -92,38 +92,17 @@ const validateCountry = (CountryId) => {
   if(CountryId < 1 && CountryId > 20) throw Error(`Debe proporcionar un id del país entre los existentes - 1 al 20`);
 };
 
-// const validateLocation = (CountryId,LocationId) => {
-//   if(!LocationId || LocationId === undefined || LocationId === null) throw Error(`Debe proporcionar el id de la ciudad en la que se ubica el profesional`);
-//   if(!Number(LocationId)) throw Error(`El id de la ciudad debe ser númerico`);
-//   if(CountryId === 1 && (LocationId > 0 && LocationId < 24) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 2 && (LocationId > 23 && LocationId < 33) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 3 && (LocationId > 32 && LocationId < 60) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 4 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 5 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 6 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 7 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 8 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 9 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 10 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 11 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-  
-
-// };
-
 module.exports = async (req,res,next) => {
-
+  const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
-
   try {
+    validateId(id);
     validateEmail(email);
-    console.log(image)
+    // console.log(image)
     const clientEmail = await Client.findOne({where:{email:email}});
     if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
-    
     const profesionalEmail = await Profesional.findOne({where:{email: email}});
     if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
-
-
     validateName(name);
     validatePassword(password);
     validateImage(image);
@@ -138,4 +117,4 @@ module.exports = async (req,res,next) => {
   } catch (error) {
     return res.status(400).json({error: error.message});
   };
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}
