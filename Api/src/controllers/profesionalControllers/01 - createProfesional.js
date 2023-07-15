@@ -69,8 +69,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const ocupationsBDD = await Ocupation.findAll({where:{name:resolvedOcupations.map((ocupation)=>ocupation.name)}});
   await newProfesional.addOcupations(ocupationsBDD);
-  await newProfesional.setCountry(country);
-  await newProfesional.setLocation(location);
+  await newProfesional.setCountry(country.id);
+  await newProfesional.setLocation(location.id);
 
   if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
 
@@ -83,7 +83,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     years_exp: newProfesional.years_exp,
     phone:newProfesional.phone,
     ubication: newProfesional.ubication,
-    ubi:"",
+    country:country.name,
+    location: location.name,
     categories: resolvedCategories
   };
 };

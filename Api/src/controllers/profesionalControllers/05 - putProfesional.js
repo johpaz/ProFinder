@@ -106,6 +106,8 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     description: profesionalInBDD.description,
     phone:profesionalInBDD.phone,
     ubication: profesionalInBDD.ubication,
+    country:countryBDD.name,
+    location: locationBDD.name,
     categories: resolvedCategories
   };
 };
