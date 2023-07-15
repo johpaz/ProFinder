@@ -1,9 +1,11 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
+const { Country } = require('../../db');
+const { Location } = require('../../db');
 const { Op } = require('sequelize');
 
-const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication) => {
+const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
@@ -63,6 +65,8 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.description = description || profesionalInBDD.description;
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
   profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
+  profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
+  profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
   await profesionalInBDD.save();
 
   // Set associations
@@ -83,8 +87,13 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     }
   });
 
+  const countryBDD = await Country.findByPk(CountryId);
+  const locationBDD = await Location.findByPk(LocationId);
+
   await profesionalInBDD.setCategories(categoriesBDD);
   await profesionalInBDD.setOcupations(ocupationsBDD);
+  await profesionalInBDD.setCountry(countryBDD.id);
+  await profesionalInBDD.setLocation(locationBDD.id);
 
   // Return updated professional
 
