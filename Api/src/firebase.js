@@ -4,6 +4,8 @@ const admin = require('firebase-admin')
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
+  storageBucket: 'react-imagenes-profinder.appspot.com' // Reemplaza con el nombre del bucket correcto
+
 });
 
 const storage = admin.storage();
