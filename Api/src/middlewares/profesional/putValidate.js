@@ -1,6 +1,11 @@
 const { Profesional } = require('../../db');
 const { Client } = require('../../db');
 
+const validateId = (id) => {
+  if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar un profesional`);
+  if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
+};
+
 const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
   if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
@@ -96,13 +101,14 @@ module.exports = async (req,res,next) => {
   const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
   try {
+    console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
     validateId(id);
-    validateEmail(email);
+    // validateEmail(email);
     // console.log(image)
-    const clientEmail = await Client.findOne({where:{email:email}});
-    if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
-    const profesionalEmail = await Profesional.findOne({where:{email: email}});
-    if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
+    // const clientEmail = await Client.findOne({where:{email:email}});
+    // if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    // const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    // if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
     validateName(name);
     validatePassword(password);
     validateImage(image);
