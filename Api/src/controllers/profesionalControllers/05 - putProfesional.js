@@ -64,7 +64,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
-  profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
+  // profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
   profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
   profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
   await profesionalInBDD.save();
@@ -105,7 +105,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,
     phone:profesionalInBDD.phone,
-    ubication: profesionalInBDD.ubication,
+    // ubication: profesionalInBDD.ubication,
     country:countryBDD.name,
     location: locationBDD.name,
     categories: resolvedCategories
