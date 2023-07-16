@@ -26,11 +26,11 @@ const validateEmail = (email) => {
 };
  
 const validatePassword = (password) => {
-  // if (!password) throw Error(`La contraseña es obligatoria`);
-  // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
-  // if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
-  // if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
-  // if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
+  if (!password) throw Error(`La contraseña es obligatoria`);
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, además de tener una longitud entre 6 y 15 caracteres`);
 };
 
 const validateImage = (image) => {
@@ -116,7 +116,7 @@ module.exports = async (req,res,next) => {
 
   try {
     validateEmail(email);
-    console.log(image)
+    console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
     const clientEmail = await Client.findOne({where:{email:email}});
     if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
     
