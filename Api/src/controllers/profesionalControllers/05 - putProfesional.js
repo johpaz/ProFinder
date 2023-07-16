@@ -4,6 +4,7 @@ const { Ocupation } = require('../../db');
 const { Country } = require('../../db');
 const { Location } = require('../../db');
 const { Op } = require('sequelize');
+const { getImageUrl } = require('../../firebase');
 
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
@@ -54,12 +55,15 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
 
   const resolvedCategories = await Promise.all(categoriesFormat);
 
+  const imageUrl = await getImageUrl(image);
+  const domain = "https://firebasestorage.googleapis.com";
+
   // Update profesional
 
   profesionalInBDD.name = name || profesionalInBDD.name;
   profesionalInBDD.email = email || profesionalInBDD.email;
   profesionalInBDD.password = password || profesionalInBDD.password;
-  profesionalInBDD.image = image || profesionalInBDD.image;
+  profesionalInBDD.image = imageUrl || profesionalInBDD.image;
   profesionalInBDD.genre = genre || profesionalInBDD.genre;
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
@@ -101,6 +105,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     id: profesionalInBDD.id,
     name: profesionalInBDD.name,
     email: profesionalInBDD.email,
+    image: `${domain}/newAvatar`,
     genre: profesionalInBDD.genre,
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,
@@ -112,4 +117,4 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   };
 };
 
-module.exports = updateProfesional;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = updateProfesional;

@@ -3,6 +3,7 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Country } = require('../../db');
 const { Location } = require('../../db');
+const { getImageUrl } = require('../../firebase');
 
 const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
@@ -46,11 +47,13 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const location = await Location.findByPk(LocationId);
 
+  const imageUrl = await getImageUrl(image)
+
   const profesionalFormat = { 
     name,
     email,
     password: password,
-    image,
+    image: imageUrl,
     genre, 
     years_exp,
     phone, 
@@ -78,6 +81,7 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     id: newProfesional.id,
     name: newProfesional.name,
     email: newProfesional.email,
+    image: newProfesional.image.split(".com")[0] + "avatar",
     password: newProfesional.password,
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
