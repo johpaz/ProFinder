@@ -92,16 +92,16 @@ const validatePhone = (phone) => {
 // };
 
 const validateCountry = (CountryId) => {
-  if(!CountryId ||CountryId === undefined || CountryId === null) throw Error(`Debe proporcionar el id del país donde se ubica el profesional`);
-  if(!Number(CountryId)) throw Error(`El id del país debe ser númerico`);
-  if(CountryId < 1 && CountryId > 20) throw Error(`Debe proporcionar un id del país entre los existentes - 1 al 20`);
+  // if(!CountryId ||CountryId === undefined || CountryId === null) throw Error(`Debe proporcionar el id del país donde se ubica el profesional`);
+  // if(!Number(CountryId)) throw Error(`El id del país debe ser númerico`);
+  // if(CountryId < 1 && CountryId > 20) throw Error(`Debe proporcionar un id del país entre los existentes - 1 al 20`);
 };
 
 module.exports = async (req,res,next) => {
   const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
   try {
-    console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
+    // console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
     validateId(id);
     // validateEmail(email);
     // console.log(image)
@@ -118,7 +118,7 @@ module.exports = async (req,res,next) => {
     validateOcupations(ocupations);
     validatePhone(phone);
     // validateUbication(ubication);
-    validateCountry(CountryId);
+    // validateCountry(CountryId);
     next();
   } catch (error) {
     return res.status(400).json({error: error.message});
