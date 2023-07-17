@@ -65,7 +65,7 @@ const getProfesionals = async (req,res) => {
 
   const putProfesional = async (req,res) => {
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
     const { name, email,password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
     try {
       const updatedProfesional = await updateProfesional(id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId);
