@@ -9,7 +9,7 @@ const MercadoPagoForm = () => {
   const [totalAmount, setTotalAmount] = useState(1);
   const [preferenceId, setPreferenceId] = useState(null);
 
-  initMercadoPago('TEST-ba200465-92d0-4e0d-ad63-68dae9b8466f');
+  initMercadoPago('TEST-6d144f52-f1d4-4a24-853e-d1b4592053fb');
 
   const handleDonationChange = (donationAmount) => {
     setDonationAmount(donationAmount);
@@ -23,7 +23,7 @@ const MercadoPagoForm = () => {
 
   const createPreference = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/cash', {
+      const response = await axios.post('http://localhost:3006/cash', {
         description: 'Gracias por los Cafesitos',
         price: totalAmount,
         quantity: 1,
