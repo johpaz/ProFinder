@@ -52,6 +52,16 @@ Client.hasMany(Review);
 
 Review.belongsTo(Client);
 
+Profesional.hasMany(Review);
+
+PostProfesional.hasMany(Category)
+Category.belongsTo(PostProfesional)
+
+PostProfesional.hasMany(Ocupation)
+Ocupation.belongsTo(PostProfesional)
+
+Review.belongsTo(Profesional);
+
 Profesional.hasMany(PostProfesional);
 
 PostProfesional.belongsTo(Profesional);
