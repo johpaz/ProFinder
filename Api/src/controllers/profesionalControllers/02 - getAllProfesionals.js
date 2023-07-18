@@ -1,10 +1,9 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
-const { Country } = require('../../db');
-const { Location } = require('../../db');
+const { Country } = require('../../db'); 
+const { Location } = require('../../db'); 
 const { PostProfesional } = require("../../db")
-const { Review } = require("../../db")
 const cleanArray = require('../../helpers/cleanArrayProfesionals');
 
 const axios = require('axios');
@@ -49,7 +48,7 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones, CountryId, LocationId } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, LocationId  } = normalizedProfessional;
 
       const newProfesional = await Profesional.create(normalizedProfessional);
 
@@ -71,7 +70,6 @@ const getAllProfesionalApi = async () => {
   }
 };
 
-
 const getAllProfesionals = async () => {
   try {
     let profesionals = await Profesional.findAll({
@@ -89,7 +87,7 @@ const getAllProfesionals = async () => {
         {
           model: PostProfesional,
           attributes: ["id", "title", "category", "ocupation", "image", "content"]
-        },
+        }
       ]
     });
 
@@ -116,7 +114,6 @@ const getAllProfesionals = async () => {
     }
 
     if (profesionals.length === 0 || !profesionals) throw Error(`No hay profesionales a buscar`);
-
 
     const cleanedArray = cleanArray(profesionals);
 

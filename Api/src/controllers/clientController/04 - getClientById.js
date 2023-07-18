@@ -5,7 +5,7 @@ const getClientById = async (id) => {
     const searchClient = await Client.findByPk(id, {
         include: {
             model: Review,
-            attributes: ["content"]
+            attributes: ["title", "image", "content"]
         }
     })
     if(!searchClient) throw Error(`No existe un cliente de id: ${id}`);

@@ -2,7 +2,6 @@ const { Country } = require('../db');
 const { Location } = require('../db');
 
 const cleanArrayProfesionalId = async (profesionalId) => {
-
   const cleanedProfesionals = await Promise.all(
     profesionalId.map(async (profesional) => {
       const country = await Country.findByPk(profesional.CountryId);
@@ -34,8 +33,7 @@ const cleanArrayProfesionalId = async (profesionalId) => {
         },
         professions: professions,
         jobimages: profesional.ProfesionalImagesPosts,
-        posts: profesional.PostProfesionals,
-        reviews: profesional.Reviews
+        posts: profesional.PostProfesionals
       };
     })
   );

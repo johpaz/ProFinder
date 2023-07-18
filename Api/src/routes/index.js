@@ -9,7 +9,7 @@ const ocupationspRouter = require('./ocupationspRouter')
 const profesionalRouter = require('./profesionalRouter');
 const pasarelaRouter = require('../pasarelapagos/pasarelaRouter')
 const categoryRouter = require('./categoryRoutes');
-const reviewRouter = require("./reviewRoutes");
+const postClientRouter = require("./postClientRoutes");
 const registerRouter = require('./registerRoutes');
 const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
@@ -37,17 +37,17 @@ router.use('/ocupations', ocupationsRouter); // Ocupaciones
 
 router.use('/ocupationsp', ocupationspRouter); // profesionales por Ocupacion
 
-router.use("/review", reviewRouter); // Posts del cliente
+router.use("/postClient", postClientRouter); // Posts del cliente
 
 router.use("/postProfesional", postProfesional) // Post del profesional
 
-router.use('/profesional-images', profesionalImagesRouter); // Posts de las imagenes de los profesionales (detail)
+router.use('/profesional-images',profesionalImagesRouter); // Posts de las imagenes de los profesionales (detail)
 
 router.use('/register', registerRouter); // register
 
 router.use('/login', loginRouter); //login
 
-router.use('/country', countryRouter); // Country
+router.use('/country',countryRouter); // Country
 
 router.use('/location',locationRouter);
 

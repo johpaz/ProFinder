@@ -38,7 +38,6 @@ const cleanArray = async (profesionals) => {
         },
         professions: professions,
         posts: profesional.PostProfesionals,
-        reviews: profesional.Reviews
       };
     })
   );

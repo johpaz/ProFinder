@@ -17,7 +17,7 @@ clientRouter.get('/', getClientsHandler);
 clientRouter.get('/:id', getClientByIdHandler);
 clientRouter.post('/', postValidate, createUserClient);
 
-clientRouter.put('/:id', putClient);
+clientRouter.put('/:id', putValidate, putClient);
 clientRouter.put('/delete/:id', logicDeleteHandler)
 
 module.exports = clientRouter;

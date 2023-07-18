@@ -19,7 +19,6 @@
     "express-session": "^1.17.3",
     "faker": "^5.5.3",
     "firebase-admin": "^11.10.1",
-    "googleapis": "^122.0.0",
     "mercadopago": "^1.5.16",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
