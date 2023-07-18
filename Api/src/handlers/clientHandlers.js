@@ -9,7 +9,7 @@ const getClientsHandler = async (req, res) => {
   const { name } = req.query
   try {
     let clients = await getClients();
-    if(name) {
+    if (name) {
       clients = await getClientByName(name)
     }
 
@@ -62,11 +62,13 @@ const createUserClient = async (req, res) => {
 };
 const putClient = async (req, res) => {
   const { id } = req.params;
-  const { name, image, phone, genre, description, ubication } = req.body;
+  console.log(id)
+  const { name, email, password, image, genre, description, phone, CountryId, LocationId } = req.body;
+  console.log(name, email, password, image, genre, description, phone, CountryId, LocationId);
   //Guardamos la info de req.body en un objeto, para trabajar mas organizado cuando la funcion reciba el id y el mismo objeto.
-  const clientInfo = { name, image, phone, genre, description, ubication }
+  const clientInfo = { name, email, password, image, genre, description, phone }
   try {
-    const updatedClient = await updateClient(clientInfo, id)
+    const updatedClient = await updateClient(id, name, email, password, image, genre, description, phone, CountryId, LocationId)
 
 
     return res.status(200).json(updatedClient);
