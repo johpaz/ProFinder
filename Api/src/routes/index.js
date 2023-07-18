@@ -16,8 +16,8 @@ const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
-const loginGoogleRouter=require('./googleRoutes')
-
+const loginGoogleRouter=require('./googleRoutes');
+const insertImage=require('./insertImage');
 
 // Router: 
 
@@ -52,6 +52,8 @@ router.use('/country',countryRouter); // Country
 router.use('/location',locationRouter);
 
 router.use('/auth/google', loginGoogleRouter) //google
+
+router.use('/image', insertImage)
 
 // Esto es para mande un error en caso de que le peguen a una ruta que no hemos desarrollado -> http://localhost:3001/profesional-categories
 // router.use((req, res, next) => {
