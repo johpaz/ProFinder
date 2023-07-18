@@ -15,7 +15,7 @@ const createPostProfesional = async (title, category, ocupation, image, content,
     // console.log("-- image post profesional --")
     // console.log(imageUrls);
 
-    const newPost = await PostProfesional.create({ title, categories, ocupationts, image, content });
+    const newPost = await PostProfesional.create({ title, category, ocupation, image, content });
     await newPost.setProfesional(profesionalId);
     // console.log(newPost);
 
