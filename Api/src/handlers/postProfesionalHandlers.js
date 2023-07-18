@@ -17,7 +17,7 @@ const createPostHandler = async (req, res) => {
     const post = await createPostProfesional(title, category, ocupation, image, content, profesionalId)
     return res.status(201).json(post)
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(400).json({ error: error.message })
   }
 }
