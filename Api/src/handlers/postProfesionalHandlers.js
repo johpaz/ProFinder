@@ -1,5 +1,5 @@
 //Controllers
-const { createPostProfesional, getAllPostsByProfesionals, getAllPostsByProfesionalsApi } = require("../controllers/postProfesionalcontrollers/index")
+const { createPostProfesional, getAllPostsByProfesionals, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById } = require("../controllers/postProfesionalcontrollers/index")
 //Handlers
 
 const getAllPostsProfesionalHandler = async (req, res) => {
@@ -8,6 +8,16 @@ const getAllPostsProfesionalHandler = async (req, res) => {
     return res.status(200).json(allPosts);
   } catch (error) {
     return res.status(404).json({ error: error.message });
+  }
+};
+
+const getPostProfesionalId = async (req,res) => {
+  const { id } = req.params;
+  try {
+    const postProfesional = await getPostProfesionalById(id);
+    return res.status(200).json(postProfesional);
+  } catch (error) {
+    return res.status(404).json({error : error.message});
   }
 };
 
@@ -22,7 +32,19 @@ const createPostHandler = async (req, res) => {
   }
 }
 
+const putPostProfesional = async (req,res) => {
+  const { id } = req.params;
+  const { title, image, content,categories, ocupations,  profesionalId} = req.body;
+  try {
+    const updatedPostProfesional = await updatePostProfesional(id ,title, image,content,categories, ocupations,  profesionalId);
+    return res.status(202).json({updatedPostProfesional});
+  } catch (error) {
+    return res.status(404).json({error: error.message});
+  }
+};
 module.exports = {
   getAllPostsProfesionalHandler,
-  createPostHandler
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+  createPostHandler,
+  putPostProfesional,
+  getPostProfesionalId
+}

@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define("PostProfesional", {
-    id: {
-      type: DataTypes.UUID,
+   id:{
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
