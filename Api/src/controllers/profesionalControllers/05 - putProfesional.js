@@ -7,7 +7,8 @@ const { Op } = require('sequelize');
 const { getImageUrl } = require('../../firebase');
 
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
-
+  console.log("--image en el controller--");
+  console.log(image)
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
       {
@@ -56,7 +57,9 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   const resolvedCategories = await Promise.all(categoriesFormat);
 
   const imageUrl = await getImageUrl(image);
-  const domain = "https://firebasestorage.googleapis.com";
+  console.log("--URL image---")
+  console.log(imageUrl);
+  // const domain = "https://firebasestorage.googleapis.com";
 
   // Update profesional
 
@@ -105,7 +108,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     id: profesionalInBDD.id,
     name: profesionalInBDD.name,
     email: profesionalInBDD.email,
-    image: `${domain}/newAvatar`,
+    image: profesionalInBDD.image,
     genre: profesionalInBDD.genre,
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,

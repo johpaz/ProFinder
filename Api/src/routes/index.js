@@ -16,8 +16,9 @@ const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
-const loginGoogleRouter = require('./googleRoutes')
-const passport = require('passport')
+const loginGoogleRouter=require('./googleRoutes');
+const insertImage=require('./insertImage');
+
 // Router: 
 
 const router = Router();
@@ -52,17 +53,20 @@ router.use('/location',locationRouter);
 
 router.use('/auth/google', loginGoogleRouter) //google
 
-router.use((req, res, next) => {
-  const error = new Error(`La ruta ${req.originalUrl} con el método ${req.method} no está implementada`);
-  error.status = 404;
-  next(error);
-});
+router.use('/image', insertImage)
 
-// Middleware de manejo de errores
-router.use((error, req, res, next) => {
-  res.status(error.status || 500).json({
-    message: error.message || 'Error interno del servidor'
-  });
-});
+// Esto es para mande un error en caso de que le peguen a una ruta que no hemos desarrollado -> http://localhost:3001/profesional-categories
+// router.use((req, res, next) => {
+//   const error = new Error(`La ruta ${req.originalUrl} con el método ${req.method} no está implementada`);
+//   error.status = 404;
+//   next(error);
+// });
+
+// // Middleware de manejo de errores
+// router.use((error, req, res, next) => {
+//   res.status(error.status || 500).json({
+//     message: error.message || 'Error interno del servidor'
+//   });
+// });
 
 module.exports = router;
