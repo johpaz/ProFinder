@@ -46,10 +46,10 @@ const getClientByIdHandler = async (req, res) => {
 
 
 const createUserClient = async (req, res) => {
-  const { name, phone, } = req.body
+  const { name, email, password, image, genre, phone, CountryId, LocationId } = req.body
   try {
 
-    const clientCreated = await createClient(name, phone)
+    const clientCreated = await createClient(name, email, password, image, genre, phone, CountryId, LocationId)
 
     //constante donde guardo lo que retorna el controller createClient y envio la respuesta
 
