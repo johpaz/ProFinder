@@ -11,7 +11,7 @@ const postProfesionalRouter = Router();
 
 postProfesionalRouter.get("/:id", getPostProfesionalId  );
 postProfesionalRouter.get("/", getAllPostsProfesionalHandler);
-postProfesionalRouter.post("/",postValidate,createPostHandler)
+postProfesionalRouter.post("/",createPostHandler)
 postProfesionalRouter.put("/:id", putPostProfesional)
 
 

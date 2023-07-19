@@ -54,14 +54,11 @@ Review.belongsTo(Client);
 
 Profesional.hasMany(Review);
 
-<<<<<<< HEAD
 PostProfesional.hasMany(Category)
 Category.belongsTo(PostProfesional)
 
 PostProfesional.hasMany(Ocupation)
 Ocupation.belongsTo(PostProfesional)
-=======
->>>>>>> 7d995fd (Merge branch 'f/branch-Chris' into develop)
 
 Review.belongsTo(Profesional);
 

@@ -22,9 +22,11 @@ const getPostProfesionalId = async (req,res) => {
 };
 
 const createPostHandler = async (req, res) => {
-  const { title, image, category, ocupation, content, profesionalId } = req.body
+  const { title, image, content, ProfesionalId, categories, ocupations } = req.body
+  console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
+
   try {
-    const post = await createPostProfesional(title, category, ocupation, image, content, profesionalId)
+    const post = await createPostProfesional(title,  image, content, ProfesionalId,categories, ocupations,)
     return res.status(201).json(post)
   } catch (error) {
     console.log(error);
@@ -32,16 +34,26 @@ const createPostHandler = async (req, res) => {
   }
 }
 
-const putPostProfesional = async (req,res) => {
+
+const putPostProfesional = async (req, res) => {
   const { id } = req.params;
-  const { title, image, content,categories, ocupations,  profesionalId} = req.body;
+  console.log(id);
+  const { title, image, content,  ProfesionalId,categories, ocupations } = req.body;
+  
   try {
-    const updatedPostProfesional = await updatePostProfesional(id ,title, image,content,categories, ocupations,  profesionalId);
-    return res.status(202).json({updatedPostProfesional});
+        
+    const updatedPostProfesional = await updatePostProfesional(id, title, image, content, ProfesionalId, categories, ocupations);
+    
+    return res.status(200).json(updatedPostProfesional );
   } catch (error) {
-    return res.status(404).json({error: error.message});
+    console.error(error);
+    return res.status(404).json({ error: error.message });
   }
 };
+
+
+
+
 module.exports = {
   getAllPostsProfesionalHandler,
   createPostHandler,

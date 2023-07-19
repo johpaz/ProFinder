@@ -9,6 +9,8 @@ const { getImageUrl } = require('../../firebase');
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
   console.log("--image en el controller--");
   console.log(image)
+  console.log("-- image sin arreglo --")
+  console.log(image[0])
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
       {
@@ -56,9 +58,9 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
 
   const resolvedCategories = await Promise.all(categoriesFormat);
 
-  const imageUrl = await getImageUrl(image);
-  console.log("--URL image---")
-  console.log(imageUrl);
+  // const imageUrl = await getImageUrl(image);
+  // console.log("--URL image---")
+  // console.log(imageUrl);
   // const domain = "https://firebasestorage.googleapis.com";
 
   // Update profesional
@@ -66,7 +68,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.name = name || profesionalInBDD.name;
   profesionalInBDD.email = email || profesionalInBDD.email;
   profesionalInBDD.password = password || profesionalInBDD.password;
-  profesionalInBDD.image = imageUrl || profesionalInBDD.image;
+  profesionalInBDD.image = image[0] || profesionalInBDD.image;
   profesionalInBDD.genre = genre || profesionalInBDD.genre;
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
