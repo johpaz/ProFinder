@@ -6,7 +6,11 @@ const { Ocupation } = require('../../db');
 
 
 const createPostProfesional = async (title,  image, content, ProfesionalId,categories, ocupations,) => {
-  console.log(title,ProfesionalId); 
+  // console.log(title,ProfesionalId); 
+  // console.log(ProfesionalId);
+  // console.log(content);
+  // console.log(categories)
+  console.log(ocupations)
   
   //! Que coicidan las ocupations con las existentes en la base de datos:
   const ocupationsFormat = ocupations.map(async(ocupationName)=>{
