@@ -27,7 +27,11 @@ const { getImageUrl } = require('../../firebase');
 //     await user.save();
 //     return user
 // 
-const updateClient = async (id, name, email, password, image, genre, description, phone, CountryId, LocationId) => {
+const updateClient = async (id, name, email, password, 
+    // image, genre, description, 
+    phone, 
+    // CountryId, LocationId
+    ) => {
 
 
     const clientInBDD = await Client.findByPk(id);
@@ -46,21 +50,21 @@ const updateClient = async (id, name, email, password, image, genre, description
     clientInBDD.name = name || clientInBDD.name;
     clientInBDD.email = email || clientInBDD.email;
     clientInBDD.password = password || clientInBDD.password;
-    clientInBDD.image = imageUrl || clientInBDD.image;
-    clientInBDD.genre = genre || clientInBDD.genre;
-    clientInBDD.description = description || clientInBDD.description;
+    clientInBDD.image = image || clientInBDD.image;
+    // clientInBDD.genre = genre || clientInBDD.genre;
+    // clientInBDD.description = description || clientInBDD.description;
     clientInBDD.phone = phone || clientInBDD.phone;
-    clientInBDD.CountryId = CountryId || clientInBDD.CountryId;
-    clientInBDD.LocationId = LocationId || clientInBDD.LocationId;
+    // clientInBDD.CountryId = CountryId || clientInBDD.CountryId;
+    // clientInBDD.LocationId = LocationId || clientInBDD.LocationId;
     await clientInBDD.save();
 
 
 
-    const countryBDD = await Country.findByPk(CountryId);
-    const locationBDD = await Location.findByPk(LocationId);
+    // const countryBDD = await Country.findByPk(CountryId);
+    // const locationBDD = await Location.findByPk(LocationId);
 
-    await clientInBDD.setCountry(countryBDD.id);
-    await clientInBDD.setLocation(locationBDD.id);
+    // await clientInBDD.setCountry(countryBDD.id);
+    // await clientInBDD.setLocation(locationBDD.id);
 
     // Return updated professional
 
@@ -68,13 +72,13 @@ const updateClient = async (id, name, email, password, image, genre, description
         id: clientInBDD.id,
         name: clientInBDD.name,
         email: clientInBDD.email,
-        image: `${domain}/newAvatar`,
-        genre: clientInBDD.genre,
-        description: clientInBDD.description,
+        image: clientInBDD.image,
+        // genre: clientInBDD.genre,
+        // description: clientInBDD.description,
         phone: clientInBDD.phone,
         // ubication: profesionalInBDD.ubication,
-        country: countryBDD.name,
-        location: locationBDD.name,
+        // country: countryBDD.name,
+        // location: locationBDD.name,
     };
 };
 
