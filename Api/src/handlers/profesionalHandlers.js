@@ -257,7 +257,7 @@ const getProfesionals = async (req, res) => {
       profesionals = await getAllProfesionals();
     }
 
-    console.log(profesionals);
+    // console.log(profesionals);
     return res.status(200).json(profesionals);
   } catch (error) {
     console.log(error);
