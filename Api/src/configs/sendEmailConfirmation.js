@@ -10,7 +10,7 @@ const oAuth2Client = new google.auth.OAuth2({
 
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
-const sendEmail = async (email) => {
+const sendEmail = async () => {
     try {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
