@@ -91,7 +91,7 @@ const updatePostProfesional = async (id, title, image, content, ProfesionalId,  
     title: profesionalPostInBDD.title,
     image: profesionalPostInBDD.image,
     content: profesionalPostInBDD.content,
-    ProfesionalId: profesionalPostInBDD.profesionalId,
+    ProfesionalId: profesionalPostInBDD.ProfesionalId,
     categories: profesionalPostInBDD.categories,
     ocupations: profesionalPostInBDD.ocupations
   };

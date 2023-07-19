@@ -22,9 +22,11 @@ const getPostProfesionalId = async (req,res) => {
 };
 
 const createPostHandler = async (req, res) => {
-  const { title, image, categories, ocupations, content, ProfesionalId } = req.body
+  const { title, image, content, ProfesionalId, categories, ocupations } = req.body
+  console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
+
   try {
-    const post = await createPostProfesional(title, categories, ocupations, image, content, ProfesionalId)
+    const post = await createPostProfesional(title,  image, content, ProfesionalId,categories, ocupations,)
     return res.status(201).json(post)
   } catch (error) {
     console.log(error);

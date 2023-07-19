@@ -88,7 +88,7 @@ const getAllProfesionals = async () => {
         },
         {
           model: PostProfesional,
-          attributes: ["id", "title", "category", "ocupation", "image", "content"]
+          attributes: ["id", "title",  "image", "content"]
         },
       ]
     });

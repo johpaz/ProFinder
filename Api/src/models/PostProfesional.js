@@ -14,14 +14,7 @@ module.exports = (sequelize) => {
         len: [5, 200] // El nombre del title debe tener mínimo 3 caracteres y máximo 200
       }
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    ocupation: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
+   
     image: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,

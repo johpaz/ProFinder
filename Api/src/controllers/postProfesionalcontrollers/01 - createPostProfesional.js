@@ -4,8 +4,11 @@ const { Ocupation } = require('../../db');
 
 
 
-const createPostProfesional = async (title, categories, ocupations, image, content, ProfesionalId) => {
-     //! Que coicidan las ocupations con las existentes en la base de datos:
+
+const createPostProfesional = async (title,  image, content, ProfesionalId,categories, ocupations,) => {
+  console.log(title,ProfesionalId); 
+  
+  //! Que coicidan las ocupations con las existentes en la base de datos:
   const ocupationsFormat = ocupations.map(async(ocupationName)=>{
     // console.log(ocupationName) // Docente Doctor cardiovascular Docente primaria
     const ocupationsInBDD = await Ocupation.findOne({where:{name:ocupationName}});
@@ -46,7 +49,7 @@ const createPostProfesional = async (title, categories, ocupations, image, conte
     image,
     content,
     ProfesionalId
-  };
+  }; 
 
   console.log(postProfesionalFormat);
   
