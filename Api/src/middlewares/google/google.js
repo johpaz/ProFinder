@@ -9,7 +9,7 @@ const {sequelize} = require("../../db");
 var  use =require ('passport');
 var {config}= require('dotenv');
 const { all } = require('../../routes');
-const { response } = require('../..');
+// const { response } = require('../..');
 config();
 
 
