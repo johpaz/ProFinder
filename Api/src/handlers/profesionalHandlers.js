@@ -29,7 +29,7 @@ const getProfesionals = async (req, res) => {
 
     if (!profesionals || profesionals.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
-      await getAllProfesionalApi();z
+      await getAllProfesionalApi();
 
       // Obtener los clientes actualizados
       profesionals = await getAllProfesionals();
