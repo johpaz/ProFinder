@@ -1,6 +1,7 @@
 const mercadopago = require('mercadopago');
+const { Profesional } = require('..//..//db');
 
-const { API_KEY_PASA} = process.env;
+const { API_KEY_PASA } = process.env;
 
 // Configura tus credenciales de acceso de Mercado Pago
 mercadopago.configure({
@@ -9,15 +10,22 @@ mercadopago.configure({
 
 async function crearPreferencia(req, res, next) {
   try {
-    const { description, price, quantity } = req.body;
+    const { description, price, quantity, ProfesionalId } = req.body;
+    console.log('ProfesionalId:', ProfesionalId);
+
+    const profesional = await Profesional.findOne({
+      where: { id: ProfesionalId },
+    });
 
     // Crea la preferencia de pago
     let preference = {
+     // metadata: { id_shop: resOrder.data.results[0].id, notification_Url: "https://backprofinder-production.up.railway.app/cash" },
       items: [
         {
           title: description,
           unit_price: Number(price),
           quantity: Number(quantity),
+          ProfesionalId: Number(profesional.id), // Asignamos el ProfesionalId de la base de datos
         },
       ],
       back_urls: {
@@ -25,13 +33,11 @@ async function crearPreferencia(req, res, next) {
         failure: "http://localhost:5173/pasarela",
         pending: "",
       },
-      auto_return: "approved", 
+      auto_return: "approved",
     };
- 
+
     const response = await mercadopago.preferences.create(preference);
-    res.json({
-      id: response.body.id,
-    });
+    res.json({ gobal: response.body.id });
   } catch (error) {
     next(error);
   }
