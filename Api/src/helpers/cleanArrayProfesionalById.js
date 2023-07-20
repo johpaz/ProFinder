@@ -27,8 +27,8 @@ const cleanProfesional = (profesional) => {
     years_exp: profesional.years_exp,
     phone: profesional.phone,
     ubication: {
-      country: profesional.Country.dataValues.name,
-      location: profesional.Location.dataValues.name,
+      country: profesional.Country ? profesional.Country.dataValues.name : null,
+      location: profesional.Location ? profesional.Location.dataValues.name : null,
     },
     professions: professions,
     jobimages: profesional.ProfesionalImagesPosts,
