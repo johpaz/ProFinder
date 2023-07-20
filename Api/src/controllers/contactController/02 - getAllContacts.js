@@ -4,6 +4,7 @@ const { sequelize } = require('../../db')
 const getAllContacts = async () => {
 
   const clients = await Client.findAll({
+    attributes: ["id", "name", "email", "phone"],
     include: {
       model: Profesional,
       attributes: ["id", "name", "email", "image","genre","rating","years_exp"],

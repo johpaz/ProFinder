@@ -2,6 +2,7 @@ const { Profesional, Client,Category,Ocupation,Country,Location } = require('../
 
 const getContactById = async (id) => {
   const client = await Client.findByPk(id,{
+    attributes: ["id", "name", "email", "phone"],
     include: {
       model: Profesional,
       attributes: ["id", "name", "email", "image","genre","rating","years_exp"],
