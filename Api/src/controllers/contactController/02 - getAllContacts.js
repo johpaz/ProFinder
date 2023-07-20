@@ -16,6 +16,8 @@ const getAllContacts = async () => {
     )
   });
 
+  // if(clients.length === 0) throw Error(`No hay clientes con profesionales relacionados`)
+
   return clients;
 };
 
