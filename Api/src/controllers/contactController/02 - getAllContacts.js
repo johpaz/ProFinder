@@ -6,7 +6,29 @@ const getAllContacts = async () => {
   const clients = await Client.findAll({
     include: {
       model: Profesional,
-      attributes: ["id", "name", "email", "image","rating"],
+      attributes: ["id", "name", "email", "image","genre","rating","years_exp"],
+      include: [
+        { 
+          model: Category, 
+          attributes: ["id","name"], 
+          through: { attributes: [] } 
+        },
+        { 
+          model: Ocupation, 
+          attributes: ["id","name"], 
+          through: { attributes: [] } 
+        },
+        { 
+          model: Country, 
+          attributes: ["id","name"],
+          through: { attributes: [] } 
+        },
+        { 
+          model: Location, 
+          attributes: ["id","name"],
+          through: { attributes: [] } 
+        }
+      ],
       through: { attributes: [] }
     },
     where: sequelize.where(

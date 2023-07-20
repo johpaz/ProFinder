@@ -1,10 +1,32 @@
-const { Profesional, Client } = require('../../db');
+const { Profesional, Client,Category,Ocupation,Country,Location } = require('../../db');
 
 const getContactById = async (id) => {
   const client = await Client.findByPk(id,{
     include: {
       model: Profesional,
-      attributes: ["id", "name", "email", "image"],
+      attributes: ["id", "name", "email", "image","genre","rating","years_exp"],
+      include: [
+        { 
+          model: Category, 
+          attributes: ["id","name"], 
+          through: { attributes: [] } 
+        },
+        { 
+          model: Ocupation, 
+          attributes: ["id","name"], 
+          through: { attributes: [] } 
+        },
+        { 
+          model: Country, 
+          attributes: ["id","name"],
+          through: { attributes: [] } 
+        },
+        { 
+          model: Location, 
+          attributes: ["id","name"],
+          through: { attributes: [] } 
+        }
+      ],
       through: { attributes: [] }
     },
   });
