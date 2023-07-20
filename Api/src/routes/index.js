@@ -7,7 +7,7 @@ const clientRouter = require('./clientRoutes');
 const ocupationsRouter = require('./ocupationsRoutes');
 const ocupationspRouter = require('./ocupationspRouter')
 const profesionalRouter = require('./profesionalRouter');
-const pasarelaRouter = require('../pasarelapagos/pasarelaRouter')
+const pasarelaRouter = require('../pasarelapagos/rutas/pasarelaRouter')
 const categoryRouter = require('./categoryRoutes');
 const reviewRouter = require("./reviewRoutes");
 const registerRouter = require('./registerRoutes');
@@ -18,12 +18,15 @@ const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
 const loginGoogleRouter=require('./googleRoutes');
 const insertImage=require('./insertImage');
+const premiumRouter = require('../pasarelapagos/rutas/premiumRouter');
+const contactRouter = require('./contactRoutes');
 
 // Router: 
 
 const router = Router();
 
 // Enrutado:
+router.use('/premium', premiumRouter); // Clientes 
 
 router.use('/cash', pasarelaRouter); // Clientes 
 
@@ -54,6 +57,8 @@ router.use('/location',locationRouter);
 router.use('/auth/google', loginGoogleRouter) //google
 
 router.use('/image', insertImage)
+
+router.use('/relation',contactRouter); // ClientProfesionalRelation
 
 // Esto es para mande un error en caso de que le peguen a una ruta que no hemos desarrollado -> http://localhost:3001/profesional-categories
 // router.use((req, res, next) => {

@@ -12,7 +12,7 @@ const UserModel = require('./models/User')
 const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 const CountryModel = require('./models/Country');
 const LocationModel = require('./models/Location');
-
+const PremiumModel = require('./models/Premium');
 // Credenciales
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
@@ -33,10 +33,11 @@ ProfesionalImagesPostModel(sequelize);
 UserModel(sequelize);
 CountryModel(sequelize);
 LocationModel(sequelize);
+PremiumModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User, ProfesionalImagesPost, Country, Location } = sequelize.models;
+const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User, ProfesionalImagesPost, Country, Location, Premium } = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -54,11 +55,11 @@ Review.belongsTo(Client);
 
 Profesional.hasMany(Review);
 
-PostProfesional.hasMany(Category)
-Category.belongsTo(PostProfesional)
+// PostProfesional.hasMany(Category)
+// Category.belongsTo(PostProfesional)
 
-PostProfesional.hasMany(Ocupation)
-Ocupation.belongsTo(PostProfesional)
+// PostProfesional.hasMany(Ocupation)
+// Ocupation.belongsTo(PostProfesional)
 
 Review.belongsTo(Profesional);
 
@@ -95,6 +96,11 @@ Client.belongsTo(Location);
 
 Profesional.belongsToMany(Client, { through: "ProfesionalClientRelation" });
 Client.belongsToMany(Profesional, { through: "ProfesionalClientRelation" });
+
+
+  // Asociación Profesional con Premium
+  Profesional.hasOne(Premium); // Un profesional tiene una suscripción Premium
+  Premium.belongsTo(Profesional); // Una suscripción Premium pertenece a un profesional
 
 
 // Relacionar 1:1:

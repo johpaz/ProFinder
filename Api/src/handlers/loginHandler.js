@@ -7,6 +7,10 @@ const loginUser = async (req, res) => {
     const { usuario, email, password } = req.body;
     console.log(await User.findAll());
     const sql = await sequelize.query(`SELECT * FROM "Users" where email= '${email}'`);
+const loginUser=async (req,res) =>{
+    
+    const {usuario,email,password}= req.body;
+    const sql= await sequelize.query(`SELECT * FROM "Users" where email= '${email}'`);
 
     if (!sql[0].length) { res.status(400).json({ message: "El email no ha sido encontrado" }) };
 
@@ -94,8 +98,8 @@ const loginUser = async (req, res) => {
                 break;
         }
 
-    }
-};
+    }}
+;
 
 const putPasswordForgot = async (req, res) => {
     const { email, password } = req.body;
@@ -153,7 +157,7 @@ const putPasswordForgot = async (req, res) => {
         };
     
 }
-
+}
 module.exports = { loginUser, putPasswordForgot };
 
 
