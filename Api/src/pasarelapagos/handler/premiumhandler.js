@@ -1,4 +1,4 @@
-const { updatePremiumStatus } = require('../controllers/premiumController');
+const {  updatePremiumStatus } = require('../controllers/premiumController');
 
 function premiumHandler(req, res, next) {
   // Aquí puedes añadir cualquier validación o lógica adicional antes de llamar al controlador

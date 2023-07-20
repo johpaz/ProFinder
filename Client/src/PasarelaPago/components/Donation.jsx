@@ -10,6 +10,35 @@ const MercadoPagoForm = () => {
   const [totalAmount, setTotalAmount] = useState(1);
   const [preferenceId, setPreferenceId] = useState(null);
   
+  useEffect(() => {
+    // Obtén la URL actual
+    const currentUrl = window.location.href;
+
+    // Extrae los parámetros de la URL
+    const urlParams = new URLSearchParams(currentUrl);
+
+    // Obtén los datos que necesitas
+    const collectionStatus = urlParams.get('collection_status');
+    const preferenceId = urlParams.get('preference_id');
+
+    // Aquí puedes utilizar la información como desees
+    console.log('collectionStatus:', collectionStatus);
+    console.log('preferenceId:', preferenceId);
+
+    // Enviar los datos al backend en un JSON mediante una solicitud POST
+    axios.post('http://localhost:3006/premium', {
+      collectionStatus: collectionStatus,
+      preferenceId: preferenceId,
+    })
+    .then((response) => {
+      console.log('Respuesta del backend:', response.data);
+      // Aquí puedes manejar la respuesta del backend, si es necesario
+    })
+    .catch((error) => {
+      console.error('Error al enviar datos al backend:', error);
+      // Aquí puedes manejar errores en caso de que ocurran
+    });
+  }, []);
 
   initMercadoPago('TEST-6d144f52-f1d4-4a24-853e-d1b4592053fb');
 
@@ -29,7 +58,7 @@ const MercadoPagoForm = () => {
         description:"Gracias por el Cafe",
         price: totalAmount,
         quantity:1,
-        ProfesionalId:12,
+        ProfesionalId:3,
       });
   1
       console.log(response);

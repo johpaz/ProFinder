@@ -32,7 +32,7 @@ async function crearPreferencia(req, res, next) {
     // Crea la preferencia de pago
     let preference = {
      metadata: { id_shop: idCompra },
-      notification_url: 'http://localhost:3006/premium',
+      notification_url: 'https://apipokemon-ashen.vercel.app/',
       items: [
         {
           description: description,
@@ -52,7 +52,7 @@ async function crearPreferencia(req, res, next) {
 
     // Crea la preferencia de pago en Mercado Pago
     const response = await mercadopago.preferences.create(preference);
-    
+    console.log(response);
     const preferenceId = response.body.id;
       
     // Actualiza el estado de la fila "Premium" con la información de la preferencia de pago
