@@ -2,7 +2,11 @@ const bcrypt= require("bcrypt");
 
 const {sequelize} = require("../db");
 
+
+
+
 const loginUser=async (req,res) =>{
+    
     const {usuario,email,password}= req.body;
     const sql= await sequelize.query(`SELECT * FROM "Users" where email= '${email}'`);
 
@@ -80,8 +84,8 @@ const loginUser=async (req,res) =>{
         break;
         }
 
-    }
-}; 
+    }}
+; 
 
 module.exports = {loginUser};
 
