@@ -8,15 +8,11 @@ const getContactById = async (id) => {
       attributes: ["id", "name", "email", "image"],
       through: { attributes: [] }
     },
-    where: sequelize.where(
-      sequelize.col('Profesionals.id'),
-      'IS NOT', // Puedes cambiar 'IS NOT' a 'IS' si deseas obtener solo los que tienen asociaciones vacías (sin profesionales).
-      null
-    )
   });
 
-  if(!client) throw Error(`No se encontró el cliente de id ${id} relacionado con profesionales`);
 
+  if(client.Profesionals.length === 0) throw Error(`No se encontró relación entre el cliente de id ${id} con profesionales`);
+ 
   return client;
 };
 

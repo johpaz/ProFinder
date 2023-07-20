@@ -28,9 +28,9 @@ const getContact = async (req,res) => {
 
 const postContact = async (req,res) => {
   const {id} = req.params
-  const {profesionalIds} = req.body;
+  const {profesionalId} = req.body;
   try {
-    const clientWithProfesionals = await createContact(id,profesionalIds);
+    const clientWithProfesionals = await createContact(id,profesionalId);
     return res.status(201).json(clientWithProfesionals);
   } catch (error) {
     return res.status(404).json({error: error.message});
@@ -40,9 +40,9 @@ const postContact = async (req,res) => {
 
 const putContact = async (req,res) => {
   const {id} = req.params
-  const {profesionalIds} = req.body;
+  const {profesionalId} = req.body;
   try {
-    const clientWithProfesionalsUpdated = await updateContact(id,profesionalIds);
+    const clientWithProfesionalsUpdated = await updateContact(id,profesionalId);
     return res.status(201).json(clientWithProfesionalsUpdated);
   } catch (error) {
     return res.status(404).json({error: error.message});
