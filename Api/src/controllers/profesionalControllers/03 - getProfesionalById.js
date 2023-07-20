@@ -44,20 +44,6 @@ const getProfesionalById = async (id) => {
   });
 
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
-  // console.log(profesional.Ocupations.map((ocupation)=>({
-  //   id: ocupation.id,
-  //   name: ocupation.name,
-  //   CategoryId: ocupation.CategoryId,
-  // })))
-  // console.log(profesional.Categories.map((category)=> ({
-  //   id: category.id,
-  //   name: category.name
-  // })))
-  // console.log(profesional.Country.dataValues)
-  // console.log(profesional.Location.dataValues)
-  // const countryPro = profesional.Country.dataValues.name
-  // console.log(countryPro)
-  // console.log(profesional.Location.dataValues.name)
 
   const formattedProfesional = cleanArrayProfesionalId(profesional);
   // return profesional;
