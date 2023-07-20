@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Heading, Stack, Text, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import axios from 'axios';
 import imageLogo from './logo.png';
 
+
 const MercadoPagoForm = () => {
   const [donationAmount, setDonationAmount] = useState(1);
   const [totalAmount, setTotalAmount] = useState(1);
   const [preferenceId, setPreferenceId] = useState(null);
+  
 
   initMercadoPago('TEST-6d144f52-f1d4-4a24-853e-d1b4592053fb');
 
@@ -24,18 +26,21 @@ const MercadoPagoForm = () => {
   const createPreference = async () => {
     try {
       const response = await axios.post('http://localhost:3006/cash', {
-        description: 'Gracias por los Cafesitos',
+        description:"Gracias por el Cafe",
         price: totalAmount,
-        quantity: 1,
+        quantity:1,
+        ProfesionalId:12,
       });
+  1
       console.log(response);
-      const { id } = response.data;
-      console.log(id);
-      return id;
+      const { preferenceId } = response.data;
+      console.log(preferenceId);
+      return preferenceId;
     } catch (error) {
       console.log(error.message);
     }
   };
+
 
   const handleBuy = async () => {
     const id = await createPreference();
@@ -83,7 +88,7 @@ const MercadoPagoForm = () => {
         <Button colorScheme="blue" onClick={handleBuy}>
           Paga
         </Button>
-        {preferenceId && <Wallet initialization={{ preferenceId }} />}
+        {preferenceId && <Wallet initialization={{ preferenceId }}   />}
       </Stack>
     </Box>
   );
