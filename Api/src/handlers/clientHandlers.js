@@ -6,6 +6,9 @@ const { getClients, getAllClientsApi, createClient, updateClient, getClientById,
 
 
 const getClientsHandler = async (req, res) => {
+  console.log(Client.findAll({where : {
+    
+  }}));
   const { name } = req.query
   try {
     let clients = await getClients();

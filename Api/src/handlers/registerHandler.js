@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const { sequelize } = require("../db");
-const sendEmail = require("../configs/sendEmailConfirmation");
+const sendEmail = require("../configs/nodemailer/sendEmailConfirmation");
 
 
 const userRegister = async (req, res) => {
@@ -19,7 +19,7 @@ const userRegister = async (req, res) => {
                         const newClient = await sequelize.query(`INSERT INTO "Clients" (name,email) VALUES ('${name}','${email}')`);
 
                         const registerClient = await sequelize.query(`SELECT * FROM "Clients" WHERE "email"= '${email}'`);
-
+                        await sendEmail()
                         {
                             res.status(200).json({
                                 id: registerClient[0][0].id,
@@ -39,7 +39,7 @@ const userRegister = async (req, res) => {
                         const newProf = await sequelize.query(`INSERT INTO "Profesionals" (name,email) VALUES ('${name}','${email}')`);
 
                         const registerProf = await sequelize.query(`SELECT * FROM "Profesionals" WHERE "email"= '${email}'`);
-
+                        await sendEmail()
                         {
                             res.status(200).json({
                                 id: registerProf[0][0].id,

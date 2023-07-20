@@ -1,0 +1,30 @@
+.contain-logo{
+    display: flex;
+    background-color: #E2E8F0;
+    align-items: center;
+    justify-content: center;
+}
+
+.contain-logo img {
+    width: 20%;
+    height: 5%;
+    filter: brightness(1.1);
+    mix-blend-mode: multiply;
+}
+
+.title_contain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.title_contain h1{
+    color: red;
+}
+
+.button-to-app{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

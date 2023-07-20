@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const { sequelize } = require("../db");
 
-const { loginUser, passportHandler }=require('../handlers/loginHandler');
+const { loginUser, passportHandler, putPasswordForgot }=require('../handlers/loginHandler');
 
 const passport= require ('passport')
 
@@ -10,6 +10,7 @@ const passport= require ('passport')
 const loginRouter = Router();
 
 loginRouter.post('/', loginUser)
+loginRouter.put("/", putPasswordForgot)
 
 
 /* loginRouter.post('/', passport.authenticate('local',{
