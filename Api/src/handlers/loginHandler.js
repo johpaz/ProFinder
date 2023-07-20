@@ -84,10 +84,30 @@ const loginUser = async (req, res) => {
         }
 
       case "a":
-        console.log("soy a");
+      
+       const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);
 
-        break;
+        if (adminis[0][0] == undefined) {
+          res.status(200).json({
+            usuario: usuario,
+            email: email,
+            password: password,
+            message: "El correo ingresado no corresponde al administrador",
+          });
 
+          break;
+        } else {
+          res.status(200).json({
+            id: adminis[0][0].id,
+            usuario: usuario,
+            email: email,
+            password: password,
+            message: "Administrador logueado satisfactoriamente",
+          });
+          break;
+        };
+
+      
       default:
         break;
     }

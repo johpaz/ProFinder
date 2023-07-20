@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 
 const { sequelize } = require("../db");
 const sendEmail = require("../configs/nodemailer/sendEmailConfirmation");
+const { admin } = require("googleapis/build/src/apis/admin");
 
 
 const userRegister = async (req, res) => {
@@ -27,7 +28,7 @@ const userRegister = async (req, res) => {
                                 usuario: usuario,
                                 email: email,
                                 password: password,
-                                message: "El usuario se ha registrado exitosamente"
+                                message: "El cliente se ha registrado exitosamente"
                             })
                         }
 
@@ -47,7 +48,7 @@ const userRegister = async (req, res) => {
                                 usuario: usuario,
                                 email: email,
                                 password: password,
-                                message: "El usuario se ha registrado exitosamente"
+                                message: "El profesional se ha registrado exitosamente"
                             })
                         }
 
@@ -55,7 +56,18 @@ const userRegister = async (req, res) => {
                         break;
 
                     case 'a':
-                        console.log("soy a")
+                        const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);
+
+            
+                            res.status(200).json({
+                                id: adminis[0][0].id,
+                                name: name,
+                                usuario: usuario,
+                                email: email,
+                                password: password,
+                                message: "El administrador se ha registrado exitosamente"
+                            })
+                        
 
                         break;
 
