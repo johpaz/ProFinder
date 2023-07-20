@@ -6,7 +6,7 @@ const getAllContacts = async () => {
   const clients = await Client.findAll({
     include: {
       model: Profesional,
-      attributes: ["id", "name", "email", "image"],
+      attributes: ["id", "name", "email", "image","rating"],
       through: { attributes: [] }
     },
     where: sequelize.where(
@@ -15,8 +15,6 @@ const getAllContacts = async () => {
       null
     )
   });
-
-  if(clients.length === 0) throw Error(`No hay clientes con profesionales relacionados`)
 
   return clients;
 };
