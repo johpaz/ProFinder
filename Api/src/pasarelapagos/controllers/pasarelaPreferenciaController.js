@@ -40,8 +40,13 @@ async function crearPreferencia(req, res, next) {
           quantity: Number(quantity),
           ProfesionalId: Number(ProfesionalId),
         },
+       ], back_urls : {
+          success: `http://localhost:5173/pasarela`,
+          failure: 'http://localhost:5173/pasarela',
+          pending: '',
+        }, 
+        auto_return: 'approved',
         
-      ],  
       
     };
 
