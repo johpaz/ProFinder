@@ -1,6 +1,6 @@
 // Controllers
 
-const { createContact } = require('../controllers/contactController/index');
+const { createContact,updateContact } = require('../controllers/contactController/index');
 
 // Handlers
 
@@ -25,10 +25,16 @@ const postContact = async (req,res) => {
   // return res.status(201).json({DIY: `En esta ruta se creará la relación del Cliente de id ${id} con los profesionales de ids ${profesionalId}`});
 };
 
-const putContact = (req,res) => {
+const putContact = async (req,res) => {
   const {id} = req.params
-  const {ProfesionalId} = req.body;
-  return res.status(200).json({DIY: `En esta ruta se actualizará la relación del Cliente de id ${id} con los profesionales de id ${ProfesionalId}`});
+  const {profesionalIds} = req.body;
+  try {
+    const clientWithProfesionalsUpdated = await updateContact(id,profesionalIds);
+    return res.status(201).json(clientWithProfesionalsUpdated);
+  } catch (error) {
+    return res.status(404).json({error: error.message});
+  };
+  // return res.status(200).json({DIY: `En esta ruta se actualizará la relación del Cliente de id ${id} con los profesionales de id ${profesionalIds}`});
 }
 
 module.exports = {getContacts,getContact,postContact,putContact}

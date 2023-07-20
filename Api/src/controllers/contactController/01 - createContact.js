@@ -12,7 +12,7 @@ const createContact = async  (id,profesionalIds) => {
     })
   );
 
-  await client.setProfesionals(profesionals);
+  await client.addProfesionals(profesionals);
 
   const clientWithProfesionals = await Client.findByPk(id,{
     include:{
