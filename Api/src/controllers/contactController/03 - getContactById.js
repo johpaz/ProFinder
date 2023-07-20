@@ -19,12 +19,10 @@ const getContactById = async (id) => {
         { 
           model: Country, 
           attributes: ["id","name"],
-          through: { attributes: [] } 
         },
         { 
           model: Location, 
           attributes: ["id","name"],
-          through: { attributes: [] } 
         }
       ],
       through: { attributes: [] }
@@ -32,7 +30,7 @@ const getContactById = async (id) => {
   });
 
   // if(client.Profesionals.length === 0) throw Error(`No se encontró relación entre el cliente de id ${id} con profesionales`);
- 
+
   return client;
 };
 

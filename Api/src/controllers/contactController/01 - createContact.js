@@ -1,4 +1,4 @@
-const { Profesional, Client } = require('../../db');
+const { Profesional, Client,Category,Ocupation,Country,Location } = require('../../db');
 
 const createContact = async  (id,profesionalId) => {
   const client = await Client.findByPk(id);

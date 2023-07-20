@@ -1,4 +1,4 @@
-const { Profesional, Client } = require('../../db');
+const { Profesional, Client,Category,Ocupation,Country,Location } = require('../../db');
 const { sequelize } = require('../../db')
 
 const getAllContacts = async () => {
@@ -21,12 +21,10 @@ const getAllContacts = async () => {
         { 
           model: Country, 
           attributes: ["id","name"],
-          through: { attributes: [] } 
         },
         { 
           model: Location, 
           attributes: ["id","name"],
-          through: { attributes: [] } 
         }
       ],
       through: { attributes: [] }
