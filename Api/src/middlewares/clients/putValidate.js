@@ -1,15 +1,15 @@
 const { Client, Profesional} = require('../../db');
 
-// const validateId = (id) => {
-//     if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar un profesional`);
-//     // if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
-//     if(!Number(id) || id === undefined) throw Error(`Compruebe los datos para registrarse`);
-//   };
+const validateId = (id) => {
+    if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar el cliente`);
+    // if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
+    if(!Number(id) || id === undefined) throw Error(`Compruebe los datos para registrarse`);
+  };
 
 const validateName = (name) => {
-    if (!name) {
-        throw Error("Por favor ingrese un nombre")
-    }
+    // if (!name) {
+    //     throw Error("Por favor ingrese un nombre")
+    // }
     if (typeof name !== "string") {
         throw Error("El nombre debe ser un string")
     }
@@ -27,9 +27,9 @@ const validateName = (name) => {
 }
 
 const validateEmail = (email) => {
-    if (!email) {
-        throw Error("Por favor ingrese un email")
-    };
+    // if (!email) {
+    //     throw Error("Por favor ingrese un email")
+    // };
     if (typeof email !== "string") {
         throw Error("El nombre debe ser un string.")
     };
@@ -48,16 +48,16 @@ const validateEmail = (email) => {
 };
 
 const validatePassword = (password) => {
-    if (!password) {
-        throw Error("Ingrese una contraseña.")
-    }
+    // if (!password) {
+    //     throw Error("Ingrese una contraseña.")
+    // }
 }
 
 const validatePhone = (phone) => {
 
-    if (!phone) {
-        throw Error("Por favor ingrese un telefono")
-    }
+    // if (!phone) {
+    //     throw Error("Por favor ingrese un telefono")
+    // }
     if (typeof phone !== "string") {
         throw Error("El tipo de dato de phone debe ser un string.")
     };
@@ -99,7 +99,6 @@ const validateUbication = (ubication) => {
 };
 
 const validateImage = (image) => {
-
     const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
     if (!regexImage.test(image[0])) {
         throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
@@ -113,9 +112,6 @@ module.exports = async (req, res, next) => {
     try {
         // console.log(id)
         validateId(id);
-        // if(name && ){
-        //     validateName(name);
-        // }
         validateEmail(email);
         
         const client = await Client.findByPk(id);
