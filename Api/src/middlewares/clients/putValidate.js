@@ -1,3 +1,11 @@
+const { Client, Profesional} = require('../../db');
+
+// const validateId = (id) => {
+//     if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar un profesional`);
+//     // if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
+//     if(!Number(id) || id === undefined) throw Error(`Compruebe los datos para registrarse`);
+//   };
+
 const validateName = (name) => {
     if (!name) {
         throw Error("Por favor ingrese un nombre")
@@ -99,11 +107,24 @@ const validateImage = (image) => {
 
 };
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
+    const { id } = req.params;
     const { name, email, password, phone, image, genre, description, ubication } = req.body;
     try {
+        // console.log(id)
+        validateId(id);
+        // if(name && ){
+        //     validateName(name);
+        // }
+        validateEmail(email);
+        
+        const client = await Client.findByPk(id);
+        const profesionalEmail = await Profesional.findOne({where:{email: email}});
+        const clientEmail = await Client.findOne({where:{email:email}});
+        if(email !== client.email){
+            if(profesionalEmail || clientEmail) throw Error(`El correo ${email} ya está en uso, pruebe con otro`);
+          };
         validateName(name)
-        validateEmail(email)
         validatePassword(password)
         validatePhone(phone)
         validateImage(image)
@@ -114,5 +135,4 @@ module.exports = (req, res, next) => {
         return res.status(400).json(error.message);
     }
     next();
-
 }

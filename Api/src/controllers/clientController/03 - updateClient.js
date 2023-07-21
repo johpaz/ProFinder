@@ -4,25 +4,36 @@ const { Location } = require('../../db');
 const { Op } = require('sequelize');
 const { getImageUrl } = require('../../firebase');
 
-const updateClient = async (id, name, email, password, image, genre, description, phone,
-    CountryId, LocationId) => {
-    let imageUrl = null
-    if (image) {
-        imageUrl = image[0]
-    }
-
+const updateClient = async (id, name, email, password, image, genre, description, phone, CountryId, LocationId) => {
+ 
     const clientInBDD = await Client.findByPk(id);
     // console.log(clientInBDD);
 
     if (!clientInBDD) throw Error(`No existe el cliente de id: ${id}`);
 
-    // Match ocupations
-
-
     // const imageUrl = await getImageUrl(image);
     // const domain = "https://firebasestorage.googleapis.com";
 
     // Update profesional
+    if(name && email && password && password){
+        clientInBDD.name = name || clientInBDD.name;
+        clientInBDD.email = email || clientInBDD.email;
+        clientInBDD.password = password || clientInBDD.password;
+        clientInBDD.phone = phone || clientInBDD.phone;
+        await clientInBDD.save();
+        return {
+            id: clientInBDD.id,
+            name: clientInBDD.name,
+            email: clientInBDD.email,
+            image: clientInBDD.image,
+            phone: clientInBDD.phone,
+        };
+    };
+
+    let imageUrl = null
+    if (image) {
+        imageUrl = image[0]
+    };
 
     clientInBDD.name = name || clientInBDD.name;
     clientInBDD.email = email || clientInBDD.email;
@@ -34,8 +45,6 @@ const updateClient = async (id, name, email, password, image, genre, description
     clientInBDD.CountryId = CountryId || clientInBDD.CountryId;
     clientInBDD.LocationId = LocationId || clientInBDD.LocationId;
     await clientInBDD.save();
-
-
 
     const countryBDD = await Country.findByPk(CountryId);
     const locationBDD = await Location.findByPk(LocationId);
