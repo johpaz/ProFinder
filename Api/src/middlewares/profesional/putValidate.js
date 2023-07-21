@@ -8,7 +8,7 @@ const validateId = (id) => {
 };
 
 const validateName = (name) => {
-  if(!name) throw Error(`La propiedad name es obligatoria`);
+  // if(!name) throw Error(`La propiedad name es obligatoria`);
   if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
 
   const namevalidated = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/.test(name.trim());
@@ -21,7 +21,7 @@ const validateName = (name) => {
 };
 
 const validateEmail = (email) => {
-  if(!email) throw Error(`La propiedad email es obligatoria`);
+  // if(!email) throw Error(`La propiedad email es obligatoria`);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
   const emailEnd = email.split(".")[1];
@@ -40,7 +40,7 @@ const validatePassword = (password) => {
 };
 
 const validateImage = (image) => {
-  if(!image) throw Error(`La propiedad image es obligatoria`);
+  // if(!image) throw Error(`La propiedad image es obligatoria`);
   // // console.log(image)  //https://example.com/profile.jpg
   // const imageEnd = image.split(".")[1].split("/")[0]
   // // console.log(imageEnd) // com
@@ -53,7 +53,7 @@ const validateImage = (image) => {
 };
 
 const validateGenre = (genre) => {
-  if(!genre) throw Error(`La propiedad genre es obligatoria`);
+  // if(!genre) throw Error(`La propiedad genre es obligatoria`);
   const genrevalidated = /^[a-zA-ZñÑ\s]+$/.test(genre.trim());
   if(typeof genre !== "string") throw Error(`El tipo de dato de genre debe ser un string`);
   if(genre.trim() === "") throw Error(`El género no puede estar vacío`);
@@ -61,28 +61,28 @@ const validateGenre = (genre) => {
 };
 
 const validateYearsExp = (years_exp) => {
-  if(!years_exp) throw Error(`La propiedad years_exp es obligatoria`);
+  // if(!years_exp) throw Error(`La propiedad years_exp es obligatoria`);
   if(typeof years_exp !== "string") throw Error (`El tipo de dato de los años de experiencia debe ser un string`);
   if(years_exp > 85) throw Error(`No es probable que haya trabajado más de 85 años en un trabajo`);
   if(years_exp.length > 2) throw Error(`Los años de experiencia no puede ser centenares`);
 };
 
 const validateCategories = (categories) => {
-  if(!categories) throw Error(`La propiedad categories es obligatoria`);
+  // if(!categories) throw Error(`La propiedad categories es obligatoria`);
   if(!Array.isArray(categories)) throw Error(`El tipo de dato de categories debe ser un array`);
   if(categories.length === 0) throw Error (`El profesional debe tener al menos una categoría`);
   if(categories.length > 0 && categories.length > 3) throw Error(`El profesional no puede tener más de 3 categorías`);
 };
 
 const validateOcupations = (ocupations) => {
-  if(!ocupations) throw Error(`La propiedad ocupations es obligatoria`);
+  // if(!ocupations) throw Error(`La propiedad ocupations es obligatoria`);
   if(!Array.isArray(ocupations)) throw Error(`El tipo de dato de ocupations debe ser un array`);
   if(ocupations.length === 0) throw Error(`El profesional debe tener al menos una ocupación`);
   if(ocupations.length > 0 && ocupations.length > 5) throw Error(`El profesional no puede tener más de 5 ocupaciones`);
 };
 
 const validatePhone = (phone) => {
-  if(!phone) throw Error(`La propiedad phone es obligatoria`);
+  // if(!phone) throw Error(`La propiedad phone es obligatoria`);
   if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
   // if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
   if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
@@ -102,7 +102,7 @@ module.exports = async (req,res,next) => {
   const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
   try {
-    // validateId(id);
+    validateId(id);
     validateEmail(email);
     const profesional = await Profesional.findByPk(id);
     const profesionalEmail = await Profesional.findOne({where:{email: email}});
