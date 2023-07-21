@@ -82,4 +82,36 @@ const userRegister = async (req, res) => {
     })
 };
 
-module.exports = { userRegister };
+
+
+
+
+const updatePassword=async(email, password)=>{
+
+
+    bcrypt.hash(password, 8, async (error, hash) => {
+        if (error) { res.status(400).json({ error: error.message }) };
+
+    const user = await sequelize.query(`UPDATE "Users" SET password= '${hash}'WHERE "email"= '${email}'`)
+    console.log(user)
+    return user
+})}
+
+const changePasswordRegister= async (req, res) => {
+    const { email, password} = req.body;
+
+    try {
+        const changePassword = await updatePassword(email, password);
+        console.log (changePassword)
+        return res.status(200).json({message: 'La contraseña ha sido cambiada exitosamente'});
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+
+
+}
+
+
+
+
+module.exports = { userRegister ,changePasswordRegister};
