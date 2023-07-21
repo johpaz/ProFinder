@@ -1,5 +1,5 @@
 const { Profesional, Client,Category,Ocupation,Country,Location } = require('../../db');
-
+const cleanArrayProfesionalFavorites = require('../../helpers/cleanArrayProfesionalsFavorites');
 const getContactById = async (id) => {
   const client = await Client.findByPk(id,{
     attributes: ["id", "name", "email", "phone"],
@@ -14,7 +14,7 @@ const getContactById = async (id) => {
         },
         { 
           model: Ocupation, 
-          attributes: ["id","name"], 
+          attributes: ["id","name","CategoryId"], 
           through: { attributes: [] } 
         },
         { 
@@ -31,8 +31,15 @@ const getContactById = async (id) => {
   });
 
   // if(client.Profesionals.length === 0) throw Error(`No se encontró relación entre el cliente de id ${id} con profesionales`);
-
-  return client;
+  const cleanInfo = cleanArrayProfesionalFavorites(client.Profesionals);
+  // return cleanInfo
+  return {
+    id: client.id,
+    name: client.name,
+    email: client.email,
+    phone:client.phone,
+    profesionals: cleanInfo
+  }
 };
 
 module.exports = getContactById;
