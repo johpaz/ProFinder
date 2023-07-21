@@ -58,7 +58,7 @@ const MercadoPagoForm = () => {
         description:"Gracias por el Cafe",
         price: totalAmount,
         quantity:1,
-        ProfesionalId:3,
+        ProfesionalId:7,
       });
   1
       console.log(response);
