@@ -1,115 +1,81 @@
-import {
-    Box,
-    Button,
-    Container,
-    Flex,
-    Heading,
-    Icon,
-    Stack,
-    Text,
-    useColorModeValue,
-  } from '@chakra-ui/react';
-  
-  import {
-    FcAbout,
-    FcAssistant,
-    FcCollaboration,
-    FcDonate,
-    FcManager,
-  } from 'react-icons/fc';
-  
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Center, Flex, Heading, Image, Stack, Text, useColorModeValue, Icon } from '@chakra-ui/react';
+import { StarIcon } from '@chakra-ui/icons';
+import { getAllSuppliers } from '../../../services/redux/actions/actions';
+import { Link as RouterLink } from 'react-router-dom';
 
-  
-  const Card = ({ heading, description, icon}) => {
-    return (
-      <Box
-        maxW={{ base: 'full', md: '275px' }}
-        w={'full'}
-        borderWidth="1px"
-        borderRadius="lg"
-        overflow="hidden"
-        p={5}>
-        <Stack align={'start'} spacing={2}>
-          <Flex
-            w={16}
-            h={16}
-            align={'center'}
-            justify={'center'}
-            color={'white'}
-            rounded={'full'}
-            bg={useColorModeValue('gray.100', 'gray.700')}>
-            {icon}
-          </Flex>
-          <Box mt={2}>
-            <Heading size="md">{heading}</Heading>
-            <Text mt={1} fontSize={'sm'}>
-              {description}
-            </Text>
-          </Box>
-          <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-            Learn more
+const Card = ({ supplier, cardBgColor, textColor }) => {
+  const ratingStars = Array.from({ length: supplier.rating }, (_, index) => (
+    <Icon key={index} as={StarIcon} color="teal.400" />
+  ));
+
+  return (
+    <Box borderWidth="1px" borderRadius="lg" bg={cardBgColor} boxShadow="2xl" p={4}>
+      <Flex>
+        <Box overflow="hidden" borderRadius="full" boxSize={{ sm: '80px', md: '150px' }}>
+          <Image
+            objectFit="cover"
+            boxSize="100%"
+            src={supplier.image}
+            alt={supplier.name}
+            fallbackSrc="https://via.placeholder.com/150"
+          />
+        </Box>
+        <Stack justifyContent="center" alignItems="center" p={4} pl={6} spacing={2}>
+          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold" mt={15}>
+            {supplier.name}
+          </Heading>
+          <Text fontWeight={600} color={textColor} fontSize="sm" mb={2}>
+            Categoría: {supplier.professions[0].category}
+          </Text>
+          <Text fontWeight={600} color={textColor} fontSize="sm" mb={2}>
+            Valoracion:
+            <Flex align="center" ml={2}>
+              {ratingStars}
+            </Flex>
+          </Text>
+          <Button as={RouterLink} to={`/detail/${supplier.id}`} mt={4} colorScheme="teal" size="sm">
+            Ver detalle
           </Button>
         </Stack>
-      </Box>
-    );
-  };
-  
-  export default function TopPro() {
-    return (
-      <Box p={4}>
-        <Stack spacing={4} as={Container} maxW={'3xl'} textAlign={'center'}>
-          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight={'bold'}>
-            PROFESIONALES RECOMENDADOS
+      </Flex>
+    </Box>
+  );
+};
+
+const TopPro = ({ cardBgColor, textColor, linkColor }) => {
+  const dispatch = useDispatch();
+  const suppliers = useSelector((state) => state.suppliers);
+
+  useEffect(() => {
+    dispatch(getAllSuppliers());
+  }, [dispatch]);
+
+  // Ordena los proveedores por rating de mayor a menor
+  const sortedSuppliers = [...suppliers].sort((a, b) => b.rating - a.rating);
+
+  return (
+    <Center p={4}  h="100%" w="100%">
+      <Box mx="auto" maxW="5xl" w="100%">
+        <Box textAlign="center">
+          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold" mt={15}>
+            PROFESIONALES MEJOR PUNTUADOS
           </Heading>
-          <Text color={'gray.600'} fontSize={{ base: 'sm', sm: 'lg' }}>
-            Aqui veras los servicios mas utilizados y mejor puntuados por nuestros usuarios.
+          <Text mt={4} color={textColor}>
+            En esta sección encontrarás los profesionales con mejores calificaciones de nuestro sitio.
           </Text>
-        </Stack>
-  
-        <Container maxW={'5xl'} mt={12}>
-          <Flex flexWrap="wrap" gridGap={6} justify="center">
-            <Card
-              heading={'George Plumber'}
-              icon={<Icon as={FcAssistant} w={10} h={10} />}
-              description={
-                'Plomeria en el acto! Sus servicios son eficientes y eficaces. Tiene una gran dinamica de trabajo'
-              }
-              href={'#'}
-            />
-            <Card
-              heading={'Marcus Truction'}
-              icon={<Icon as={FcCollaboration} w={10} h={10} />}
-              description={
-                'Gran albañil destacado en la construccion de asadores y galerias. Ideal para refactorizacion de zonas'
-              }
-              href={'#'}
-            />
-            <Card
-              heading={'Meque Trefe'}
-              icon={<Icon as={FcDonate} w={10} h={10} />}
-              description={
-                'Electricista matriculado de la ciudad de Zimbague. Super ordenado y atenido a la norma'
-              }
-              href={'#'}
-            />
-            <Card
-              heading={'Susana Oria'}
-              icon={<Icon as={FcManager} w={10} h={10} />}
-              description={
-                'Electricista matriculada de la ciudad de Mozambique. Ideal para renormalizar una instalacion'
-              }
-              href={'#'}
-            />
-            <Card
-              heading={'Marciana Pazos'}
-              icon={<Icon as={FcAbout} w={10} h={10} />}
-              description={
-                'Gasista matriculada. Conexion de estufas y hornos '
-              }
-              href={'#'}
-            />
-          </Flex>
-        </Container>
+        </Box>
+        <Box mt={8} align="center">
+          <Box display="grid" gridGap={6} gridTemplateColumns={{ sm: '1fr', md: 'repeat(2, 1fr)' }}>
+            {sortedSuppliers.slice(0, 4).map((supplier) => (
+              <Card key={supplier.id} supplier={supplier} cardBgColor={cardBgColor} textColor={textColor} />
+            ))}
+          </Box>
+        </Box>
       </Box>
-    );
-  }
+    </Center>
+  );
+};
+
+export default TopPro;

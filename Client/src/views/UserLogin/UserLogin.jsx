@@ -1,65 +1,202 @@
+/* eslint-disable camelcase */
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
-    Stack,
-    Link,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-  } from '@chakra-ui/react';
-  
-  export default function SimpleCard() {
-    return (
-      <Flex minH='100vh' align='center' justify='center' bg={useColorModeValue('gray.900', 'gray.800')}>
-        <Stack spacing={8} mx='auto' maxW='lg' py={12} px={6}>
-          <Stack align='center'>
-            <Heading fontSize='4xl' bgGradient='linear(to-l, teal.300, green.400)'bgClip='text'>
-              Hola de nuevo!
-            </Heading>
-            <Text fontSize='lg' color='gray.300'>
-              Ingresa para disfrutar de todos nuestros <Link color='teal.300'>servicios</Link>
-            </Text>
-          </Stack>
-          <Box rounded='lg' bg={useColorModeValue('blackAlpha.500', 'gray.700')} boxShadow='lg' p={8}>
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  Text,
+  useColorModeValue,
+  FormErrorMessage,
+  Divider,
+  useToast
+} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react-use-disclosure'
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { useCredentials } from '../../utils/customHooks/useCredentials'
+import { getSessionUser } from '../../services/redux/actions/actions'
+import { emailRules } from './loginValidations'
+import DropdownMenu from '../../singleComponents/DropdownMenu'
+import ModalForgotPassword from '../../components/ModalForgotPassword/ModalForgotPassword'
+import jwt_decode from 'jwt-decode'
+
+export default function UserLogin () {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { register, handleSubmit, formState: { errors } } = useForm()
+  const [usuario, setUsuario] = useState('Tipo de usuario')
+  const [rol, setRol] = useState('')
+
+  const toast = useToast()
+  const dispatch = useDispatch()
+  const {
+    userTypes,
+    errorRol,
+    setErrorRol,
+    handleUserSession
+  } = useCredentials()
+
+  function handleSelectUser (event) {
+    const { name } = event.target
+    let rolUser
+    if (name === 'Cliente') {
+      setRol('c')
+      rolUser = 'c'
+    }
+    if (name === 'Profesional') {
+      setRol('p')
+      rolUser = 'p'
+    }
+    setUsuario(name)
+    window.localStorage.setItem('rol', JSON.stringify(rolUser))
+  }
+
+  const customSubmit = async (data) => {
+    if (rol !== '' || data.email === 'profinder943@gmail.com') {
+      setErrorRol(false)
+      const dataSession = {
+        email: data.email,
+        password: data.password,
+        usuario: (data.email === 'profinder943@gmail.com') ? 'a' : rol
+      }
+      await dispatch(getSessionUser(dataSession))
+      handleUserSession('Sesion iniciada', 'Algo salio mal')
+    } else setErrorRol(true)
+  }
+
+  async function handleCallbackResponse (response) {
+    const rol = JSON.parse(window.localStorage.getItem('rol'))
+    const userObject = jwt_decode(response.credential)
+    if (rol || userObject.email === 'profinder943@gmail.com') {
+      const dataSessionGoogle = {
+        name: userObject.name,
+        email: userObject.email,
+        password: userObject.email === 'profinder943@gmail.com' ? 'P1234567' : `${userObject.given_name.toLowerCase()}GOOAT0`,
+        usuario: userObject.email === 'profinder943@gmail.com' ? 'a' : rol
+      }
+
+      await dispatch(getSessionUser(dataSessionGoogle))
+      handleUserSession('Sesion iniciada', 'Algo salio mal')
+    } else {
+      toast({
+        title: 'Usuario no especificado',
+        description: 'Debes seleccionar el tipo de usuario con el que estas registrado',
+        status: 'info',
+        position: 'bottom-right',
+        duration: 5000,
+        isClosable: true
+      })
+    }
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    google.accounts.id.initialize({
+      client_id: '298712469496-c4b7dmru4gl62him455vjft5a9k9hb98.apps.googleusercontent.com',
+      callback: handleCallbackResponse
+    })
+    // eslint-disable-next-line no-undef
+    google.accounts.id.renderButton(
+      document.getElementById('g_id_onload'),
+      { theme: 'outline', size: 'large', data_width: '220px' }
+    )
+  }, [])
+
+  return (
+    <Flex
+      minH='100vh'
+      align='center'
+      justify='center'
+      bg={useColorModeValue('gray.800', 'gray.800')}
+    >
+      <Stack
+        spacing={8}
+        mx='auto'
+        maxW='lg'
+        py={12}
+        px={6}
+      >
+        <Stack align='center'>
+          <Heading
+            fontSize='4xl'
+            bgGradient='linear(to-l, teal.300, green.400)'
+            bgClip='text'
+          >
+            Hola de nuevo!
+          </Heading>
+          <Text fontSize='lg' color='gray.300'>
+            Ingresa para disfrutar de todos nuestros <Link color='teal.300'>servicios</Link>
+          </Text>
+        </Stack>
+        <form onSubmit={handleSubmit(customSubmit)}>
+          <Box
+            rounded='lg'
+            bg={useColorModeValue('blackAlpha.800', 'gray.800')}
+            boxShadow='lg' p={8}
+          >
             <Stack spacing={4}>
-              <FormControl id="email" color='gray.300'>
+              <FormControl color='gray.300' isInvalid={errors.email}>
                 <FormLabel color='gray.300'>Correo electronico</FormLabel>
-                <Input type="email" focusBorderColor='teal.400' />
+                <Input
+                  type='email'
+                  focusBorderColor={errors.email ? 'red.500' : 'teal.400'}
+                  placeholder='ejemplo@gmail.com'
+                  {...register('email', emailRules)}
+                />
+                <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl id="password" color='gray.300'>
+              <FormControl color='gray.300' isInvalid={errors.password}>
                 <FormLabel color='gray.300'>Contraseña</FormLabel>
-                <Input type="password" focusBorderColor='teal.400'/>
+                <Input
+                  type='password'
+                  focusBorderColor={errors.password ? 'red.500' : 'teal.400'}
+                  {...register('password')}
+                />
+                <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
               </FormControl>
-              <Stack spacing={10}>
-                <Stack direction={{ base: 'column', sm: 'row' }} align='start' justify='space-between'>
-                  <Checkbox color='gray.300'>Recordarme</Checkbox>
-                </Stack>
+              <Stack spacing={4}>
+                <DropdownMenu
+                  titleMenu={usuario}
+                  menuItems={userTypes}
+                  onClick={handleSelectUser}
+                />
+                <Text color='red.500'>{errorRol && 'Selecciona un tipo de usuario'}</Text>
+                <Divider />
                 <Stack spacing={5}>
-                  <Button bg='teal.50' color='black' _hover={{ bg: 'teal.100' }}>
-                    Google
-                  </Button>
-                  <Button bg='blue.600' color='white' _hover={{ bg: 'blue.700' }}>
-                    Facebook
-                  </Button>
-                  <Button bg='teal.400' color='white' _hover={{ bg: 'teal.500' }}>
+                  <Button
+                    id='g_id_onload'
+                    bg='gray.50'
+                    h='50px'
+                    _hover={{
+                      bg: 'gray.50'
+                    }}
+                  />
+                  <Button
+                    bg='teal.400'
+                    color='white'
+                    _hover={{ bg: 'teal.500' }}
+                    loadingText='Ingresando'
+                    type='submit'
+                    onClick={handleSubmit(customSubmit)}
+                  >
                     Ingresar
                   </Button>
                   <Text color='gray.300' letterSpacing='0.5px'>
-                    Aun no tienes una cuenta? Registrate gratis 
-                    <Link color='teal.300' ml='0.3rem'>
-                      aqui
-                    </Link>
+                    ¿Olvidaste tu contraseña? click <Link to='#' style={{ color: 'cyan' }} onClick={onOpen}>aqui</Link>
                   </Text>
+                  <ModalForgotPassword isOpen={isOpen} onClose={onClose} />
                 </Stack>
               </Stack>
             </Stack>
           </Box>
-        </Stack>
-      </Flex>
-    );
-  }
+        </form>
+      </Stack>
+    </Flex>
+  )
+}

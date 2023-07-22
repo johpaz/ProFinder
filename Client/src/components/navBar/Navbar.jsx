@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   IconButton,
@@ -6,137 +5,179 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-
   Flex,
+  Image,
+  useColorModeValue,
+  HStack,
+  Button,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import Styles from "./NavBar.module.css";
-import { Link } from "react-router-dom";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import DarkModeToggle from "../../utils/Darkmode/DarkmodeToggle";
+import Logo from "../../assets/categoriesIcons/Logo.png";
+//import SearchBar from '../SearchBar/SearchBar'
+import NavLink from "../../singleComponents/NavLink";
 
 const Navbar = () => {
-  // Estado para controlar la visibilidad
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  // const location = useLocation()
+  const navbarBgColor = useColorModeValue("gray.200", "gray.900");
 
-  // Función para alternar la visibilidad del desplegable
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // Función para manejar el clic en una opción
-  const handleOptionClick = (option) => {
-    console.log("Selected option:", option);
-    setIsOpen(false); // Cerrar el desplegable al seleccionar una opción
-  };
+  // variable para controlar la renderizacion de la searchbar"
+  // const isCategoriesRoute = location.pathname === '/categories'
 
   return (
-    <nav>
+    <nav
+      style={{
+        // position: "sticky",
+        position: "fixed",
+        width: '100%',
+        top: 0,
+        zIndex: 100,
+      }}
+    >
       <Flex
-        justifyContent={{ base: "center", md: "space-between" }}
+        position="sticky"
+        top="0px"
+        justifyContent="space-between"
         alignItems="center"
+        padding={4}
+        bg={navbarBgColor}
+        as="div"
+        textTransform="uppercase"
+        fontWeight="bold"
+        fontSize="2xl"
+        fontFamily="body"
+        color="gray.700"
       >
-        <Box className={Styles.logoContainer}>
-          <Link to="/" className={Styles.logo} textDecor="none">
-            Logo
-          </Link>
-        </Box>
+        <HStack spacing={8} alignItems="center">
+          <Box onClick={() => navigate("/")} _hover={{ cursor: "pointer" }}>
+            <Image
+              src={Logo}
+              width={{ base: "50%", md: "100%", lg: "100%" }}
+              height="70px"
+            />
+          </Box>
+          <HStack
+            as="nav"
+            spacing={10}
+            display={{ base: "none", md: "flex" }}
+            fontSize="1.2rem"
+            fontWeight="bold"
+            color={useColorModeValue("gray.900", "gray.100")}
+          >
+            <NavLink textLink="¿Como funciona?" routeLink="/comofunciona" />
+            <NavLink textLink="Profesionales" routeLink="/categories" />
+            <NavLink textLink="Contacto" routeLink="/feedback" />
+            <NavLink textLink="Acerca de" routeLink="/" />
+          </HStack>
+        </HStack>
 
-        <Box display={{ base: 'none', md: 'block' }}>
-          <Link to='/pasarela' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
-            Haste Premium
-          </Link>
-        </Box>
-
-
-        <Box display={{ base: 'none', md: 'block' }}>
-          <Link to='/comofunciona' style={{ fontSize: '20px' }} textDecoration='none' ml={4} fontSize='lg'>
-            ¿Cómo funciona?
-          </Link>
-        </Box>
-
-        <Box display={{ base: 'block', md: 'none' }}>
+        <Box display={{ base: "block", md: "none" }}>
           <Menu>
             <MenuButton
               as={IconButton}
+              size="lg"
               icon={<HamburgerIcon />}
               variant="ghost"
+              textDecoration="none"
             />
-            <MenuList>
-              <MenuItem>
-                <Link to="/comofunciona" textDecoration="none">
-                  ¿Cómo funciona?
-                </Link>
+            <MenuList >
+              <MenuItem color={useColorModeValue("gray.900", "gray.100")} onClick={() => navigate("/comofunciona")} >
+                ¿Como funciona?
               </MenuItem>
-              <MenuItem onClick={() => handleOptionClick("cliente")}>
-                Soy Cliente
+              <MenuItem color={useColorModeValue("gray.900", "gray.100")} onClick={() => navigate("/categories")}>
+                Profesionales
               </MenuItem>
               <MenuItem
-                as="a"
-                href="/login"
-                onClick={() => handleOptionClick("profesional")}
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/feedback")}
               >
-                Soy Profesional
+                Contacto
+              </MenuItem>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/")}
+              >
+                Acerca de
+              </MenuItem>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/userLogin")}
+              >
+                Iniciar sesion
+              </MenuItem>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/registerCliente")}
+              >
+                Registrarse cliente
+              </MenuItem>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/registerProvider")}
+              >
+                Registrarse profesional
               </MenuItem>
             </MenuList>
           </Menu>
         </Box>
-      </Flex>
+        <DarkModeToggle />
+        {/* pregunto si es true, si es asi se muestra la search, de lo contrario se oculta */}
+        {/* {isCategoriesRoute && <SearchBar />} */}
 
-      <Box
-        display={{ base: "none", md: "block" }}
-        className={Styles.comoFuncionaContainer}
-      >
-        <Link className={Styles.comoFunciona} to="/comofunciona">
-          ¿Cómo funciona?
-        </Link>
-      </Box>
-
-      <Box
-        display={{ base: "none", md: "block" }}
-        className={Styles.menuContainer}
-      >
-        <ul className={Styles.menu}>
-          <li>
-            <a
-              href="#"
-              onClick={toggleDropdown}
-              className={Styles.dropdownToggle}
-              textDecoration="none"
-            >
-              Registrate ▼
-            </a>
-            {isOpen && (
-              <ul>
-                <li className={Styles.liDropdown}>
-                  <a href="#" onClick={() => handleOptionClick("cliente")}>
-                    Soy Cliente
-                  </a>
-                </li>
-                <li className={Styles.liDropdown}>
-                  <a
-                    href="/login"
-                    onClick={() => handleOptionClick("profesional")}
-                  >
-                    Soy Profesional
-                  </a>
-                </li>
-              </ul>
-            )}
-          </li>
-        </ul>
-      </Box>
-
-      <Box
-        display={{ base: "none", md: "block" }}
-        className={Styles.loginContainer}
-      >
-        <Link
-          to="/selectlogin"
-          className={Styles.loginLink}
-          textDecoration="none"
+        <HStack
+          display={{ base: "none", md: "block", lg: "row" }}
+          justifyContent="space-between"
         >
-          Login
-        </Link>
-      </Box>
+          <Button
+            variant="solid"
+            colorScheme="gray"
+            size="md"
+            mr={6}
+            onClick={() => navigate("/userLogin")}
+          >
+            Iniciar sesion
+          </Button>
+          <Menu>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              // bg={useColorModeValue("blue.500", "blue.700")}
+              // color="gray.100"
+              // _hover={{
+              //   bg: "blue.600",
+              // }}
+            >
+              Registrarse
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/registerProvider")} fontSize="1.2rem"
+                fontWeight="bold"
+              >
+                Soy profesional
+              </MenuItem>
+              <MenuItem
+                color={useColorModeValue("gray.900", "gray.100")}
+                onClick={() => navigate("/registerCliente")} fontSize="1.2rem"
+                fontWeight="bold"
+              >
+                Soy cliente
+              </MenuItem>
+            </MenuList>
+          </Menu>
+          {/* <Button
+            variant='solid'
+            colorScheme='blue'
+            size='md'
+            onClick={() => navigate('/userRegister')}
+          >
+            Registrarse
+          </Button> */}
+        </HStack>
+      </Flex>
     </nav>
   );
 };
