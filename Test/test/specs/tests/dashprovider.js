@@ -4,6 +4,7 @@ const { remote } = require('webdriverio');
 describe('Pruebas del Dashboard', () => {
   let browser;
 
+ 
   before(async () => {
     browser = await remote({
       // Configuración de WebDriverIO
@@ -12,11 +13,14 @@ describe('Pruebas del Dashboard', () => {
       },
     });
 
-    // Inicio de sesión como proveedor (asegúrate de que el proveedor esté autenticado antes de ejecutar estas pruebas)
+    // Iniciar sesión utilizando executeScript para ejecutar el código en el contexto de la página
     await browser.url('https://profinder-client.vercel.app/userLogin');
-    await browser.setValue('#field-:r1v:', 'test@email.com'); // Reemplaza con el correo de un proveedor válido
-    await browser.setValue('#field-:r20:', 'Test1234'); // Reemplaza con la contraseña de un proveedor válido
-    await browser.click('.chakra-button.css-1vnezre');
+    await browser.executeScript((email, password) => {
+      document.querySelector('#field-:r1v:').value = email;
+      document.querySelector('#field-:r20:').value = password;
+      document.querySelector('.chakra-button.css-1vnezre').click();
+    }, 'test@email.com', 'Test1234');
+
     await browser.waitForExist('.css-14dfcxk');
 
     // Navegar al dashboard del proveedor
@@ -27,7 +31,6 @@ describe('Pruebas del Dashboard', () => {
   after(async () => {
     await browser.deleteSession();
   });
-
   it('Debería ver el botón "Inicio"', async () => {
     const buttonText = await browser.getText('.chakra-button.css-1sn58rb');
     expect(buttonText).to.equal('Inicio');
