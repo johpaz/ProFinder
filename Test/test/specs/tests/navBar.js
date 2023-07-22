@@ -9,7 +9,7 @@ describe('Prueba de la nueva barra de navegación', () => {
   });
 
   it('Debería contener los enlaces correctamente', () => {
-    browser.url('https://profinder-client.vercel.app/'); // Reemplaza con la URL de tu página
+    browser.url('https://profinder-client.vercel.app/'); // URL de tu página
 
     const enlaces = $$('.chakra-link'); // Obtén todos los enlaces de la barra de navegación
 
@@ -22,7 +22,7 @@ describe('Prueba de la nueva barra de navegación', () => {
   });
 
   it('Debería mostrar el menú desplegable correctamente', () => {
-    browser.url('https://profinder-client.vercel.app/'); // Reemplaza con la URL de tu página
+    browser.url('https://profinder-client.vercel.app/'); //  URL de tu página
 
     const menuButton = $('.chakra-menu__menu-button');
     menuButton.click();
@@ -53,7 +53,7 @@ describe('Prueba de la nueva barra de navegación', () => {
   });
 
   it('El botón "Iniciar sesión" debería redireccionar a la página de inicio de sesión', () => {
-    browser.url('https://profinder-client.vercel.app/'); // Reemplaza con la URL de tu página
+    browser.url('https://profinder-client.vercel.app/'); // URL de tu página
 
     const iniciarSesionButton = $('.chakra-button:contains("Iniciar sesion")');
     iniciarSesionButton.click();
@@ -62,7 +62,7 @@ describe('Prueba de la nueva barra de navegación', () => {
     browser.pause(1000); // Puedes ajustar el tiempo según sea necesario
 
     // Verifica que la URL actual sea la de la página de inicio de sesión
-    expect(browser.getUrl()).to.include('/iniciar-sesion'); // Reemplaza con la URL de la página de inicio de sesión
+    expect(browser.getUrl()).to.include('/iniciar-sesion'); //URL de la página de inicio de sesión
 
     // También puedes verificar otros elementos específicos de la página de inicio de sesión si es necesario
     // const tituloPagina = $('h1');
