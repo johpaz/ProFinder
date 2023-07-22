@@ -30,7 +30,8 @@ const transporter = nodemailer.createTransport({
 
 const sendEmailWelcome = async (email) => {
     try {
-        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/WelcomeMessage/index.html', 'utf-8');
+        const dirPath = path.join(__dirname, '/WelcomeMessage/index.html');
+        const htmlContent = fs.readFileSync(dirPath);
         transporter.use('compile', htmlToText());
         const mailOptions = {
             from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
@@ -46,9 +47,9 @@ const sendEmailWelcome = async (email) => {
 };
 
 const sendEmailRestartPassword = async (email, name) => {
-    try {
-        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/RestartPassword/index.html', 'utf-8');
-        htmlContent.replace("{{nombre}}", name)
+        const dirPath = path.join(__dirname, '/RestartPassword/index.html');
+        console.log(dirPath);
+        const htmlContent = fs.readFileSync(dirPath);
         transporter.use('compile', htmlToText());
         console.log(htmlContent);
         const mailOptions = {
@@ -58,9 +59,7 @@ const sendEmailRestartPassword = async (email, name) => {
             html: htmlContent// html body            
         }
         await transporter.sendMail(mailOptions)
-    } catch (error) {
-        console.log(error);
-    }
+
 }
 
 const sendEmailPremium = async () => {

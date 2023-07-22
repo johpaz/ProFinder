@@ -54,10 +54,10 @@ const typeUserPassword = async (email, password, usuario) => {
                     `UPDATE "Profesionals" SET password = '${hash}' WHERE id = ${updatePasswordProfesional[0][0].id}`
                 );
                 return {
-                    id: updatePasswordClient[0][0].id,
+                    id: updatePasswordProfesional[0][0].id,
                     usuario: usuario,
                     email: email,
-                    password: password,
+                    password: hash,
                     message: "Contraseña restablecida",
                 };
             }
@@ -65,7 +65,6 @@ const typeUserPassword = async (email, password, usuario) => {
         case "a":
 
             const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);
-
             if (adminis[0][0] == undefined) {
                 throw Error({
                     usuario: usuario,
@@ -75,11 +74,12 @@ const typeUserPassword = async (email, password, usuario) => {
                 });
 
             } else {
+                const hash = await bcrypt.hash(password, 8);
                 return {
                     id: adminis[0][0].id,
                     usuario: usuario,
                     email: email,
-                    password: password,
+                    password: hash,
                     message: "Contraseña de administrador restablecida",
                 };
             };
