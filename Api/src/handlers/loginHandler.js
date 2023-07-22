@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const { sendEmailRestartPassword } = require("../configs/nodemailer/sendEmailConfirmation")
-// const updatePassword = require("../controllers/loginController/forgotPassword")
 const { User } = require("../db");
 const typeUserPassword = require("../controllers/loginController/changePasswordByUser")
 
@@ -10,7 +9,17 @@ const loginUser = async (req, res) => {
   const { usuario, email, password } = req.body;
   const { forgotPassword } = req.query
   if (forgotPassword) {
-    await sendEmailRestartPassword("chrismai1020162016@hotmail.com", "Christian")
+    const sql = await sequelize.query(
+      `SELECT * FROM "Users" where email= '${forgotPassword}'`
+    );
+    if (sql[0][0]) {
+      await sendEmailRestartPassword(forgotPassword, sql[0][0].name)
+      return res.status(200).json({ message: "Correo enviado con exíto" })
+    }
+    else {
+      return res.status(404).json({ message: "El correo solicitado, no exíste" })
+    }
+
   }
   const sql = await sequelize.query(
     `SELECT * FROM "Users" where email= '${email}'`
@@ -135,7 +144,7 @@ const updatePassword = async (email, password) => {
 
 const changePasswordLogin = async (req, res) => {
   const { email, password } = req.body;
-  const usuario =await User.findOne({
+  const usuario = await User.findOne({
     where: {
       email: email
     }
@@ -145,7 +154,6 @@ const changePasswordLogin = async (req, res) => {
     const changePasswordByUser = await typeUserPassword(email, password, usuario.usuario)
     return res.status(200).json(changePasswordByUser);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ error: error.message });
   }
 
