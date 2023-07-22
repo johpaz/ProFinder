@@ -40,6 +40,11 @@ const tableProf= async (usuario,emailFromGoogle)=>{
   return (loginProf[0][0].id)
 };
 
+const tableAdmi= async (usuario,emailFromGoogle)=>{
+  const email = emailFromGoogle;
+  const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);;
+  return (adminis[0][0].id)
+};
 
 
 const execute= async (accessToken, refreshToken, profile, done) =>{
@@ -69,7 +74,18 @@ const execute= async (accessToken, refreshToken, profile, done) =>{
         };
     
         done(null,userData);
+      } else if (usuario=="a"){
+        
+        const id=  await tableAdmi(usuario,emailFromGoogle);
+        const userData={
+          usuario:usuario,
+          id: id
+        };
+    
+        done(null,userData);
       }
+
+
 
 
   } else { console.log('nohay res')

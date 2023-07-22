@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 
 const { sequelize } = require("../db");
-const sendEmail = require("../configs/nodemailer/sendEmailConfirmation");
+const { sendEmailWelcome } = require("../configs/nodemailer/sendEmailConfirmation");
+const { admin } = require("googleapis/build/src/apis/admin");
 
 
 const userRegister = async (req, res) => {
@@ -19,7 +20,7 @@ const userRegister = async (req, res) => {
                         const newClient = await sequelize.query(`INSERT INTO "Clients" (name,email) VALUES ('${name}','${email}')`);
 
                         const registerClient = await sequelize.query(`SELECT * FROM "Clients" WHERE "email"= '${email}'`);
-                        await sendEmail()
+                        await sendEmailWelcome()
                         {
                             res.status(200).json({
                                 id: registerClient[0][0].id,
@@ -27,7 +28,7 @@ const userRegister = async (req, res) => {
                                 usuario: usuario,
                                 email: email,
                                 password: password,
-                                message: "El usuario se ha registrado exitosamente"
+                                message: "El cliente se ha registrado exitosamente"
                             })
                         }
 
@@ -39,7 +40,7 @@ const userRegister = async (req, res) => {
                         const newProf = await sequelize.query(`INSERT INTO "Profesionals" (name,email) VALUES ('${name}','${email}')`);
 
                         const registerProf = await sequelize.query(`SELECT * FROM "Profesionals" WHERE "email"= '${email}'`);
-                        await sendEmail()
+                        await sendEmailWelcome()
                         {
                             res.status(200).json({
                                 id: registerProf[0][0].id,
@@ -47,7 +48,7 @@ const userRegister = async (req, res) => {
                                 usuario: usuario,
                                 email: email,
                                 password: password,
-                                message: "El usuario se ha registrado exitosamente"
+                                message: "El profesional se ha registrado exitosamente"
                             })
                         }
 
@@ -55,7 +56,18 @@ const userRegister = async (req, res) => {
                         break;
 
                     case 'a':
-                        console.log("soy a")
+                        const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);
+
+
+                        res.status(200).json({
+                            id: adminis[0][0].id,
+                            name: name,
+                            usuario: usuario,
+                            email: email,
+                            password: password,
+                            message: "El administrador se ha registrado exitosamente"
+                        })
+
 
                         break;
 
@@ -69,5 +81,11 @@ const userRegister = async (req, res) => {
         };
     })
 };
+
+
+
+
+
+
 
 module.exports = { userRegister };

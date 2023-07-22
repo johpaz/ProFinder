@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="./index.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Simple Transactional Email</title>
@@ -118,13 +119,17 @@
                             style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #ffffff; border-radius: 3px; width: 100%;"
                             width="100%">
 
-                            <td class="content-block"
-                                style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #000000; font-size: 12px; text-align: center; background-color: #E2E8F0;"
-                                valign="top" align="center">
-                                <img src="https://i.imgur.com/KR8bqk8.jpg" title="source: imgur.com" style="width: 160px; height: 100px; mix-blend-mode: multiply; filter: brightness(1.1);"/>
-        
-                            </td>
-                            <!-- START MAIN CONTENT AREA -->
+                            <tbody>
+                                <tr>
+                                    <td class="content-block"
+                                        style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #000000; font-size: 12px; text-align: center; background-color: #E2E8F0;"
+                                        valign="top" align="center">
+                                        <img src="https://i.imgur.com/KR8bqk8.jpg" title="source: imgur.com" class="image-styles"/>
+
+                                    </td>
+                                    <!-- START MAIN CONTENT AREA -->
+                                </tr>
+                            </tbody>
                             <tbody>
                                 <tr>
                                     <td class="wrapper"
@@ -149,9 +154,10 @@
                                                                     <td align="left"
                                                                         style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;"
                                                                         valign="top">
-                                                                        <h1
+                                                                        <h1 id="titulo"
                                                                             style="font-family: sans-serif; font-size: 20px; font-weight:300; margin: 0; margin-bottom: 15px; text-align: center; text-shadow: 1px #34495e;">
-                                                                            ¡Bienvenido a Profinder!</h1>
+                                                                            ¡Hola "{{nombre}}"!
+                                                                        </h1>
                                                                         <table role="presentation" border="0"
                                                                             cellpadding="0" cellspacing="0">
                                                                         </table>
@@ -163,77 +169,11 @@
                                                         padding: 0 20px 20px;
                                                         font-size: 14px;
                                                         line-height: 1.5;
-                                                        width: 95%; height: max-content;">¡Nos emociona tenerte como parte de nuestra
-                                                            creciente
-                                                            comunidad. Queremos agradecerte por unirte a nuestra
-                                                            plataforma, donde podrás encontrar a los
-                                                            profesionales más talentosos y experimentados para
-                                                            satisfacer todas
-                                                            tus
-                                                            necesidades!
-                                                        </p>
-                                                        <p style="    text-align: left;
-                                                        padding: 0 20px 20px;
-                                                        font-size: 14px;
-                                                        line-height: 1.5;
-                                                        width: 95%;">
-                                                            Profinder ha sido diseñada para ofrecerte una
-                                                            experiencia fácil y sencilla, permitiéndote conectar
-                                                            con
-                                                            una amplia variedad de profesionales calificados que
-                                                            están listos para ayudarte con sus habilidades y
-                                                            servicios.
-                                                        </p>
-                                                        <p style="    text-align: left;
-                                                        padding: 0 20px 20px;
-                                                        font-size: 14px;
-                                                        line-height: 1.5;
-                                                        width: 95%;">
-                                                            Ya seas un cliente en busca de servicios o un
-                                                            profesional que desea ofrecerlos, aquí encontrarás
-                                                            todas las
-                                                            herramientas necesarias para lograr tus objetivos.
-                                                            Nuestra plataforma se basa en la interacción entre
-                                                            profesionales y clientes, creando una comunidad
-                                                            dinámica y colaborativa.
-                                                            Nuestro equipo está comprometido a brindarte el
-                                                            mejor servicio posible, y constantemente trabajamos
-                                                            para
-                                                            mejorar
-                                                            y actualizar la aplicación con nuevas
-                                                            funcionalidades que se ajusten a tus necesidades.
-                                                        </p>
-                                                        <p style="    text-align: left;
-                                                        padding: 0 20px 20px;
-                                                        font-size: 14px;
-                                                        line-height: 1.5;
-                                                        width: 95%;">
-                                                            Si tienes alguna duda, sugerencia o comentario, no
-                                                            dudes en contactarnos a través de
-                                                            <a>profinder943@gmail.com</a>
-                                                            Estamos aquí para ayudarte en todo momento.
-                                                        </p>
-                                                        <p style="    text-align: left;
-                                                        padding: 0 20px 20px;
-                                                        font-size: 14px;
-                                                        line-height: 1.5;
-                                                        width: 95%;">
-                                                            ¡Gracias por unirte a Profinder y confiar en nosotros
-                                                            para encontrar a los profesionales perfectos
-                                                            para
-                                                            tus proyectos y necesidades!
-                                                            ¡Que tengas una excelente experiencia en nuestra
-                                                            plataforma!
-                                                        </p>
-
-                                                        <p style="    text-align: left;
-                                                        padding: 0 20px 20px;
-                                                        font-size: 14px;
-                                                        line-height: 1.5;
-                                                        width: 80%;">
-                                                            Atentamente,
-                                                            <br>
-                                                            El equipo de Profinder
+                                                        width: 95%; height: max-content;">¡Nos ha pedido que
+                                                            restablezcamos la contraseña de su cuenta
+                                                            de Profinder. Por favor, haga clic en el botón de abajo para
+                                                            hacerlo. Si no solicitó este restablecimiento de contraseña,
+                                                            ¡puede continuar e ignorar este correo electrónico!
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -241,21 +181,41 @@
                                         </table>
                                     </td>
                                 </tr>
+                            </tbody>
                             <tbody>
                                 <tr>
-                                    <td style="position: relative;"
-                                        valign="top" align="center" bgcolor="#3498db">
+                                    <td style="position: relative;" valign="top" align="center" bgcolor="#3498db">
                                         <a href="http://htmlemail.io" target="_blank"
                                             style="border: solid 1px #3498db; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #3498db; border-color: #3498db; color: #ffffff;">
-                                            Ir
-                                            a
-                                            profinder
+                                            Restablecer
+                                            contraseña
                                         </a>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                            style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;"
+                            width="100%">
+                            <tbody
+                                style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #999999; font-size: 12px; text-align: center; ">
+                                <tr>
+                                    <td class="content-block" valign="top"
+                                        style="display: flex; justify-content: center; align-items: center;">
+
+                                    </td>
+                                </tr>
+                                <tr>
 
                                 </tr>
                             </tbody>
+                        </table>
+                    </div>
 
-                            <!-- END MAIN CONTENT AREA -->
+                    <!-- END MAIN CONTENT AREA -->
+                </td>
+            </tr>
         </tbody>
     </table>
     <!-- END CENTERED WHITE CONTAINER -->
@@ -283,15 +243,11 @@
         </table>
     </div>
     <!-- END FOOTER -->
+    <!-- Code njected by live-server -->
+    <!-- Code injeted by live-server -->
 
-    </div>
-    </td>
-    </tr>
-    </tbody>
-    </table>
+
     <!-- Code injected by live-server -->
-
-
 </body>
 
 </html>

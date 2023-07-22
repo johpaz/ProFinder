@@ -1,5 +1,7 @@
 const fs = require("fs")
+const path = require("path")
 const nodemailer = require("nodemailer");
+const htmlToText = require('nodemailer-html-to-text').htmlToText;
 require('dotenv').config();
 const { google } = require("googleapis")
 const { ADMIN_EMAIL, ADMIN_PASSWORD, CLIENT_ID_EMAIL, CLIENT_SECRET_EMAIL, REDIRECT_URI, REFRESH_TOKEN } = process.env
@@ -26,15 +28,15 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendEmailWelcome = async () => {
+const sendEmailWelcome = async (email) => {
     try {
-
+        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/WelcomeMessage/index.html', 'utf-8');
+        transporter.use('compile', htmlToText());
         const mailOptions = {
             from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
-            to: "chrismai1020162016@hotmail.com", // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: "Hello world?", // plain text body
-            html: data, // html body            
+            to: email, // list of receivers
+            subject: "Bienvenido", // Subject line
+            html: htmlContent// html body            
         }
         await transporter.sendMail(mailOptions)
     } catch (error) {
@@ -43,9 +45,44 @@ const sendEmailWelcome = async () => {
 
 };
 
-const sendEmailRestartPassword =
-
-
-    module.exports = {
-        sendEmailWelcome
+const sendEmailRestartPassword = async (email, name) => {
+    try {
+        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/RestartPassword/index.html', 'utf-8');
+        htmlContent.replace("{{nombre}}", name)
+        transporter.use('compile', htmlToText());
+        console.log(htmlContent);
+        const mailOptions = {
+            from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
+            to: email, // list of receivers
+            subject: "Bienvenido", // Subject line
+            html: htmlContent// html body            
+        }
+        await transporter.sendMail(mailOptions)
+    } catch (error) {
+        console.log(error);
     }
+}
+
+const sendEmailPremium = async () => {
+    try {
+        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/PremiumMessage/index.html', 'utf-8');
+        htmlContent.replace("{{nombre}}", name)
+        transporter.use('compile', htmlToText());
+        const mailOptions = {
+            from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
+            to: email, // list of receivers
+            subject: "Bienvenido", // Subject line
+            html: htmlContent// html body            
+        }
+        await transporter.sendMail(mailOptions)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+module.exports = {
+    sendEmailWelcome,
+    sendEmailRestartPassword,
+    sendEmailPremium
+}

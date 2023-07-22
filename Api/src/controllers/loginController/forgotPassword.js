@@ -1,5 +1,4 @@
-const { sequelize } = require("../db");
+const { sequelize } = require("../../db");
+const bcrypt = require("bcrypt");
 
-const forgotPassword = async (password) => {
-    const sql = await sequelize.query(`SELECT * FROM "Users" where email= '${email}'`);
-}
+
