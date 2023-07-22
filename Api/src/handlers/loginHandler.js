@@ -10,7 +10,7 @@ const loginUser = async (req, res) => {
   const { usuario, email, password } = req.body;
   const { forgotPassword } = req.query
   if (forgotPassword) {
-    await sendEmailRestartPassword("chrismai1020162016@hotmail.com", "Christian")
+    await sendEmailRestartPassword(email)
   }
   const sql = await sequelize.query(
     `SELECT * FROM "Users" where email= '${email}'`
@@ -135,7 +135,7 @@ const updatePassword = async (email, password) => {
 
 const changePasswordLogin = async (req, res) => {
   const { email, password } = req.body;
-  const usuario =await User.findOne({
+  const usuario = await User.findOne({
     where: {
       email: email
     }
