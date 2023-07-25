@@ -20,10 +20,6 @@ const MapSection = () => {
     tooltipAnchor: [16, -28],
   });
 
-  useEffect(() => {
-    // Código para cargar los datos del servidor si es necesario
-  }, []);
-
   // Función para manejar el evento de clic en el mapa
   const handleMapClick = (e) => {
     const { lat, lng } = e.latlng;
@@ -44,17 +40,19 @@ const MapSection = () => {
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {/* Agrega los marcadores y popups para cada proveedor */}
         {suppliers.map((supplier) => (
-          <Marker key={supplier.id} position={supplier.geolocation} icon={customIcon}>
+          <Marker key={supplier.id} position={[supplier.lan, supplier.lon]} icon={customIcon}>
             <Popup>
-            <div>
+              <div>
                 <h2>{supplier.name}</h2>
                 <p>Location: {supplier.ubication.location}</p>
                 {/* Si el proveedor tiene al menos una ocupación */}
                 {supplier.professions.length > 0 && (
                   <p>Category: {supplier.professions[0].category}</p>
                 )}
+                {/* Muestra la latitud y longitud del proveedor */}
+                <p>Latitude: {supplier.lan}</p>
+                <p>Longitude: {supplier.lon}</p>
               </div>
-
             </Popup>
           </Marker>
         ))}
