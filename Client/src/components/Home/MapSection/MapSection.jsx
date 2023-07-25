@@ -1,54 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import axios from 'axios';
-import { Box, Heading } from '@chakra-ui/react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import icon from './icon.png';
-import iconShadow from './icon.png';
-const MapSection = () => {
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3006/profesional/')
-      .then((response) => {
-        setData(response.data);
-        console.log(response.data); // Imprime los datos en la consola
-      })
-      .catch((error) => {
-        console.error('Error al obtener los datos:', error);
-      });
-  }, []);
-  const DefaultIcon = L.icon({
+const MapSection = () => {
+  const suppliers = useSelector((state) => state.suppliers);
+
+  // Coordenadas de latitud y longitud de Buenos Aires
+  const initialPosition = [-34.6118, -58.4173];
+
+  // Define el icono personalizado para los marcadores
+  const customIcon = new L.Icon({
     iconUrl: icon,
-    shadowUrl: iconShadow,
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     tooltipAnchor: [16, -28],
-    shadowSize: [41, 41],
   });
-  
-  L.Marker.prototype.options.icon = DefaultIcon;
+
+  useEffect(() => {
+    // Código para cargar los datos del servidor si es necesario
+  }, []);
+
+  // Función para manejar el evento de clic en el mapa
+  const handleMapClick = (e) => {
+    const { lat, lng } = e.latlng;
+    const popupContent = `You clicked the map at (${lat}, ${lng})`;
+
+    // Crea una nueva ventana emergente y la abre en la ubicación del clic
+    L.popup()
+      .setLatLng(e.latlng)
+      .setContent(popupContent)
+      .openOn(e.target);
+  };
 
   return (
-    <Box p={4} width="100%">
-      <Box textAlign="center" my={4}>
-        <Heading as="h1">Tu aplicación con mapas</Heading>
-      </Box>
-      <Box maxWidth="500px" mx="auto">
-        {/* El componente MapContainer debe tener un tamaño definido para que el mapa sea visible */}
-        <MapContainer>
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {/* Aquí puedes utilizar la data obtenida y mapearla para mostrar los marcadores */}
-          {data.map((item) => (
-            <Marker key={item.id} position={[item.geolocation[0], item.geolocation[1]]}>
-              <Popup>{item.name}</Popup>
-            </Marker>
-  ))}
-</MapContainer>
+    <div style={{ height: '400px', margin: '15px', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
+      {/* El componente MapContainer debe tener un tamaño definido para que el mapa sea visible */}
+      <MapContainer center={initialPosition} zoom={2.3} style={{ height: '100%' }} onClick={handleMapClick}>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {/* Agrega los marcadores y popups para cada proveedor */}
+        {suppliers.map((supplier) => (
+          <Marker key={supplier.id} position={supplier.geolocation} icon={customIcon}>
+            <Popup>
+            <div>
+                <h2>{supplier.name}</h2>
+                <p>Location: {supplier.ubication.location}</p>
+                {/* Si el proveedor tiene al menos una ocupación */}
+                {supplier.professions.length > 0 && (
+                  <p>Category: {supplier.professions[0].category}</p>
+                )}
+              </div>
 
-      </Box>
-    </Box>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 };
 

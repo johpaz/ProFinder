@@ -22,7 +22,7 @@ const getAllSuppliers = () => {
   console.log(URL);
   return function(dispatch) {
     axios
-      .get('http://localhost:3006/profesional')
+      .get(URL)
       .then((response) => {
         dispatch({ type: GET_ALL_SUPPLIERS, payload: response.data });
       })

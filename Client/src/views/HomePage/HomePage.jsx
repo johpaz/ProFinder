@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { getAllCategories } from '../../services/redux/actions/actions';
 import { Box, Divider, useColorMode } from '@chakra-ui/react';
 import Footer from '../../components/Footer/Footer';
-
 import TopPro from '../../components/Home/TopPro/TopPro'
 import FeaturesGrid from '../../components/Home/FeaturesGrid/FeaturesGrid'
 import TestimonialCarrousel from '../../components/Home/TestimonialCarrousel/TestimonialCarrousel'
@@ -83,13 +82,11 @@ const HomePage = () => {
 
         <Divider height="3px" borderColor={dividerColor} width="80%" mx="auto" />
         <TopPro />
-         
-      </Box>
-      <Box>
-      <MapSection/>
+        
       </Box>
       
-
+      <MapSection/>
+      
       <Footer />
     </Box>
   );
