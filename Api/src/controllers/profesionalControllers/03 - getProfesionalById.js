@@ -4,6 +4,7 @@ const { Ocupation } = require('../../db');
 const { Country,Location } = require('../../db');
 const { ProfesionalImagesPost } = require('../../db');
 const { PostProfesional } = require("../../db");
+const { Review } = require("../../db");
 
 const cleanArrayProfesionalId = require('../../helpers/cleanArrayProfesionalById');
 
@@ -39,6 +40,9 @@ const getProfesionalById = async (id) => {
       {
         model: PostProfesional,
         attributes: ["id", "title", "image", "content"]
+      },{
+        model: Review,
+        attributes: ["content", "rating"]
       }
     ]
   });
