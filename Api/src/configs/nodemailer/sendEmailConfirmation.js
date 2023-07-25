@@ -1,6 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const nodemailer = require("nodemailer");
+const cheerio = require("cheerio")
 const htmlToText = require('nodemailer-html-to-text').htmlToText;
 require('dotenv').config();
 const { google } = require("googleapis")
@@ -31,7 +32,7 @@ const transporter = nodemailer.createTransport({
 const sendEmailWelcome = async (email) => {
     try {
         const dirPath = path.join(__dirname, '/WelcomeMessage/index.html');
-        const htmlContent = fs.readFileSync(dirPath);
+        const htmlContent = fs.readFileSync(dirPath, "utf-8");
         transporter.use('compile', htmlToText());
         const mailOptions = {
             from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
@@ -47,31 +48,34 @@ const sendEmailWelcome = async (email) => {
 };
 
 const sendEmailRestartPassword = async (email, name) => {
-        const dirPath = path.join(__dirname, '/RestartPassword/index.html');
-        console.log(dirPath);
-        const htmlContent = fs.readFileSync(dirPath);
-        transporter.use('compile', htmlToText());
-        console.log(htmlContent);
-        const mailOptions = {
-            from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
-            to: email, // list of receivers
-            subject: "Bienvenido", // Subject line
-            html: htmlContent// html body            
-        }
-        await transporter.sendMail(mailOptions)
+    const dirPath = path.join(__dirname, '/RestartPassword/index.html');
+    const htmlContent = fs.readFileSync(dirPath, "utf-8");
+    const addName = cheerio.load(htmlContent);
+    addName('#titulo').text(`¡Hola ${name}!`);
+    transporter.use('compile', htmlToText());
+    const mailOptions = {
+        from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
+        to: email, // list of receivers
+        subject: "Bienvenido", // Subject line
+        html: addName.html()// html body            
+    }
+    await transporter.sendMail(mailOptions)
 
 }
 
-const sendEmailPremium = async () => {
+const sendEmailPremium = async (email,name) => {
     try {
-        const htmlContent = fs.readFileSync('C:/Users/Famili/Desktop/Profinder/Api/src/configs/nodemailer/PremiumMessage/index.html', 'utf-8');
-        htmlContent.replace("{{nombre}}", name)
+        const dirPath = path.join(__dirname, '/PremiumMessage/index.html');
+        const htmlContent = fs.readFileSync(dirPath, "utf-8");
+        const editHtml = cheerio.load(htmlContent);
+        editHtml('#titulo').text(`¡Gracias ${name} por tu suscripcion!`);
+        editHtml('#editParrafo').text(`¡Hola ${name}!`)
         transporter.use('compile', htmlToText());
         const mailOptions = {
             from: `"App Profinder" < ${ADMIN_EMAIL} >`, // sender address
             to: email, // list of receivers
             subject: "Bienvenido", // Subject line
-            html: htmlContent// html body            
+            html: editHtml.html()// html body            
         }
         await transporter.sendMail(mailOptions)
     } catch (error) {

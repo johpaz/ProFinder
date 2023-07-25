@@ -5,6 +5,9 @@ import { CLIENT } from '../../constants'
 import DropdownMenu from '../../../../singleComponents/DropdownMenu'
 
 export default function FiltersDashboard () {
+  const bgElement = useColorModeValue('white', 'gray.800')
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   const {
     status,
     results
@@ -32,8 +35,8 @@ export default function FiltersDashboard () {
 
   return (
     <Box
-      bg={useColorModeValue('gray.800', 'gray.800')}
-      color={useColorModeValue('gray.50', 'gray.200')}
+      bg={bgElement}
+      color={txtColor}
     >
       <Container
         as={Stack}
@@ -68,7 +71,7 @@ export default function FiltersDashboard () {
         >
           <Text>
             {`${results} resultados
-            ${status === 'Estatus' || status === 'Todos' ? '' : status + '🔹'}`}
+            ${status === 'Estatus' || status === 'Todos' ? '' : status + ' 🔹'}`}
           </Text>
         </Container>
       </Box>

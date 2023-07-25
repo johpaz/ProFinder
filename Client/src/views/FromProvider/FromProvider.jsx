@@ -167,14 +167,15 @@ function FormProvider() {
       align="center"
       justify="center"
       bg={useColorModeValue("gray.800", "gray.800")}
-    
+      // width={{ base: "90%", sm: "80%", md: "60%", lg: "500px" }}
     >
       <Box      rounded="lg"
         bg={useColorModeValue("blackAlpha.800", "gray800")}
         boxShadow="lg"
         p={8}
         color="gray.300"
-        width="500px">
+      
+        width={{ base: "90%", sm: "80%", md: "60%", lg: "500px" }}>
           
         <Stack spacing={4} >
           <form onSubmit={handleSubmit(onSubmit)}>

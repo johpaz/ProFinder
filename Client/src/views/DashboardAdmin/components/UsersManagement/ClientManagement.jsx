@@ -7,10 +7,13 @@ import { getActualDate } from '../../constants'
 import { useClientDash } from '../../../../services/zustand/useClientDash'
 import Statistic from '../../singleComponents/Statistic'
 import ClientUsersTable from '../UsersTable/ClientUsersTable'
+import { useColorModeValue } from '@chakra-ui/react'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function ClientManagement () {
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   const date = getActualDate()
   const {
     clients,
@@ -53,7 +56,12 @@ export default function ClientManagement () {
           spacing={{ base: 5, md: 10 }}
           width={{ base: '100%', md: '50%' }}
         >
-          <Heading size='lg'>Clientes</Heading>
+          <Heading
+            size='lg'
+            color={txtColor}
+          >
+            Clientes
+          </Heading>
           <Stack // bloque de stats
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}
@@ -92,7 +100,11 @@ export default function ClientManagement () {
           />
         </Flex>
       </Stack>
-      <Heading>Gestion de clientes</Heading>
+      <Heading
+        color={txtColor}
+      >
+        Gestion de clientes
+      </Heading>
       <ClientUsersTable />
     </Container>
   )

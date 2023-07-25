@@ -16,7 +16,7 @@ export default function UserRegister ({ id, name, email, image, softDelete }) {
     postUnbannedClient
   } = useClientDash(state => state)
 
-  const bg2 = useColorModeValue('white', 'gray.800')
+  const bgElement = useColorModeValue('white', 'gray.800')
 
   return (
     <Flex // Elemento tabla
@@ -24,7 +24,7 @@ export default function UserRegister ({ id, name, email, image, softDelete }) {
         base: 'row',
         md: 'column'
       }}
-      bg={bg2}
+      bg={bgElement}
       key={id}
     >
       <SimpleGrid // Renglon tabla

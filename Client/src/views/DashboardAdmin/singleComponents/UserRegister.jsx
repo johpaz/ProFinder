@@ -12,13 +12,13 @@ import BannedButton from './BannedButton'
 import UnbannedButton from './UnbannedButton'
 
 export default function UserRegister ({ id, name, email, image, active, softDelete }) {
+  const bgColor = useColorModeValue('white', 'gray.800')
+
   const {
     getProfesional,
     postBannedProfesional,
     postUnbannedProfesional
   } = useProfesionalDash(state => state)
-
-  const bg2 = useColorModeValue('white', 'gray.800')
 
   return (
     <Flex // Elemento tabla
@@ -26,7 +26,7 @@ export default function UserRegister ({ id, name, email, image, active, softDele
         base: 'row',
         md: 'column'
       }}
-      bg={bg2}
+      bg={bgColor}
       key={id}
     >
       <SimpleGrid // Renglon tabla

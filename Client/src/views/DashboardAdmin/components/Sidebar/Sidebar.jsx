@@ -16,14 +16,22 @@ export default function Sidebar () {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { pathname } = useLocation()
 
+  const bgColor = useColorModeValue('gray.100', 'gray.900')
+  const bgElement = useColorModeValue('white', 'gray.800')
+
   return (
     <Box // contenedor principal
       minH='100vh'
-      bg={useColorModeValue('gray.100', 'gray.900')}
+      bg={bgColor}
     >
       <SidebarContent
+        bg={bgElement}
         onClose={() => onClose}
-        display={{ base: 'none', md: 'block' }}
+        display={{
+          base: 'none',
+          md: 'none',
+          lg: 'block'
+        }}
       />
       <Drawer
         autoFocus={false}
@@ -32,16 +40,26 @@ export default function Sidebar () {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size='xs'
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
+      <MobileNav
+        display={{
+          base: 'flex',
+          md: 'flex',
+          lg: 'none'
+        }}
+        onOpen={onOpen}
+      />
       <Box
-        ml={{ base: 0, md: 60 }}
+        ml={{
+          base: 0,
+          md: 0,
+          lg: 60
+        }}
         p='4'
       >
         {

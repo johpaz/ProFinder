@@ -16,9 +16,7 @@ const Paginator = ({ currentPage, setCurrentPage, totalPages }) => {
         disabled={currentPage === 1}
         colorScheme="teal"
         leftIcon={<ChevronLeftIcon />}
-      >
-        Previo
-      </Button>
+      />
     );
 
     for (let page = 1; page <= totalPages; page++) {
@@ -40,16 +38,14 @@ const Paginator = ({ currentPage, setCurrentPage, totalPages }) => {
         disabled={currentPage === totalPages}
         colorScheme="teal"
         rightIcon={<ChevronRightIcon />}
-      >
-        Siguiente
-      </Button>
+      />
     );
 
     return buttons;
   };
 
   return (
-    <HStack spacing={2} mt={4} justify="center">
+    <HStack spacing={2} mt={4} p={50} w="full" alignItems="center" justifyContent="center">
       {generatePageButtons()}
     </HStack>
   );

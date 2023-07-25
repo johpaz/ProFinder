@@ -18,7 +18,7 @@ import {
   Flex,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { CheckIcon, AddIcon } from '@chakra-ui/icons';
+import { CheckIcon } from '@chakra-ui/icons';
 import { updateFeedback } from '../../../services/redux/actions/actions';
 import SupplierSelect from './SupplierSelect'; // Importa el componente SupplierSelect desde su ubicación
 
@@ -83,7 +83,7 @@ function FeedbackForm() {
       profesionalId: selectedSupplierId, // Usamos el ID del proveedor seleccionado
       clientId: clientId,
     };
-      console.log("Data being sent:", newData); 
+    console.log("Data being sent:", newData);
     dispatch(updateFeedback(newData))
       .then(() => {
         setSuccessMessage('Comentario enviado exitosamente.');
@@ -98,19 +98,19 @@ function FeedbackForm() {
         setShowErrorAlert(true);
       });
   };
-  
-  const textColor = useColorModeValue('black', 'white');
 
+  const textColor = useColorModeValue('black', 'white');
+  const bgColor = useColorModeValue('gray.500', 'gray.800'); // Fondo: gay.500 en light y gray.900 en dark
+  const textColor2 = useColorModeValue('blue.900', 'blue.400');
   return (
-    <Center p={4} color={textColor} h="100vh" w="100%">
+    <Center p={4} color={textColor} h="100%" w="100%" bg={bgColor}>
       <Box mx="auto" maxW="5xl" w="100%">
         <Center>
-          <VStack as="form" alignItems="center" textAlign="center" onSubmit={handleSubmit}>
-            
-            <Heading as="h1" size="2xl" mb={4} color="blue.600">
+          <VStack as="form" alignItems="center" textAlign="center" onSubmit={handleSubmit} bg={bgColor} color={textColor}>
+            <Heading as="h1" size="2xl" mb={4} color="gray.100">
               ¡Valora tu experiencia con los servicios contratados en el sitio!
             </Heading>
-            <Text mb={4}>
+            <Text mb={4} color={textColor2}>
               En esta sección deberás seleccionar al profesional que prestó los servicios y valorar tu experiencia con ellos.
               Haremos un breve recorrido por el formulario:
             </Text>
@@ -121,17 +121,15 @@ function FeedbackForm() {
               </Flex>
               <Flex alignItems="center">
                 <CheckIcon color="green.500" mr={2} />
-                <Text>Luego, escoge la calificación de "Malo" a "Excelente".</Text>
+                <Text>Luego, escoge la calificación de Malo a Excelente.</Text>
               </Flex>
               <Flex alignItems="center">
                 <CheckIcon color="green.500" mr={2} />
                 <Text>Finalmente, agrega un comentario sobre tu experiencia con el servicio prestado.</Text>
-                
               </Flex>
               <Flex alignItems="center">
                 <CheckIcon color="green.500" mr={2} />
                 <Text>Dale a enviar feedback!</Text>
-                
               </Flex>
             </VStack>
             {showSuccessAlert && (

@@ -35,6 +35,11 @@ export default function UserLogin () {
 
   const toast = useToast()
   const dispatch = useDispatch()
+
+  const bgColor = useColorModeValue('gray.100', 'gray.900')
+  const bgElement = useColorModeValue('white', 'gray.800')
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   const {
     userTypes,
     errorRol,
@@ -113,7 +118,7 @@ export default function UserLogin () {
       minH='100vh'
       align='center'
       justify='center'
-      bg={useColorModeValue('gray.800', 'gray.800')}
+      bg={bgColor}
     >
       <Stack
         spacing={8}
@@ -130,19 +135,28 @@ export default function UserLogin () {
           >
             Hola de nuevo!
           </Heading>
-          <Text fontSize='lg' color='gray.300'>
+          <Text
+            fontSize='lg'
+            color={txtColor}
+          >
             Ingresa para disfrutar de todos nuestros <Link color='teal.300'>servicios</Link>
           </Text>
         </Stack>
         <form onSubmit={handleSubmit(customSubmit)}>
           <Box
+            // border='solid 2px red'
             rounded='lg'
-            bg={useColorModeValue('blackAlpha.800', 'gray.800')}
-            boxShadow='lg' p={8}
+            bg={bgElement}
+            shadow='lg'
+            p={8}
           >
             <Stack spacing={4}>
-              <FormControl color='gray.300' isInvalid={errors.email}>
-                <FormLabel color='gray.300'>Correo electronico</FormLabel>
+              <FormControl isInvalid={errors.email}>
+                <FormLabel
+                  color={txtColor}
+                >
+                  Correo electronico
+                </FormLabel>
                 <Input
                   type='email'
                   focusBorderColor={errors.email ? 'red.500' : 'teal.400'}
@@ -151,8 +165,12 @@ export default function UserLogin () {
                 />
                 <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl color='gray.300' isInvalid={errors.password}>
-                <FormLabel color='gray.300'>Contraseña</FormLabel>
+              <FormControl isInvalid={errors.password}>
+                <FormLabel
+                  color={txtColor}
+                >
+                  Contraseña
+                </FormLabel>
                 <Input
                   type='password'
                   focusBorderColor={errors.password ? 'red.500' : 'teal.400'}
@@ -166,8 +184,14 @@ export default function UserLogin () {
                   menuItems={userTypes}
                   onClick={handleSelectUser}
                 />
-                <Text color='red.500'>{errorRol && 'Selecciona un tipo de usuario'}</Text>
-                <Divider />
+                <Text
+                  color='red.500'
+                >
+                  {errorRol && 'Selecciona un tipo de usuario'}
+                </Text>
+                <Divider
+                  borderColor={txtColor}
+                />
                 <Stack spacing={5}>
                   <Button
                     id='g_id_onload'
@@ -187,7 +211,10 @@ export default function UserLogin () {
                   >
                     Ingresar
                   </Button>
-                  <Text color='gray.300' letterSpacing='0.5px'>
+                  <Text
+                    color={txtColor}
+                    letterSpacing='0.5px'
+                  >
                     ¿Olvidaste tu contraseña? click <Link to='#' style={{ color: 'cyan' }} onClick={onOpen}>aqui</Link>
                   </Text>
                   <ModalForgotPassword isOpen={isOpen} onClose={onClose} />

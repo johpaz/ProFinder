@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Center, Flex, Heading, Image, Stack, Text, useColorModeValue, Icon } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Image, Stack, Text, useColorModeValue, Icon, useColorMode } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { getAllSuppliers } from '../../../services/redux/actions/actions';
 import { Link as RouterLink } from 'react-router-dom';
@@ -10,8 +10,13 @@ const Card = ({ supplier, cardBgColor, textColor }) => {
     <Icon key={index} as={StarIcon} color="teal.400" />
   ));
 
+  const { colorMode } = useColorMode();
+  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.100';
+  
+
+
   return (
-    <Box borderWidth="1px" borderRadius="lg" bg={cardBgColor} boxShadow="2xl" p={4}>
+    <Box borderWidth="1px" borderRadius="lg" bg={cardBgColor} boxShadow="2xl" p={4} backgroundColor={backgroundColor} >
       <Flex>
         <Box overflow="hidden" borderRadius="full" boxSize={{ sm: '80px', md: '150px' }}>
           <Image
@@ -44,7 +49,7 @@ const Card = ({ supplier, cardBgColor, textColor }) => {
   );
 };
 
-const TopPro = ({ cardBgColor, textColor, linkColor }) => {
+const TopPro = ({ cardBgColor,  linkColor }) => {
   const dispatch = useDispatch();
   const suppliers = useSelector((state) => state.suppliers);
 
@@ -54,15 +59,18 @@ const TopPro = ({ cardBgColor, textColor, linkColor }) => {
 
   // Ordena los proveedores por rating de mayor a menor
   const sortedSuppliers = [...suppliers].sort((a, b) => b.rating - a.rating);
+  const { colorMode } = useColorMode();
+  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.500';
+  const textColor = useColorModeValue('blue.900', 'blue.400');
 
   return (
-    <Center p={4}  h="100%" w="100%">
-      <Box mx="auto" maxW="5xl" w="100%">
+    <Center p={4}  h="100%" w="100%"   backgroundColor={backgroundColor}>
+      <Box mx="auto" maxW="5xl" w="100%" >
         <Box textAlign="center">
-          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold" mt={15}>
+          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold" mt={15} color="gray.100" borderColor='blue.900'>
             PROFESIONALES MEJOR PUNTUADOS
           </Heading>
-          <Text mt={4} color={textColor}>
+          <Text mt={4} color={textColor} >
             En esta sección encontrarás los profesionales con mejores calificaciones de nuestro sitio.
           </Text>
         </Box>

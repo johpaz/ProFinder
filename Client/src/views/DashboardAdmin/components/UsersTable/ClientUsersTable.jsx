@@ -16,8 +16,9 @@ export default function UsersTable () {
     getCountsGraphic
   } = useClientDash(state => state)
 
-  const bg = useColorModeValue('white', 'gray.800')
-  const bg3 = useColorModeValue('gray.100', 'gray.700')
+  const bgElement = useColorModeValue('white', 'gray.800')
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+  const bgAccent = useColorModeValue('gray.100', 'gray.700')
 
   useEffect(() => {
     getClients(CLIENT.GET_CLIENTS)
@@ -43,9 +44,7 @@ export default function UsersTable () {
                 base: 'column'
               }}
               w='full'
-              bg={{
-                md: bg
-              }}
+              bg={bgElement}
               shadow='lg'
             >
               <FiltersClient />
@@ -60,8 +59,8 @@ export default function UsersTable () {
                   md: 'full'
                 }}
                 textTransform='uppercase'
-                bg={bg3}
-                color='gray.300'
+                bg={bgAccent}
+                color={txtColor}
                 py={{
                   base: 1,
                   md: 4

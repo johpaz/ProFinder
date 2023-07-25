@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Container, Flex, Heading, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Heading, Stack, Text, useColorModeValue, useColorMode } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import consultoriaIcon from '../../../assets/categoriesIcons/consultoria.png';
@@ -56,16 +56,19 @@ const CategoriesSection = () => {
   const textColor = useColorModeValue('gray.600', 'gray.300');
   const linkColor = useColorModeValue('teal.400', 'teal.400');
   const iconBgColor = useColorModeValue('gray.900', 'gray.700');
+  const { colorMode } = useColorMode();
+  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.500';
+  const textColor2 = useColorModeValue('blue.900', 'blue.400');
 
   // Resto del código del componente
   return (
-    <Box p={4} h="100%" width="100%">
+    <Box p={4} h="100%" width="100%" backgroundColor={backgroundColor}>
       <Box p={4}>
         <Stack spacing={4} as={Container} maxW="3xl" textAlign="center">
-          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold">
+          <Heading fontSize={{ base: '2xl', sm: '4xl' }} fontWeight="bold" color="gray.100">
             NUESTRAS CATEGORÍAS
           </Heading>
-          <Text color="gray.600" fontSize={{ base: 'sm', sm: 'lg' }}>
+          <Text color={textColor2} fontSize={{ base: 'sm', sm: 'lg' }}>
             Estas son nuestras categorias donde puedes encontrar las ocupaciones de los servicios que procuras!
           </Text>
         </Stack>

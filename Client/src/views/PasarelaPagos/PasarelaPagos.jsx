@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  Center,
+  Flex,
   Text,
   Stack,
   List,
@@ -23,16 +23,16 @@ function PasarelaPagos() {
   const dataSuppliers = useSelector((state) => state.profesionales);
   // const userSession = JSON.parse(localStorage.getItem("userSession"));
   const session = useSessionState((state) => state.session);
-  
+
   const profile = dataSuppliers.find((user) => user.id === session.id);
-  console.log(session.id)
+  console.log(session.id);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProfesionals());
   }, []);
-  
+
   initMercadoPago("TEST-6d144f52-f1d4-4a24-853e-d1b4592053fb"); //ocultar cuando este deploy
 
   const createPreference = async () => {
@@ -63,76 +63,84 @@ function PasarelaPagos() {
   };
 
   return (
-    <Center py={6} style={{ height: "100vh" }}>
-      <Box>
-        <Box
-          bg={useColorModeValue("white", "gray.800")}
-          boxShadow={"2xl"}
-          rounded={"md"}
-          overflow={"hidden"}
-          maxW={"500px"}
-          w={"full"}
-          py={6}
-        >
-          <Stack
-            textAlign={"center"}
-            p={6}
-            color={useColorModeValue("gray.800", "white")}
-            align={"center"}
-          >
-            <Text
-              fontSize={"sm"}
-              fontWeight={500}
-              bg={useColorModeValue("red.50", "red.900")}
-              p={2}
-              px={3}
-              color={"red.500"}
-              rounded={"full"}
-            >
-              BASICO
-            </Text>
-            <Stack direction={"row"} align={"center"} justify={"center"}>
-              <Text fontSize={"3xl"}>$</Text>
-              <Text fontSize={"6xl"} fontWeight={800}>
-                0
-              </Text>
-              <Text color={"gray.500"}>/mes</Text>
-            </Stack>
-          </Stack>
-
-          <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
-            <List spacing={3} align={"center"}>
-              <ListItem>
-                <ListIcon as={CloseIcon} color="red.400" />
-                Mejor posicionamiento
-              </ListItem>
-              <ListItem>
-                <ListIcon as={CheckIcon} color="green.400" />
-                Primer publicacion gratis
-              </ListItem>
-            </List>
-
-            <Button
-              mt={10}
-              w={"full"}
-              colorScheme="gray"
-              bg={"gray.600"}
-              color={"white"}
-              rounded={"xl"}
-              _hover={{}}
-            >
-              Basic
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+    <Flex
+      py={6}
+      justify="center"
+      align="center"
+      direction={{ base: "column", md: "row" }}
+      wrap="wrap"
+      spacing="4"
+    >
+      {/* Basic Plan */}
       <Box
         bg={useColorModeValue("white", "gray.800")}
         boxShadow={"2xl"}
         rounded={"md"}
         overflow={"hidden"}
         maxW={"500px"}
-        w={"full"}
+        w={{ base: "full", md: "auto" }}
+        py={6}
+      >
+        <Stack
+          textAlign={"center"}
+          p={6}
+          color={useColorModeValue("gray.800", "white")}
+          align={"center"}
+        >
+          <Text
+            fontSize={"sm"}
+            fontWeight={500}
+            bg={useColorModeValue("red.50", "red.900")}
+            p={2}
+            px={3}
+            color={"red.500"}
+            rounded={"full"}
+          >
+            BASICO
+          </Text>
+          <Stack direction={"row"} align={"center"} justify={"center"}>
+            <Text fontSize={"3xl"}>$</Text>
+            <Text fontSize={"6xl"} fontWeight={800}>
+              0
+            </Text>
+            <Text color={"gray.500"}>/mes</Text>
+          </Stack>
+        </Stack>
+
+        <Box bg={useColorModeValue("gray.50", "gray.900")} px={6} py={10}>
+          <List spacing={3} align={"center"}>
+            <ListItem>
+              <ListIcon as={CloseIcon} color="red.400" />
+              Mejor posicionamiento
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              Primer publicacion gratis
+            </ListItem>
+          </List>
+
+          <Button
+            mt={10}
+            w={"full"}
+            colorScheme="gray"
+            bg={"gray.600"}
+            color={"white"}
+            rounded={"xl"}
+            _hover={{}}
+          >
+            Basic
+          </Button>
+        </Box>
+      </Box>
+
+      {/* Premium Plan */}
+      <Box
+        bg={useColorModeValue("white", "gray.800")}
+        boxShadow={"2xl"}
+        rounded={"md"}
+        overflow={"hidden"}
+        maxW={"500px"}
+        w={{ base: "full", md: "auto" }}
         py={6}
       >
         <Stack
@@ -193,7 +201,7 @@ function PasarelaPagos() {
           </Stack>
         </Box>
       </Box>
-    </Center>
+    </Flex>
   );
 }
 

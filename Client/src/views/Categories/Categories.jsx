@@ -1,19 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Heading } from '@chakra-ui/layout'
-import styles from './Categories.module.css'
+import { Stack, useColorModeValue } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import { getAllSuppliers } from '../../services/redux/actions/actions'
+import { useDispatch, useSelector } from 'react-redux'
 import SupplierCardsContainer from '../../components/SupplierCardsContainer/SupplierCardsContainer'
 import FiltersPanel from '../../components/FiltersPanel/FiltersPanel'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllSuppliers } from '../../services/redux/actions/actions'
 import Paginator from './../../components/Paginator/Paginator'
+import styles from './Categories.module.css'
 
 const Categories = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
   const suppliers = useSelector((state) => state.suppliers)
   const dispatch = useDispatch()
-  console.info(suppliers)
+
+  const bgColor = useColorModeValue('gray.100', 'gray.900')
 
   useEffect(() => {
     dispatch(getAllSuppliers())
@@ -24,15 +25,10 @@ const Categories = () => {
   const visibleSuppliers = suppliers.slice(startIndex, endIndex)
 
   return (
-    <div className={styles.categoryContainer}>
-      <Heading
-        className={styles.categoryh2}
-        fontSize='4xl'
-        bgGradient='linear(to-l, teal.300, green.400)'
-        bgClip='text'
-      >
-        PROFESIONALES
-      </Heading>
+    <Stack
+      className={styles.categoryContainer}
+      bg={bgColor}
+    >
       <FiltersPanel setCurrentPage={setCurrentPage} />
       <Paginator
         currentPage={currentPage}
@@ -45,7 +41,7 @@ const Categories = () => {
         setCurrentPage={setCurrentPage}
         visibleSuppliers={visibleSuppliers}
       />
-    </div>
+    </Stack>
   )
 }
 

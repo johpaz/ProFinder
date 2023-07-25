@@ -1,20 +1,21 @@
-import { Flex, Spacer } from '@chakra-ui/react';
+import { Flex,Box,Grid, Spacer} from '@chakra-ui/react';
 import HelpClient from '../../../components/DashboardClient/HelpClient/HelpClient';
-
-
 import SidebarClient from '../../../components/DashboardClient/SidebarClient/SidebarClient';
 
 const DashboardClient = () => {
+
   return (
-    <div>
-      
-      
-      <Flex>
-        <SidebarClient />
-        <Spacer  />
-        <HelpClient />
-      </Flex>
-    </div>
+    <Flex h="100vh">
+      <SidebarClient />
+      <Spacer />
+      <HelpClient />
+    </Flex>
+//   <Box display={{ base: 'grid', lg: 'flex' }} height="100vh">
+  //   <Grid templateRows="5% 95%" display={{ base: 'grid', sm: 'grid',md: 'flex', lg: 'flex'}} width='100%'>
+  //     <SidebarClient />
+  //     <HelpClient />
+  //   </Grid>
+  // </Box>
   );
 };
 

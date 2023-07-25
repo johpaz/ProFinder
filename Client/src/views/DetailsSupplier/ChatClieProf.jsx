@@ -1,6 +1,5 @@
-
 import ChatBot from "react-simple-chatbot";
-import  { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
 const theme = {
   background: "#F2F2F2", // este es el fondo del chat
@@ -14,13 +13,12 @@ const theme = {
   userFontColor: "#000000", // Color del texto de los mensajes del usuario
 };
 
-
-const ClieProfChatBot = ({data}) => {
+const ClieProfChatBot = ({ profesionalId }) => {
   // Definimos los pasos del chatbot
   const steps = [
     {
       id: "1",
-      message:` ¡Hola! Soy ${data.name} ¿Cómo te llamas?`,
+      message: ` ¡Hola! Soy ${profesionalId.name} ¿Cómo te llamas?`,
       trigger: "2",
     },
     {
@@ -70,7 +68,7 @@ const ClieProfChatBot = ({data}) => {
     },
     {
       id: "byee",
-      message: `Gracias, ${data.name}`,
+      message: `Gracias, ${profesionalId.name}`,
       trigger: "restartChatbot",
     },
     {
@@ -86,10 +84,10 @@ const ClieProfChatBot = ({data}) => {
       ],
     },
   ];
-  const chatbotHeaderTitle = `${data.name}` ;
+  const chatbotHeaderTitle = `${profesionalId.name}`;
 
   return (
-       <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <ChatBot steps={steps} headerTitle={chatbotHeaderTitle} />
     </ThemeProvider>
   );

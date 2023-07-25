@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Flex, Heading, Stack } from '@chakra-ui/layout'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { useColorModeValue } from '@chakra-ui/react'
 import { Doughnut } from 'react-chartjs-2'
 import { useEffect } from 'react'
 import { useProfesionalDash } from '../../../../services/zustand/useProfesionalDash'
@@ -11,6 +12,8 @@ import Statistic from '../../singleComponents/Statistic'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function ProfesionalManagement () {
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   const date = getActualDate()
   const {
     profesional,
@@ -55,14 +58,27 @@ export default function ProfesionalManagement () {
         justify='center'
         spacing={{ base: 8, md: 10 }}
         py={{ base: 20, md: 10 }}
-        direction={{ base: 'column', md: 'row' }}
+        direction={{
+          base: 'column',
+          md: 'column',
+          lg: 'row'
+        }}
       >
         <Stack // Contenedor stats
           flex={1}
           spacing={{ base: 5, md: 10 }}
           width={{ base: '100%', md: '50%' }}
+          mt={{
+            base: '-60px',
+            md: '-20px'
+          }}
         >
-          <Heading size='lg'>Profesionales</Heading>
+          <Heading
+            size='lg'
+            color={txtColor}
+          >
+            Profesionales
+          </Heading>
           <Stack // bloque de stats
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}
@@ -83,7 +99,12 @@ export default function ProfesionalManagement () {
               helpText={date}
             />
           </Stack>
-          <Heading size='lg'>Profesionales Premium</Heading>
+          <Heading
+            size='lg'
+            color={txtColor}
+          >
+            Profesionales Premium
+          </Heading>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}
@@ -122,7 +143,11 @@ export default function ProfesionalManagement () {
           />
         </Flex>
       </Stack>
-      <Heading>Gestion de profesionales</Heading>
+      <Heading
+        color={txtColor}
+      >
+        Gestion de profesionales
+      </Heading>
       <UsersTable />
     </Container>
   )

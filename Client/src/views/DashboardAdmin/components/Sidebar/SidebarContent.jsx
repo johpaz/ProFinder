@@ -2,11 +2,7 @@
 import { CloseButton } from '@chakra-ui/close-button'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Box, Flex, Text } from '@chakra-ui/layout'
-import {
-  // DragHandleIcon,
-  EditIcon
-  // SettingsIcon
-} from '@chakra-ui/icons'
+import { EditIcon } from '@chakra-ui/icons'
 import NavItem from './NavItem'
 
 export default function SidebarContent ({ onClose, ...rest }) {
@@ -15,9 +11,11 @@ export default function SidebarContent ({ onClose, ...rest }) {
     { name: 'Clientes', icon: EditIcon, linkRoute: '/dashboardAdmin/manageClient' }
   ]
 
+  const bgElement = useColorModeValue('white', 'gray.800')
+
   return (
     <Box // barra lateral sidebar
-      bg={useColorModeValue('white', 'gray.900')}
+      bg={bgElement}
       borderRight='1px'
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
       w={{ base: 'full', md: 60 }}
@@ -25,14 +23,30 @@ export default function SidebarContent ({ onClose, ...rest }) {
       h='full'
       {...rest}
     >
-      <Flex h='20' alignItems='center' mx='8' justifyContent='space-between'>
-        <Text fontSize='2xl' fontFamily='monospace' fontWeight='bold'>
-          Logo
+      <Flex
+        h='20'
+        alignItems='center'
+        mx='8'
+        justifyContent='space-between'
+      >
+        <Text
+          fontSize='2xl'
+          fontFamily='monospace'
+          fontWeight='bold'
+        >
+          PROFINDER
         </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+        <CloseButton
+          display={{ base: 'flex', md: 'none' }}
+          onClick={onClose}
+        />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} linkRoute={link.linkRoute}>
+        <NavItem
+          key={link.name}
+          icon={link.icon}
+          linkRoute={link.linkRoute}
+        >
           {link.name}
         </NavItem>
       ))}

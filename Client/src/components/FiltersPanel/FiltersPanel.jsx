@@ -3,6 +3,7 @@
 import {
   Box,
   Container,
+  Heading,
   Stack,
   Text,
   useColorModeValue
@@ -22,6 +23,9 @@ export default function FiltersPanel ({ setCurrentPage }) {
   const ratingSelected = filters.rating || ''
   const genreSelected = filters.genre || ''
 
+  const bgElement = useColorModeValue('white', 'gray.800')
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   function handleSelectCategory (value) {
     dispatch(applyFilters({ filter: 'category', value }))
     dispatch(applyFilters({ filter: 'ocupation', value: '' }))
@@ -37,9 +41,18 @@ export default function FiltersPanel ({ setCurrentPage }) {
 
   return (
     <Box
-      bg={useColorModeValue('gray.800', 'gray.800')}
-      color={useColorModeValue('gray.50', 'gray.200')}
+      bg={bgElement}
+      color={txtColor}
+      pt={7}
+      mt='-50px'
     >
+      <Heading
+        fontSize='4xl'
+        bgGradient='linear(to-l, teal.300, green.400)'
+        bgClip='text'
+      >
+        PROFESIONALES
+      </Heading>
       <Container
         as={Stack}
         maxW='6xl'
@@ -75,10 +88,10 @@ export default function FiltersPanel ({ setCurrentPage }) {
         >
           <Text>
             {`Resultados para
-            ${categorySelected === 'Categorias' ? '' : categorySelected + '🔹'} 
-            ${ocupationSelected === 'Selecciona una categoria' || ocupationSelected === '' ? '' : ocupationSelected + '🔹'}
-            ${ratingSelected === 'Rating' ? '' : ratingSelected + '🔹'}
-            ${genreSelected === 'Genero' ? '' : genreSelected}`}
+            ${categorySelected === 'Categorias' || categorySelected === 'Todas' ? '' : categorySelected + ' 🔹'} 
+            ${ocupationSelected === 'Ocupacion' || ocupationSelected === '' ? '' : ocupationSelected + ' 🔹'}
+            ${ratingSelected === 'Rating' || ratingSelected === 'Aleatorio' ? '' : ratingSelected + ' 🔹'}
+            ${genreSelected === 'Genero' || genreSelected === 'todos' ? '' : genreSelected}`}
           </Text>
         </Container>
       </Box>

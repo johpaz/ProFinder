@@ -162,183 +162,181 @@ function FormUpdateProfile() {
 
   return (
     <Flex
-      minH="100vh"
-      align="center"
-      justify="center"
-      bg={useColorModeValue("gray.800", "gray.800")}
-      width="100%"
+    minH="100vh"
+    align="center"
+    justify="center"
+    bg={useColorModeValue("gray.800", "gray.800")}
+    width="100%"
+  >
+    <Box
+      rounded="lg"
+      boxShadow="lg"
+      p={8}
+      color="gray.300"
+      width={{ base: "90%", sm: "80%", md: "70%", lg: "500px" }}
     >
-      <Box rounded="lg" boxShadow="lg" p={8} color="gray.300">
-        <Stack spacing={4}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl>
-              <FormLabel>Nombre y apellido</FormLabel>
-              <Input
-                type="text"
-                {...register("name", {
-                  required: "El campo nombre es requerido",
-                })}
+      <Stack spacing={4}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormControl>
+            <FormLabel>Nombre y apellido</FormLabel>
+            <Input
+              type="text"
+              {...register("name", {
+                required: "El campo nombre es requerido",
+              })}
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              {...register("email", {
+                required: "El campo email es requerido",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
+                  message: "El formato del email es incorrecto",
+                },
+              })}
+            />
+            {errors.email && <p>{errors.email.message}</p>}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Telefono</FormLabel>
+            <Input
+              type="number"
+              {...register("phone", {
+                required: "El campo telefono es requerido",
+              })}
+            />
+            {errors.phone && <p>{errors.phone.message}</p>}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>País</FormLabel>
+            <Select
+              {...register("country", {
+                required: "El campo país es requerido",
+              })}
+              borderWidth="1px"
+              onChange={(e) => handleCountryChange(parseInt(e.target.value))}
+            >
+              <option value="">Seleccionar país</option>
+              {countries.map((country) => (
+                <option key={country.id} value={country.id}>
+                  {country.name}
+                </option>
+              ))}
+            </Select>
+            {errors.country && <p>{errors.country.message}</p>}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Provincia/Estado</FormLabel>
+            <Select
+              {...register("location", {
+                required: "El campo provincia/estado es requerido",
+              })}
+              borderWidth="1px"
+            >
+              <option value="">Seleccionar provincia/estado</option>
+              {locations.map((location) => (
+                <option key={location.id} value={location.id}>
+                  {location.name}
+                </option>
+              ))}
+            </Select>
+            {errors.location && <p>{errors.location.message}</p>}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Foto de perfil</FormLabel>
+            <Input
+              type="file"
+              {...register("image", {
+                required: "El campo imagen es requerido",
+                validate: {
+                  isImage: (value) =>
+                    ["image/jpeg", "image/png"].includes(value[0]?.type) ||
+                    "Solo se permiten archivos de imagen JPEG o PNG",
+                },
+              })}
+            />
+            {errors.image && <p>{errors.image.message}</p>}
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Género</FormLabel>
+            <RadioGroup onChange={setGenre} value={genre}>
+              <Stack direction="row">
+                <Radio value="female">Femenino</Radio>
+                <Radio value="male">Masculino</Radio>
+              </Stack>
+            </RadioGroup>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Años de experiencia</FormLabel>
+            <NumberInput defaultValue={0} min={0} max={100}>
+              <NumberInputField
+                {...register("years_exp", { required: true })}
               />
-            </FormControl>
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          </FormControl>
 
-            <FormControl>
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                {...register("email", {
-                  required: "El campo email es requerido",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                    message: "El formato del email es incorrecto",
-                  },
-                })}
-              />
-              {errors.email && <p>{errors.email.message}</p>}
-            </FormControl>
+          <FormControl>
+            <FormLabel>Categorías</FormLabel>
+            <SelectCategories
+              fnSelectCategory={envioCategoria}
+              fnSelectOcupation={envioOcupaciones}
+            />
+          </FormControl>
 
-            <FormControl>
-              <FormLabel>Telefono</FormLabel>
-              <Input
-                type="number"
-                {...register("phone", {
-                  required: "El campo telefono es requerido",
-                })}
-              />
-              {errors.phone && <p>{errors.phone.message}</p>}
-            </FormControl>
+          <FormControl>
+            <FormLabel>Contraseña</FormLabel>
+            <Input
+              type="password"
+              {...register("password", {
+                required: "El campo contraseña es requerido",
+                minLength: {
+                  value: 8,
+                  message: "La contraseña debe tener minimo 8 caracteres",
+                },
+              })}
+            />
+            {errors.password && <p>{errors.password.message}</p>}
+          </FormControl>
 
-            <FormControl>
-              <FormLabel>País</FormLabel>
-              <Select
-                {...register("country", {
-                  required: "El campo país es requerido",
-                })}
-                // bg={useColorModeValue("white", "gray.700")}
-                borderWidth="1px"
-                // color="gray.800"
-                onChange={(e) => handleCountryChange(parseInt(e.target.value))}
-              >
-                <option value="">Seleccionar país</option>
-                {countries.map((country) => (
-                  <option key={country.id} value={country.id}>
-                    {country.name}
-                  </option>
-                ))}
-              </Select>
-              {errors.country && <p>{errors.country.message}</p>}
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Provincia/Estado</FormLabel>
-              <Select
-                {...register("location", {
-                  required: "El campo provincia/estado es requerido",
-                })}
-                // bg={useColorModeValue("white", "gray.700")}
-                borderWidth="1px"
-                // color="gray.800"
-              >
-                <option value="">Seleccionar provincia/estado</option>
-                {locations.map((location) => (
-                  <option key={location.id} value={location.id}>
-                    {location.name}
-                  </option>
-                ))}
-              </Select>
-              {errors.location && <p>{errors.location.message}</p>}
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Foto de perfil</FormLabel>
-              <Input
-                type="file"
-                {...register("image", {
-                  required: "El campo imagen es requerido",
-                  validate: {
-                    isImage: (value) =>
-                      ["image/jpeg", "image/png"].includes(value[0]?.type) ||
-                      "Solo se permiten archivos de imagen JPEG o PNG",
-                  },
-                })}
-              />
-              {errors.image && <p>{errors.image.message}</p>}
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Género</FormLabel>
-              <RadioGroup onChange={setGenre} value={genre}>
-                <Stack direction="row">
-                  <Radio value="female">Femenino</Radio>
-                  <Radio value="male">Masculino</Radio>
-                </Stack>
-              </RadioGroup>
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Años de experiencia</FormLabel>
-              <NumberInput defaultValue={0} min={0} max={100}>
-                <NumberInputField
-                  {...register("years_exp", { required: true })}
-                />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Categorías</FormLabel>
-              <SelectCategories
-                fnSelectCategory={envioCategoria}
-                fnSelectOcupation={envioOcupaciones}
-              />
-            </FormControl>
-
-            <FormControl>
-              <FormLabel>Contraseña</FormLabel>
-              <Input
-                type="password"
-                {...register("password", {
-                  required: "El campo contraseña es requerido",
-                  minLength: {
-                    value: 8,
-                    message: "La contraseña debe tener minimo 8 caracteres",
-                  },
-                })}
-              />
-              {errors.password && <p>{errors.password.message}</p>}
-            </FormControl>
-
-            <FormControl>
-              <FormLabel />
-              {isLoading ? (
-                <CircularProgress
-                  isIndeterminate
-                  size="24px"
-                  color="blue.500"
-                />
-              ) : (
-                <>
-                  <Button
-                    type="submit"
-                    loadingText="Creando cuenta"
-                    size="lg"
-                    bg="blue.400"
-                    color="white"
-                    _hover={{
-                      bg: "blue.500",
-                    }}
-                  >
-                    Actualizar
-                  </Button>
-                </>
-              )}
-            </FormControl>
-          </form>
-        </Stack>
-      </Box>
-    </Flex>
+          <FormControl>
+            <FormLabel />
+            {isLoading ? (
+              <CircularProgress isIndeterminate size="24px" color="blue.500" />
+            ) : (
+              <>
+                <Button
+                  type="submit"
+                  loadingText="Creando cuenta"
+                  size="lg"
+                  bg="blue.400"
+                  color="white"
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                >
+                  Actualizar
+                </Button>
+              </>
+            )}
+          </FormControl>
+        </form>
+      </Stack>
+    </Box>
+  </Flex>
   );
 }
 

@@ -1,6 +1,7 @@
 const {Country,Location} = require('../db');
 
 const cleanArray = async (profesionals) => {
+  console.log(profesionals);
   const professionsWithLocation = await Promise.all(
     profesionals.map(async (profesional) => {
       const country = await Country.findByPk(profesional.CountryId);
@@ -34,6 +35,7 @@ const cleanArray = async (profesionals) => {
         genre: profesional.genre,
         years_exp: profesional.years_exp,
         phone: profesional.phone,
+        geolocation:profesional.geolocation,  
         ubication: {
           country: country ? country.name : null,
           location: location ? location.name : null,

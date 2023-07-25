@@ -1,15 +1,9 @@
 import { Grid } from "@chakra-ui/react";
-import {
-  Box,
-  useColorModeValue,
-  Button,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, Button, Stack } from "@chakra-ui/react";
 import { ChatIcon, ViewIcon, EditIcon, QuestionIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
 
 const Sidebar = () => {
   const linkStyle = {
@@ -43,7 +37,7 @@ const Sidebar = () => {
         <Box bg="gray.600" p={2}>
           <Stack spacing={4}>
             <RouterLink
-              to="publicaciones"
+              to="/dashboardSuppliers"
               spy
               smooth
               duration={500}
@@ -54,7 +48,7 @@ const Sidebar = () => {
               </Button>
             </RouterLink>
             <RouterLink
-              to="/createPost"
+              to="/dashboardSuppliers/publicaciones"
               spy
               smooth
               duration={500}
@@ -65,7 +59,7 @@ const Sidebar = () => {
               </Button>
             </RouterLink>
             <RouterLink
-              to="/viewPosts"
+              to="/dashboardSuppliers/nuevas-publicaciones"
               spy
               smooth
               duration={500}
@@ -76,7 +70,7 @@ const Sidebar = () => {
               </Button>
             </RouterLink>
             <RouterLink
-              to="/updateprofile"
+              to="/dashboardSuppliers/updateprofile"
               spy
               smooth
               duration={500}
@@ -89,13 +83,30 @@ const Sidebar = () => {
             <RouterLink to="#" spy smooth duration={500} style={linkStyle}>
               <Button variant="outline">Obtén Premium</Button>
             </RouterLink>
-            <RouterLink to="/help" spy smooth duration={500} style={linkStyle}>
+            <RouterLink
+              to="/dashboardSuppliers/help"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
+            >
               <Button
                 variant="outline"
                 leftIcon={<QuestionIcon />}
                 onClick={handleShowAyuda}
               >
                 Ayuda
+              </Button>
+            </RouterLink>
+            <RouterLink
+              to="/dashboardSuppliers/updatepost"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
+            >
+              <Button variant="outline" leftIcon={<EditIcon />}>
+                Actualizar Post
               </Button>
             </RouterLink>
           </Stack>
