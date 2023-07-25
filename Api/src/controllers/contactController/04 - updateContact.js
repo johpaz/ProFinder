@@ -39,6 +39,9 @@ const updateContact = async (id,profesionalId) => {
     },
   });
   const cleanInfo = cleanArrayProfesionalFavorites(clientWithProfesionals.Profesionals);
+  return {
+    profesionalId: profesionalId
+  }
   return cleanInfo;
   return clientWithProfesionals;
 };

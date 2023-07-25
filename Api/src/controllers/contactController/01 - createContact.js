@@ -77,6 +77,9 @@ const createContact = async (id, profesionalId) => {
     },
   });
   const updatedCleanInfo = cleanArrayProfesionalFavorites(updatedClientWithProfesionals.Profesionals);
+  return {
+    profesionalId: profesionalId
+  }
   return updatedCleanInfo;
 };
 
