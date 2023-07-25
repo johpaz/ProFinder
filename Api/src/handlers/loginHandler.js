@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
       if (error) throw error;
       if (resultado) {
         typeUser();
-        if (!res.status(200)) {
+        if (!res.status(400)) {
           res.status(200).json({
             usuario: usuario,
             email: email,
@@ -56,7 +56,7 @@ const loginUser = async (req, res) => {
         );
 
         if (loginClient[0][0].softDelete === true) {
-          res.status(400).json({ message: "Lo sentimos, pero estas baneado en la app." })
+          res.status(403).json({ message: "Lo sentimos, pero estas baneado en la app." })
           break;
         }
         if (loginClient[0][0] == undefined) {
@@ -84,7 +84,7 @@ const loginUser = async (req, res) => {
           `SELECT * FROM "Profesionals" WHERE "email"= '${email}'`
         );
         if (loginProf[0][0].softDelete === true) {
-          res.status(400).json({ message: "Lo sentimos, pero estas baneado en la app." })
+          res.status(403).json({ message: "Lo sentimos, pero estas baneado en la app." })
           break;
         }
         if (loginProf[0][0] == undefined) {
