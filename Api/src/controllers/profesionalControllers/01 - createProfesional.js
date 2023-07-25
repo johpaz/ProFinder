@@ -46,8 +46,12 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   const country = await Country.findByPk(CountryId);
 
   const location = await Location.findByPk(LocationId);
+  if (!location) {
+    throw new Error(`La ubicación con el ID ${LocationId} no existe en la base de datos`);
+  }
 
-  // const imageUrl = await getImageUrl(image)
+  const latitude = location.latitude;
+  const longitude = location.longitude;
 
   const profesionalFormat = { 
     name,
@@ -58,6 +62,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
+    lat: latitude,
+    lon: longitude,
     // ubication,
     active: true,
     pro: true
@@ -76,8 +82,12 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   await newProfesional.setCountry(country.id);
   await newProfesional.setLocation(location.id);
 
-  if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
+  await Profesional.update(
+    { lat: latitude, lon: longitude },
+    { where: { id: newProfesional.id } }
+  );
 
+console.log(newProfesional);
   return {
     id: newProfesional.id,
     name: newProfesional.name,
@@ -90,6 +100,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     // ubication: newProfesional.ubication,
     country:country.name,
     location: location.name,
+    latitude: newProfesional.lat, 
+    longitude: newProfesional.lon, 
     categories: resolvedCategories
   };
 };

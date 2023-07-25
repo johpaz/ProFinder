@@ -28,6 +28,7 @@ const MapSection = () => {
   const handleMapClick = (e) => {
     const { lat, lng } = e.latlng;
     const popupContent = `You clicked the map at (${lat}, ${lng})`;
+    console.log(e.latlng);
 
     // Crea una nueva ventana emergente y la abre en la ubicación del clic
     L.popup()

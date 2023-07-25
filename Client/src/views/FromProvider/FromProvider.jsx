@@ -146,7 +146,7 @@ function FormProvider() {
       ocupations: [selectedOccupations],
       categories: selectedCategory,
     };
-
+    console.log(newData);
     const sessionData = {
       name: data.name,
       email: data.email,

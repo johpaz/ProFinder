@@ -373,7 +373,16 @@ const createUserProfesional = async (req, res) => {
 
 const putProfesional = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
+  let { name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
+
+  // Convert LocationId to a number if it's a string containing a numeric value
+  LocationId = parseInt(LocationId, 10);
+
+  // Validate that LocationId is a number
+  if (typeof LocationId !== 'number' || isNaN(LocationId)) {
+    return res.status(400).json({ error: 'LocationId must be a valid number' });
+  }
+
   try {
     const updatedProfesional = await updateProfesional(id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId);
     return res.status(200).json(updatedProfesional);
