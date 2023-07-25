@@ -17,8 +17,8 @@ import {
 
 //! Action para obtener a todos los Proveedores/Profesionales
 const getAllSuppliers = () => {
-  const URL = `${API.LOCALHOST}/profesional`
-  //const URL = `${API.DBONLINE}/profesional`;
+  //const URL = `${API.LOCALHOST}/profesional`
+  const URL = `${API.DBONLINE}/profesional`;
   console.log(URL);
   return function(dispatch) {
     axios
