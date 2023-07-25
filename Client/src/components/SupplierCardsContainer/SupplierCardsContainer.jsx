@@ -1,15 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, lazy, Suspense } from 'react'
+/* eslint-disable react/prop-types */
+import { lazy, Suspense } from 'react'
 import { Flex, Stack } from '@chakra-ui/layout'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllSuppliers } from '../../services/redux/actions/actions'
 import { Skeleton } from '@chakra-ui/skeleton'
-// import Paginator from '../Paginator/Paginator'
 const SupplierCard = lazy(() => import('../SupplierCard/SupplierCard'))
 
-export default function SupplierCardsContainer ({visibleSuppliers}) {
-
-
+export default function SupplierCardsContainer ({ visibleSuppliers }) {
   return (
     <Stack mt={12} align='center' justify='center'>
 
@@ -17,6 +12,7 @@ export default function SupplierCardsContainer ({visibleSuppliers}) {
         position='relative'
         align='center'
         justify='center'
+        mt='-40px'
         mb='3rem'
         wrap='wrap'
         gap={8}
@@ -31,6 +27,7 @@ export default function SupplierCardsContainer ({visibleSuppliers}) {
                   name,
                   email,
                   image,
+                  rating,
                   ubication,
                   description,
                   professions
@@ -42,6 +39,7 @@ export default function SupplierCardsContainer ({visibleSuppliers}) {
                       name={name}
                       email={email}
                       image={image}
+                      rating={rating}
                       ubication={ubication}
                       description={description}
                       professions={professions}

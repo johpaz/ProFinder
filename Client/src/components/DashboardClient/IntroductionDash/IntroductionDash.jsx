@@ -1,45 +1,44 @@
-import React from 'react';
 import { Box, Text, Stack, Heading, Icon, Center, Spacer, useColorModeValue } from '@chakra-ui/react';
 import { MdHelp, MdStar } from 'react-icons/md';
 
 const IntroductionDash = () => {
   const iconColor = useColorModeValue('teal.500', 'teal.300');
-  const headingColor = useColorModeValue('teal.600', 'teal.300');
-
+  const headingColor = useColorModeValue('gray.100', 'teal.300'); // Updated color for the heading
+  const textColor2 = useColorModeValue('blue.900', 'blue.400');
+  
   return (
     <Box
       width="100%"
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorModeValue('gray.500', 'gray.800')}
       boxShadow="base"
       borderRadius="md"
       p={4}
     >
       <Center>
         <Stack spacing={4} align="center">
-          <Icon as={MdStar} boxSize={8} color={iconColor} />
+          <Icon as={MdStar} boxSize={10} color={iconColor} /> {/* Increased icon size */}
           <Heading as="h2" size="lg" textAlign="center" color={headingColor}>
             ¡Bienvenido al Panel de Administración de Cliente!
           </Heading>
           <Spacer />
-          <Text fontSize="lg" textAlign="center" color="gray.600">
+          <Text fontSize="lg" textAlign="center" color="gray.200">
             Aquí podrás realizar las siguientes acciones:
           </Text>
           <Box>
-            <Text fontSize="md" color="gray.600">
-              <Icon as={MdStar} boxSize={5} color={iconColor} /> Editar todas tus preferencias.
+            <Text fontSize="md" color={textColor2}> {/* Updated option text color */}
+              <Icon as={MdStar} boxSize={6} color={iconColor} /> Editar todas tus preferencias.
             </Text>
-           
-            <Text fontSize="md" color="gray.600">
-              <Icon as={MdStar} boxSize={5} color={iconColor} /> Consultar las categorías disponibles.
+            <Text fontSize="md" color={textColor2}> {/* Updated option text color */}
+              <Icon as={MdStar} boxSize={6} color={iconColor} /> Consultar las categorías disponibles.
             </Text>
-            <Text fontSize="md" color="gray.600">
-              <Icon as={MdStar} boxSize={5} color={iconColor} /> Ver los profesionales mejor valorados.
+            <Text fontSize="md" color={textColor2}> {/* Updated option text color */}
+              <Icon as={MdStar} boxSize={6} color={iconColor} /> Ver los profesionales mejor valorados.
             </Text>
-            <Text fontSize="md" color="gray.600">
-              <Icon as={MdStar} boxSize={5} color={iconColor} /> Hacer el feedback de los servicios prestados para valorar a los profesionales por su desempeño.
+            <Text fontSize="md" color={textColor2}> {/* Updated option text color */}
+              <Icon as={MdStar} boxSize={6} color={iconColor} /> Hacer el feedback de los servicios prestados para valorar a los profesionales por su desempeño.
             </Text>
-            <Text fontSize="md" color="gray.600">
-              <Icon as={MdHelp} boxSize={5} color={iconColor} /> Acceder a la sección de ayuda y preguntas frecuentes.
+            <Text fontSize="md" color={textColor2}> {/* Updated option text color */}
+              <Icon as={MdHelp} boxSize={6} color={iconColor} /> Acceder a la sección de ayuda y preguntas frecuentes.
             </Text>
           </Box>
         </Stack>

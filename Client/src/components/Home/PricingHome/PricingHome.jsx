@@ -75,7 +75,7 @@ const PricingHome = () => {
   const textColorDark = 'gray.300';
 
   return (
-    <Box py={6} px={5} min={'100vh'}>
+    <Box py={6} px={5} min={'100%'}>
       <Stack spacing={4} width={'100%'} direction={'column'}>
         <Stack
           p={5}

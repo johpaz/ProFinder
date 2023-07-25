@@ -23,7 +23,7 @@ const footerStyles = {
 }
 
 function Footer () {
-  const bgColor = useColorModeValue('gray.200', 'gray.800')
+  const bgColor = useColorModeValue('gray.200', 'gray.900')
   const textColor = useColorModeValue('gray.900', 'gray.600')
 
   return (

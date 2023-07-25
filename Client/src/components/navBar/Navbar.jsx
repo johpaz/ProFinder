@@ -29,8 +29,8 @@ const Navbar = () => {
   return (
     <nav
       style={{
-        // position: "sticky",
-        position: "fixed",
+         position: "sticky",
+        //position: "fixed",
         width: '100%',
         top: 0,
         zIndex: 100,
@@ -69,7 +69,7 @@ const Navbar = () => {
             <NavLink textLink="¿Como funciona?" routeLink="/comofunciona" />
             <NavLink textLink="Profesionales" routeLink="/categories" />
             <NavLink textLink="Contacto" routeLink="/feedback" />
-            <NavLink textLink="Acerca de" routeLink="/" />
+            <NavLink textLink="Acerca de" routeLink="/aboutus" />
           </HStack>
         </HStack>
 

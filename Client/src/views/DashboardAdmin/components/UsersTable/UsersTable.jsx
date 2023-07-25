@@ -9,15 +9,16 @@ import FiltersDashboard from '../FiltersDashboard/FiltersDashboard'
 import UserRegister from '../../singleComponents/UserRegister'
 
 export default function UsersTable () {
+  const bgColor = useColorModeValue('white', 'gray.800')
+  const bgAccent = useColorModeValue('gray.100', 'gray.700')
+  const txtColor = useColorModeValue('gray.600', 'gray.100')
+
   const {
     profesional,
     getProfesional,
     countResults,
     getCountsGraphic
   } = useProfesionalDash(state => state)
-
-  const bg = useColorModeValue('white', 'gray.800')
-  const bg3 = useColorModeValue('gray.100', 'gray.700')
 
   useEffect(() => {
     getProfesional(URL.GET_PROFESIONAL)
@@ -31,7 +32,6 @@ export default function UsersTable () {
   return (
     <Flex // Container tabla
       w='full'
-      p={50}
       alignItems='center'
       justifyContent='center'
     >
@@ -43,9 +43,7 @@ export default function UsersTable () {
                 base: 'column'
               }}
               w='full'
-              bg={{
-                md: bg
-              }}
+              bg={bgColor}
               shadow='lg'
             >
               <FiltersDashboard />
@@ -60,8 +58,8 @@ export default function UsersTable () {
                   md: 'full'
                 }}
                 textTransform='uppercase'
-                bg={bg3}
-                color='gray.300'
+                bg={bgAccent}
+                color={txtColor}
                 py={{
                   base: 1,
                   md: 4

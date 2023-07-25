@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { getPostProfesional } from "../../../services/redux/actions/actions";
 import { EditIcon } from "@chakra-ui/icons";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { getPostProfesional } from "./../../services/redux/actions/actions";
 import {
   Box,
@@ -15,57 +14,77 @@ import {
   Button,
   Flex,
   useColorModeValue,
+  SimpleGrid,
+  Stack,
 } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
-export default function SupplierPost({
-  imagePost,
-  titularPost,
-  descriptionPost,
-  identificador,
-}) {
-  const profesionales = useSelector((state) => state.profesionales);
-  const filteredPosts = profesionales.filter(
-    (post) => post.id === identificador
-  );
+//! aca esta lo mismo
+async function fetchPostId() {
+  // Simulamos una pausa con setTimeout (puedes reemplazarlo con tu lógica de obtención de ID asincrónico)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(/* aquí obtén el valor del ID asincrónicamente */);
+    }, 1000); // Tiempo de pausa de 1 segundo (puedes ajustarlo según tus necesidades)
+  });
+}
 
-  const dispatch = useDispatch();
+export default function SupplierPost() {
+  const [id, setId] = useState(null); // Utilizamos useState para almacenar el valor del ID
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullContent, setShowFullContent] = useState(false);
+  const dispatch = useDispatch();
+  const professional = useSelector((state) => state.profesionalId);
+ // console.log(professional);
 
   useEffect(() => {
-    dispatch(getPostProfesional());
-  }, [dispatch]);
+    // Función asincrónica para obtener el ID
+    async function getIdAsync() {
+      const postId = await fetchPostId();
+      setId(postId);
+    }
 
-  const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => {
-      const imageCount = filteredPosts[0].posts[0].image.length;
-      const nextIndex = (prevIndex + 1) % imageCount;
-      return nextIndex;
-    });
+    getIdAsync(); // Llamamos a la función para obtener el ID asincrónicamente
+  }, []);
+
+  useEffect(() => {
+    // Llamamos a la acción de Redux solo cuando tengamos el ID
+    if (id) {
+      dispatch(getPostProfesional(id));
+    }
+  }, [dispatch, id]);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
-
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) => {
-      const imageCount = filteredPosts[0].posts[0].image.length;
-      const prevIndexValue = (prevIndex - 1 + imageCount) % imageCount;
-      return prevIndexValue;
-    });
-  };
-
   const handleToggleContent = () => {
     setShowFullContent((prevValue) => !prevValue);
   };
 
+  if (!professional || !professional[0]) {
+    return <Text>Loading...</Text>;
+  }
+
   return (
-    <VStack spacing={10} align="center">
-      <Flex>
-        {filteredPosts.map((professional) =>
-          professional.posts.map((post) => (
+    <Stack mt={12} justify="center" spacing={10} align="center">
+      <Grid
+       
+        templateColumns={["1fr", "1fr", "1fr", "repeat(3, 1fr)"]}
+        gap={5}
+        justifyContent="center"
+      >
+        {professional ? (
+          professional[0].posts.map((post) => (
+           
             <Box
-              key={post.id}
-              maxW={"500px"}
+            key={post.id}
+              bg={useColorModeValue("blackAlpha.800", "gray.800")}
+              maxW={"450px"}
               w={"full"}
-              bg={useColorModeValue("white", "gray.900")}
               boxShadow={"2xl"}
               rounded={"md"}
               overflow={"hidden"}
@@ -75,96 +94,66 @@ export default function SupplierPost({
               <Box justifyContent="center">
                 <EditIcon
                   position="absolute"
-                  top="20px" // organiza de arriba abajo
-                  right="20px" // horizontal
+                  top="20px"
+                  right="20px"
                   cursor="pointer"
                 />
               </Box>
               <Box justifyContent="center" marginTop="5">
-                {/* Título del post */}
                 <Text
                   color={"green.500"}
                   textTransform={"uppercase"}
                   fontWeight={700}
-                  fontSize={"xl"}
                   letterSpacing={1.1}
+                  fontSize={{ base: "xl", md: "2xl" }}
                 >
                   {post.title}
                 </Text>
               </Box>
 
-          
-
-              {/* Botón Leer más / Ver menos */}
-              {post.content.length > 100 && (
-                <Button
-                  colorScheme="blue"
-                  size="sm"
-                  mt={2}
-                  onClick={handleToggleContent}
-                >
-                  {showFullContent ? "Ver menos" : "Leer más"}
-                </Button>
-              )}
-              <Box justifyContent="center">
-                {/* Imagen actual */}
-                <Grid
-                  justifyContent="center"
-                  templateColumns="repeat(2, 1fr)"
-                  gap={2}
-                  alignItems="center"
-                >
+              <Slider {...settings}>
+                {post.image.map((img, index) => (
                   <Image
+                    key={index}
                     justifyContent="center"
-                    src={post.image[currentImageIndex]}
-                    alt={`Image ${currentImageIndex}`}
-                    boxSize="300px"
-                    maxW="300px"
+                    src={img}
+                    alt={`Image ${index}`}
+                    boxSize={{ base: "300px", md: "auto" }}
+                    maxW={{ base: "300px", md: "100%" }}
                     maxH="300px"
                     objectFit="contain"
-                    // gridColumn="1 / span 3"
-                    // color="black"
-                    // layout="fill"
-
                     borderRadius="lg"
                     marginTop="5"
-                    marginLeft="10px"
                   />
-                  <Box>
-                    <Button
-                      onClick={handlePrevImage}
-                      size="sm"
-                      fontSize="xl"
-                      marginTop="5"
-                    >
-                      &lt;
-                    </Button>
-                    <Text fontSize="sm" color={"gray.500"} marginTop="5">
-                      Imagen {currentImageIndex + 1} de {post.image.length}
-                    </Text>
-                    <Button
-                      onClick={handleNextImage}
-                      size="sm"
-                      fontSize="xl"
-                      marginTop="5"
-                    >
-                      &gt;
-                    </Button>
-                  </Box>
-                </Grid>
-              
+                ))}
+              </Slider>
+              <Box>
+                {post.content.length > 100 && (
+                  <Button
+                    bg="teal.400"
+                    color="white"
+                    _hover={{ bg: "teal.500" }}
+                    size="sm"
+                    mt={2}
+                    onClick={handleToggleContent}
+                  >
+                    {showFullContent ? "Ver menos" : "Leer más"}
+                  </Button>
+                )}
+
                 {/* Contenido del post */}
-                <Text color={"gray.500"}>
+                <Text color={"gray.200"}>
                   {showFullContent
                     ? post.content
                     : post.content.substring(0, 100)}
                 </Text>
-            
               </Box>
             </Box>
           ))
+        ) : (
+          <Text>No posts found for the given identifier.</Text>
         )}
-      </Flex>
-    </VStack>
+      </Grid>
+    </Stack>
   );
 }

@@ -14,6 +14,8 @@ import {
   Stack,
   Button,
   useColorModeValue,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 import SelectCategories from "../../singleComponents/SelectCategories";
@@ -29,6 +31,7 @@ function FormServicio() {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     defaultValues: {
       title: "",
@@ -49,13 +52,14 @@ function FormServicio() {
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedOccupations, setSelectedOccupations] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const dataSuppliers = useSelector((state) => state.profesionales);
   // const userSession = JSON.parse(localStorage.getItem("userSession"));
   const session = useSessionState((state) => state.session);
-  
+
   const profile = dataSuppliers.find((user) => user.id === session.id);
-  console.log(profile.active);
+  // console.log(profile.active);
   const [value, setValue] = useState("");
 
   const envioCategoria = (value) => {
@@ -78,8 +82,10 @@ function FormServicio() {
       ocupation: selectedOccupations,
     };
 
-    //console.log(newData);
+    console.log(newData);
     dispatch(postServicio(newData));
+    reset();
+    setIsSubmitted(true);
   };
 
   return (
@@ -95,7 +101,7 @@ function FormServicio() {
         boxShadow="lg"
         p={8}
         color="gray.300"
-        width="500px"
+        width={{ base: "90%", sm: "80%", md: "60%", lg: "500px" }}
       >
         <Stack spacing={4}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,7 +148,7 @@ function FormServicio() {
               )}
             </FormControl>
 
-            <FormControl>
+            <FormControl w="100%">
               <FormLabel>Categorías</FormLabel>
               <SelectCategories
                 fnSelectCategory={envioCategoria}
@@ -166,21 +172,8 @@ function FormServicio() {
               {errors.content && (
                 <span style={{ color: "red" }}>{errors.content.message}</span>
               )}
-
-              <Flex justify="space-between" align="center">
-                {profile.posts.length === 1 && profile.active === false ? (
-                  <>
-                    <Button size="lg" bg="grey.400" my={2} marginTop="5">
-                      Enviar
-                    </Button>
-                    <Box display="inline" fontSize="lg" color="red.500" ml={2}>
-                      {/* Mostrar el mensaje */}
-                      {profile.active === false &&
-                        "Se terminaron tus publicaciones"}{" "}
-                      {/* Mostrar mensaje alternativo */}
-                    </Box>
-                  </>
-                ) : (null)}
+              {profile.posts.length === 0 || profile.active === true ? (
+                <Flex justify="space-between" align="center">
                   <Button
                     loadingText="Submitting"
                     bg="teal.400"
@@ -189,15 +182,30 @@ function FormServicio() {
                     type="submit"
                     size="lg"
                     marginTop="5"
+                    w="100%"
                   >
                     Enviar
                   </Button>
-                
-              </Flex>
+                </Flex>
+              ) : null}
+
+              {profile.posts.length === 1 && profile.active === false ? (
+                <>
+                  <Button bg="grey.200" color="white" size="lg" marginTop="5">
+                    Enviar
+                  </Button>
+                  <Box display="inline" fontSize="lg" color="red.500" ml={2}>
+                    {/* Mostrar el mensaje */}
+                    {profile.active === false &&
+                      "Se terminaron tus publicaciones"}{" "}
+                    {/* Mostrar mensaje alternativo */}
+                  </Box>
+                </>
+              ) : null}
             </FormControl>
 
             {profile.active === false ? (
-              <Link to="/pasarela">
+              <Link to="/dashboardSuppliers/pasarela">
                 <Button
                   loadingText="Submitting"
                   bg="teal.400"
@@ -206,11 +214,18 @@ function FormServicio() {
                   type="submit"
                   size="lg"
                   marginTop="5"
+                  w="100%"
                 >
                   Suscribite a premium
                 </Button>
               </Link>
             ) : null}
+          {isSubmitted && (
+            <Alert status="success"  size="sm" maxW="xs" borderRadius="md"color="gray.800" mt={4} bg= "gray.200" >
+              <AlertIcon  />
+              ¡Publicado!
+            </Alert>
+          )}
           </form>
         </Stack>
       </Box>

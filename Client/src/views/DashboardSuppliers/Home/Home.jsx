@@ -1,172 +1,339 @@
-import React, { useState } from "react";
-import { Box, Flex, useColorModeValue, Button, Stack, Heading } from "@chakra-ui/react";
-import { ChatIcon, ViewIcon, EditIcon, QuestionIcon } from "@chakra-ui/icons";
+import { useState, useEffect  } from "react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  useColorModeValue,
+  Stack,
+  Button,
+  Heading,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import { HamburgerIcon, ChatIcon, ViewIcon, EditIcon } from "@chakra-ui/icons";
 import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
-import FormUpdate from "../formUpdateProfile/FormUpdateProfile";
+//import { Link as RouterLink } from "react-router-dom";
 import DataSuppliers from "../DataSuppliers/DataSuppliers";
 import CustomChatBot from "../../../components/CustomChatBot/CustomChatBot";
 import FormServicio from "../../FormServicio/FormServicio";
 import PostsSuppliers from "../PostSuppliers/PostsSuppliers";
-import BarData from "../DataSuppliers/BarData";
 import PasarelaPagos from "../../PasarelaPagos/PasarelaPagos";
 import Data from "../Data/Data";
+import FormUpdateProfile from "../formUpdateProfile/FormUpdateProfile";
+import UpdatePost from "../UpdatePost/UpdatePost";
 
 const linkStyle = {
   display: "block",
   padding: "10px",
   textDecoration: "none",
+  color: "white",
 };
 
 const DashboardSuppliers = () => {
   const [currentPage, setCurrentPage] = useState("Inicio");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+ // const [showFooter, setShowFooter] = useState(false);
+
+    const currentPath = window.location.pathname;
+//    setShowFooter(currentPath !== "/dashboardSuppliers"); 
+
+
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 767 });
+  const [isMobile] = useMediaQuery("(max-width: 767px)");
 
   return (
     <Box
       height="100vh"
       display="flex"
-      bg={useColorModeValue("gray.800", "gray.800")}
+      bg={useColorModeValue("gray.800", "gray.500")}
+      
     >
-      <Box w="250px" bg="gray.600" p={2}>
-        <Stack spacing={4}>
-          <ScrollLink
-            to="publicaciones"
-            spy
-            smooth
-            duration={500}
-            style={linkStyle}
-          >
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange("Inicio")}
-              bg={currentPage === "Inicio" ? "blue.500" : ""}
-              color={currentPage === "Inicio" ? "white" : ""}
+      {/* Barra lateral */}
+      {!isMobile && (
+        <Box w="250px" p={2}
+        bg={useColorModeValue("blackAlpha.800", "gray.800")}
+        >
+          <Stack spacing={4}>
+            <ScrollLink
+              to="/dashboardSuppliers/publicaciones"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
             >
-              Inicio
-            </Button>
-          </ScrollLink>
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange("Inicio")}
+                bg={currentPage === "Inicio" ? "blue.500" : ""}
+                color={currentPage === "Inicio" ? "White" : ""}
+              >
+                Inicio
+              </Button>
+            </ScrollLink>
 
-          <ScrollLink
-            to="publicaciones"
-            spy
-            smooth
-            duration={500}
-            style={linkStyle}
-          >
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange("FormServicio")}
-              bg={currentPage === "FormServicio" ? "blue.500" : ""}
-              color={currentPage === "FormServicio" ? "white" : ""}
-              leftIcon={<ChatIcon />}
+            <ScrollLink
+              to="/dashboardSuppliers/publicaciones"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
             >
-              Publicar
-            </Button>
-          </ScrollLink>
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange("FormServicio")}
+                bg={currentPage === "FormServicio" ? "blue.500" : ""}
+                color={currentPage === "FormServicio" ? "white" : ""}
+                leftIcon={<ChatIcon />}
+              >
+                Publicar
+              </Button>
+            </ScrollLink>
 
-          <ScrollLink
-            to="nuevas-publicaciones"
-            spy
-            smooth
-            duration={500}
-            style={linkStyle}
-          >
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange("PostsSuppliers")}
-              bg={currentPage === "PostsSuppliers" ? "blue.500" : ""}
-              color={currentPage === "PostsSuppliers" ? "white" : ""}
-              leftIcon={<ViewIcon />}
+            <ScrollLink
+              to="/dashboardSuppliers/nuevas-publicaciones"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
             >
-              Ver mis Publicaciones
-            </Button>
-          </ScrollLink>
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange("PostsSuppliers")}
+                bg={currentPage === "PostsSuppliers" ? "blue.500" : ""}
+                color={currentPage === "PostsSuppliers" ? "white" : ""}
+                leftIcon={<ViewIcon />}
+              >
+                Ver mis Publicaciones
+              </Button>
+            </ScrollLink>
 
-          <RouterLink
-            to=""
-            style={linkStyle}
-            onClick={() => handlePageChange("FormUpdate")}
-          >
-            <Button
-              variant="outline"
-              bg={currentPage === "FormUpdate" ? "blue.500" : ""}
-              color={currentPage === "FormUpdate" ? "white" : ""}
-              leftIcon={<EditIcon />}
+            <ScrollLink
+              to="/dashboardSuppliers/updateprofile"
+              style={linkStyle}
+              onClick={() => handlePageChange("FormUpdateProfile")}
             >
-              Editar mi Perfil
-            </Button>
-          </RouterLink>
+              <Button
+                variant="outline"
+                bg={currentPage === "FormUpdate" ? "blue.500" : ""}
+                color={currentPage === "FormUpdate" ? "white" : ""}
+                leftIcon={<EditIcon />}
+              >
+                Editar mi Perfil
+              </Button>
+            </ScrollLink>
 
-          <ScrollLink to="pasarela" spy smooth duration={500} style={linkStyle}>
-            <Button
-              variant="outline"
-              onClick={() => handlePageChange("PasarelaPagos")}
-              bg={currentPage === "PasarelaPagos" ? "blue.500" : ""}
-              color={currentPage === "PasarelaPagos" ? "white" : ""}
-              leftIcon={<ViewIcon />}
+            <ScrollLink
+              to="pasarela"
+              spy
+              smooth
+              duration={500}
+              style={linkStyle}
             >
-            Obtén Premium
-            </Button>
-          </ScrollLink>
-                
+              <Button
+                variant="outline"
+                onClick={() => handlePageChange("PasarelaPagos")}
+                bg={currentPage === "PasarelaPagos" ? "blue.500" : ""}
+                color={currentPage === "PasarelaPagos" ? "white" : ""}
+                leftIcon={<ViewIcon />}
+              >
+                Obtén Premium
+              </Button>
+            </ScrollLink>
+          </Stack>
+        </Box>
+      )}
 
-        </Stack>
-      </Box>
+      {/* Contenido principal */}
+      <Box flex="1" display="flex" flexDirection="column" alignItems="center">
+        {/* Botón Hamburguesa (visible en pantallas pequeñas) */}
+        {isMobile && (
+          <IconButton
+            aria-label="Abrir menú"
+            icon={<HamburgerIcon />}
+            onClick={onOpen}
+            size="md"
+            m={2}
+          />
+        )}
 
-      <Flex direction="column" alignItems="center" flex="1">
-        {" "}
-        {/* Alineamos el contenido en el centro */}
+        <Drawer isOpen={isOpen && isMobile} placement="left" onClose={onClose}>
+          <DrawerOverlay />
+          <DrawerContent bg="gray.600">
+            <DrawerCloseButton />
+            <DrawerHeader>
+              <Stack spacing={4}>
+                <ScrollLink
+                  to="/dashboardSuppliers/publicaciones"
+                  spy
+                  smooth
+                  duration={500}
+                  style={linkStyle}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePageChange("Inicio")}
+                    bg={currentPage === "Inicio" ? "blue.500" : ""}
+                    color={currentPage === "Inicio" ? "white" : ""}
+                  >
+                    Inicio
+                  </Button>
+                </ScrollLink>
+
+                <ScrollLink
+                  to="/dashboardSuppliers/publicaciones"
+                  spy
+                  smooth
+                  duration={500}
+                  style={linkStyle}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePageChange("FormServicio")}
+                    bg={currentPage === "FormServicio" ? "blue.500" : ""}
+                    color={currentPage === "FormServicio" ? "white" : ""}
+                    leftIcon={<ChatIcon />}
+                  >
+                    Publicar
+                  </Button>
+                </ScrollLink>
+
+                <ScrollLink
+                  to="/dashboardSuppliers/nuevas-publicaciones"
+                  spy
+                  smooth
+                  duration={500}
+                  style={linkStyle}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePageChange("PostsSuppliers")}
+                    bg={currentPage === "PostsSuppliers" ? "blue.500" : ""}
+                    color={currentPage === "PostsSuppliers" ? "white" : ""}
+                    leftIcon={<ViewIcon />}
+                  >
+                    Ver mis Publicaciones
+                  </Button>
+                </ScrollLink>
+
+                <ScrollLink
+                  to="/dashboardSuppliers/updateprofile"
+                  style={linkStyle}
+                  onClick={() => handlePageChange("FormUpdateProfile")}
+                >
+                  <Button
+                    variant="outline"
+                    bg={currentPage === "FormUpdate" ? "blue.500" : ""}
+                    color={currentPage === "FormUpdate" ? "white" : ""}
+                    leftIcon={<EditIcon />}
+                  >
+                    Editar mi Perfil
+                  </Button>
+                </ScrollLink>
+                <ScrollLink
+                  to="/dashboardSuppliers/updatepost"
+                  spy
+                  smooth
+                  duration={500}
+                  style={linkStyle}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePageChange("updatepost")}
+                    bg={currentPage === "updatepost" ? "blue.500" : ""}
+                    color={currentPage === "updatepost" ? "white" : ""}
+                    leftIcon={<ViewIcon />}
+                  >
+                    Editar Post
+                  </Button>
+                </ScrollLink>
+
+                <ScrollLink
+                  to="/dashboardSuppliers/pasarela"
+                  spy
+                  smooth
+                  duration={500}
+                  style={linkStyle}
+                >
+                  <Button
+                    variant="outline"
+                    onClick={() => handlePageChange("PasarelaPagos")}
+                    bg={currentPage === "PasarelaPagos" ? "blue.500" : ""}
+                    color={currentPage === "PasarelaPagos" ? "white" : ""}
+                    leftIcon={<ViewIcon />}
+                  >
+                    Obtén Premium
+                  </Button>
+                </ScrollLink>
+              </Stack>
+            </DrawerHeader>
+            <DrawerBody>
+              <Stack spacing={4}></Stack>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
+
+        {/* Contenido de la página */}
         {currentPage === "Inicio" && (
-          <Flex direction="column" alignItems="center">
-            <Heading as="h1" size="xl" my={4} color="white">
+          <Flex direction="column" alignItems="center" >
+            <Heading
+              as="h1"
+              size={isTabletOrMobile ? "lg" : "sm"}
+              my={4}
+              color="white"
+            >
               MIS DATOS ONLINE
             </Heading>
-            <Flex direction="row" justifyContent="space-around">
+            <Flex
+              direction={isTabletOrMobile ? "column" : "column"}
+              justifyContent="space-around"
+            >
               <Data />
-
               <DataSuppliers />
-              <BarData />
             </Flex>
           </Flex>
         )}
-
         {currentPage === "FormServicio" && (
           <Flex justifyContent="center" alignItems="center" flex="1">
-            {" "}
-            {/* Centramos el contenido */}
             <FormServicio />
           </Flex>
         )}
-
         {currentPage === "PostsSuppliers" && (
           <Box>
             <PostsSuppliers />
           </Box>
         )}
 
-        {currentPage === "FormUpdate" && (
+        {currentPage === "FormUpdateProfile" && (
           <Flex justifyContent="center" alignItems="center" flex="1">
-            {" "}
-            {/* Centramos el contenido */}
-            <FormUpdate />
+            <FormUpdateProfile />
           </Flex>
         )}
-
         {currentPage === "Ayuda" && (
           <Flex justifyContent="flex-start" alignItems="flex-end">
             <CustomChatBot />
           </Flex>
         )}
-       {currentPage === "PasarelaPagos" && (
+        {currentPage === "PasarelaPagos" && (
           <Box>
             <PasarelaPagos />
           </Box>
         )}
-      </Flex>
+        {currentPage === "updatepost" && (
+          <Box>
+            <UpdatePost />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

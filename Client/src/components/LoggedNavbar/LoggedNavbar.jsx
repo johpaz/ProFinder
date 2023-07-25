@@ -24,20 +24,19 @@ import NavLink from '../../singleComponents/NavLink'
 import Logo from '../../assets/categoriesIcons/Logo.png'
 import SinFoto from '../../assets/defaultImages/sinfoto.webp'
 import DarkModeToggle from '../../utils/Darkmode/DarkmodeToggle'
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function LoggedNavbar () {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const navigate = useNavigate()
   const toast = useToast()
   const session = useSessionState(state => state.session)
-  // console.log(session);
+
   const removeSessionState = useSessionState(state => state.removeSessionState)
+  const profesionalesimg = useSelector((state) => state.profesionales);
 
-  // const profesionalesimg = useSelector((state) => state.profesionales);
-  // console.log(profesionalesimg);
-
-  // const filteredImage = profesionalesimg.filter((image) => image.id === session.id);
+   const filteredImage = profesionalesimg.filter((image) => image.id === session.id);
+   console.log(filteredImage);
 
   function handleLogout () {
     removeSessionState()
@@ -61,8 +60,8 @@ export default function LoggedNavbar () {
 
   return (
     <nav style={{
-      // position: "sticky",
-      position: "fixed",
+       position: "sticky",
+      //position: "fixed",
       width: '100%',
       top: 0,
       zIndex: 100,
@@ -105,7 +104,7 @@ export default function LoggedNavbar () {
               <NavLink textLink='¿COMO FUNCIONA?' routeLink='/comofunciona' />
               <NavLink textLink='PROFESIONALES' routeLink='/categories' />
               <NavLink textLink='CONTACTO' routeLink='/feedback' />
-              <NavLink textLink='ACERCA DE' routeLink='/' />
+              <NavLink textLink='ACERCA DE' routeLink='/aboutus' />
             </HStack>
           </HStack>
           <DarkModeToggle />
@@ -122,9 +121,9 @@ export default function LoggedNavbar () {
               >
                 <Avatar
                   size={{ base: 'md', md: 'lg', lg: 'lg' }}
-                  src={session.image || SinFoto}
+                  src={filteredImage.image && session.image || SinFoto}
                 />
-              </MenuButton>
+              </MenuButton> 
               <MenuList>
                 {
                 (session.usuario === 'c')
@@ -135,11 +134,11 @@ export default function LoggedNavbar () {
                       ? <MenuItem onClick={() => navigate('/dashboardAdmin/manageProfesional')}>Dashboard</MenuItem>
                       : null
                 }
-                {
+                {/* {
                   (session.usuario === 'p')
-                    ? <MenuItem onClick={() => navigate('/registerCliente')}>Ver mi perfil</MenuItem>
+                    ? <MenuItem onClick={() => navigate('/detail/suplier/:id')}>Ver mi perfil</MenuItem>
                     : null
-                }
+                } */}
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Cerrar sesion</MenuItem>
               </MenuList>

@@ -7,7 +7,7 @@ import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
 export default function DropdownMenu ({ titleMenu, menuItems, onClick }) {
   const colorMenuItem = useColorModeValue('gray.800', 'gra.300')
   return (
-    <Menu>
+    <Menu >
       <MenuButton
       borderWidth="1px"
         as={Button}

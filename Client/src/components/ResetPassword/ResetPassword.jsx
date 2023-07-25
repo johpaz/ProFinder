@@ -7,16 +7,37 @@ import {
   Heading,
   Input,
   Stack,
-  useColorModeValue
+  useColorModeValue,
+  useToast
 } from '@chakra-ui/react'
 import { passwordBackRules, emailRules } from '../../views/UserLogin/loginValidations.js'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function ResetPassword () {
   const { register, handleSubmit, formState: { errors } } = useForm()
+  const toast = useToast()
+  const navigate = useNavigate()
 
-  const customSubmit = (data) => {
-    console.info(data)
+  const customSubmit = async (data) => {
+    const info = {
+      email: data.email,
+      password: data.password
+    }
+
+    const response = await axios.put('https://backprofinder-production.up.railway.app/login', info)
+
+    if (response.data.message === 'Contraseña restablecida') {
+      toast({
+        title: 'Contraseña reestablecida',
+        description: 'Ya puedes iniciar sesion de nuevo',
+        status: 'success',
+        duration: 5000,
+        isClosable: true
+      })
+      navigate('/userLogin')
+    }
   }
 
   return (
@@ -65,6 +86,7 @@ export default function ResetPassword () {
               bg='blue.400'
               color='white'
               mt={10}
+              onClick={handleSubmit(customSubmit)}
               _hover={{
                 bg: 'blue.500'
               }}

@@ -16,6 +16,7 @@ import {
   Alert,
   AlertIcon,
   CloseButton,
+  useColorMode
 } from "@chakra-ui/react";
 
 import {
@@ -26,7 +27,9 @@ import { uploadFiles3 } from "../../../utils/Firebase/config";
 
 function EditClient() {
   const dispatch = useDispatch();
-
+  const { colorMode } = useColorMode();
+  const bgColor = colorMode === "dark" ? "gray.800" : "gray.500";
+  const textColor = colorMode === "dark" ? "gray.100" : "blue.1000";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -201,7 +204,7 @@ function EditClient() {
   }, [client]);
 
   return (
-    <Center p={4}  h="100vh" w="100%">
+    <Center p={4} h="100vh" w="100%" bg={bgColor}>
       <Box mx="auto" maxW="5xl" w="100%">
         <Center>
           <VStack
@@ -209,6 +212,8 @@ function EditClient() {
             alignItems="center"
             textAlign="center"
             onSubmit={handleSubmit}
+            bg={bgColor}
+            color={textColor}
           >
             <FormControl>
               <Box>
@@ -218,7 +223,6 @@ function EditClient() {
                   name="Nombre y apellido"
                   src={imageUrl || undefined}
                 />
-
                 <Input
                   type="file"
                   accept="image/*"
@@ -244,7 +248,8 @@ function EditClient() {
                   placeholder="Nombre y apellido"
                   value={name}
                   onChange={handleNameChange}
-                  
+                  bg={bgColor}
+                  color={textColor}
                 />
               </Box>
             </FormControl>
@@ -257,10 +262,11 @@ function EditClient() {
                   placeholder="Correo electrónico"
                   value={email}
                   onChange={handleEmailChange}
+                  bg={bgColor}
+                  color={textColor}
                 />
               </Box>
             </FormControl>
-
             <FormControl>
               <Box>
                 <FormLabel>Teléfono</FormLabel>
@@ -270,6 +276,8 @@ function EditClient() {
                   placeholder="Teléfono"
                   value={phone}
                   onChange={handlePhoneChange}
+                  bg={bgColor}
+                  color={textColor}
                 />
               </Box>
             </FormControl>
@@ -277,14 +285,13 @@ function EditClient() {
               <Box>
                 <FormLabel>Género</FormLabel>
                 <Select
-                  
                   value={genre}
                   onChange={handleGenreChange}
+                  bg={bgColor}
+                  color={textColor}
                 >
                   <option value="male">Masculino</option>
                   <option value="female">Femenino</option>
-                  
-                  
                 </Select>
               </Box>
             </FormControl>
@@ -295,6 +302,8 @@ function EditClient() {
                   placeholder="País"
                   value={countryId}
                   onChange={handleCountryChange}
+                  bg={bgColor}
+                  color={textColor}
                 >
                   <option value="">Seleccionar país</option>
                   {countries.map((country) => (
@@ -312,6 +321,8 @@ function EditClient() {
                   placeholder="Provincia/Estado"
                   value={locationId}
                   onChange={handleLocationChange}
+                  bg={bgColor}
+                  color={textColor}
                 >
                   <option value="">Seleccionar provincia/estado</option>
                   {locations.map((location) => (
@@ -329,12 +340,13 @@ function EditClient() {
                   placeholder="Descripción"
                   value={description}
                   onChange={handleDescriptionChange}
+                  bg={bgColor}
+                  color={textColor}
                 />
               </Box>
             </FormControl>
             <Spacer />
             <Button type="submit">Guardar cambios</Button>
-            
           </VStack>
         </Center>
       </Box>
