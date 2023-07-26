@@ -35,8 +35,7 @@ const getAllProfesionalApi = async () => {
         profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim()),
         CountryId: apiProfessional.CountryId,
         LocationId: apiProfessional.LocationId,
-        lat: apiProfessional.latitude,
-        lon: apiProfessional.longitude
+      
       };
 
       return normalizedProfessional;
@@ -47,18 +46,12 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones, CountryId, LocationId } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, LocationId,  } = normalizedProfessional;
 
       // Buscar la ubicación en la base de datos por el LocationId
       const location = await Location.findByPk(LocationId);
 
-      if (location) {
-        // Asignar la latitud y longitud desde el objeto location al profesional
-        normalizedProfessional.lat = location.latitude;
-        normalizedProfessional.lon = location.longitude;
-      }
-
-      // Crear el nuevo profesional en la base de datos
+            // Crear el nuevo profesional en la base de datos
       const newProfesional = await Profesional.create(normalizedProfessional);
 
       // Asignar categorías, ocupaciones, país y ubicación al nuevo profesional
@@ -71,11 +64,13 @@ const getAllProfesionalApi = async () => {
       const country = await Country.findByPk(CountryId);
       await newProfesional.setCountry(country);
 
-      if (location) {
+      
+            if (location) {
         await newProfesional.setLocation(location);
       }
     }
-
+   
+    // { id: 1, name: 'Programador', CategoryId: 1 }
     console.log('Base de datos llenada exitosamente con los profesionales.');
   } catch (error) {
     console.error('Error al llenar la base de datos con los profesionales:', error.message);
@@ -83,12 +78,9 @@ const getAllProfesionalApi = async () => {
 };
 
 
-
-
 const getAllProfesionals = async () => {
   try {
     let profesionals = await Profesional.findAll({
-      attributes: ['id', 'name', 'email', 'phone', 'password', 'image', 'genre', 'rating', 'description', 'years_exp', 'lat', 'lon'],
       include: [
         {
           model: Category,
@@ -104,15 +96,10 @@ const getAllProfesionals = async () => {
           model: PostProfesional,
           attributes: ["id", "title", "image", "content", "softDelete"],
         },
-        {
-          model: Location,
-          attributes: ["id", "latitude", "longitude"],
-        },
-        
-        {
-          model: Review,
-          attributes: ["content", "rating"]
+         {model: Review,
+          attributes: ["id","content", "rating"]
         }
+        
       ]
     });
 
@@ -134,12 +121,12 @@ const getAllProfesionals = async () => {
             model: PostProfesional,
             attributes: ["title", "image", "content", "softDelete"],
           },
-          {
-            model: Review,
-            attributes: ["content", "rating"]
+         
+          {model: Review,
+            attributes: ["id","content", "rating"]
           },
-          {model: Location,
-          attributes:["id","latitude","longitude"]}
+          
+
         ]
       });
     }
@@ -161,7 +148,6 @@ const getAllProfesionals = async () => {
     throw Error(error.message);
   }
 };
-
 
 //console.log (getAllProfesionals())
 module.exports = { getAllProfesionals, getAllProfesionalApi };

@@ -85,8 +85,7 @@ const HomePage = () => {
         
       </Box>
       
-      <MapSection/>
-      
+     
       <Footer />
     </Box>
   );
