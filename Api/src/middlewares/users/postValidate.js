@@ -35,7 +35,6 @@ const validatePassword = (password) => {
 module.exports = async (req,res,next) => {
   const { usuario, name, email, password } = req.body;
   try {
-    // console.log(email)
     validateEmail(email)
     const profesionalEmail = await Profesional.findOne({where:{email:email}});
     const clientEmail = await Client.findOne({where:{email:email}});

@@ -1,9 +1,5 @@
 const { Client } = require("../../db.js");
 
-
-
-
-
 const validateName = (name) => {
 
     if (!name) {
@@ -78,7 +74,7 @@ module.exports = async (req, res, next) => {
 
         const matchEmail = await Client.findOne({ where: { email: email } });
         if (matchEmail) {
-            return res.status(400).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
+            return res.status(404).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
         };
         validateName(name);
         validateEmail(email);
@@ -86,13 +82,8 @@ module.exports = async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(400).json(error.message)
+        return res.status(404).json(error.message)
     }
-
-
-
-
-
     next()
 
 };
