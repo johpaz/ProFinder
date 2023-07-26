@@ -2,14 +2,11 @@ const { Client, Profesional} = require('../../db');
 
 const validateId = (id) => {
     if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar el cliente`);
-    // if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
     if(!Number(id) || id === undefined) throw Error(`Compruebe los datos para registrarse`);
   };
 
 const validateName = (name) => {
-    // if (!name) {
-    //     throw Error("Por favor ingrese un nombre")
-    // }
+    
     if (typeof name !== "string") {
         throw Error("El nombre debe ser un string")
     }
@@ -20,16 +17,9 @@ const validateName = (name) => {
     if (name.length > 50) {
         throw Error("El nombre contiene muchos caracteres.")
     };
-    // let firstAndLastName = name.split(" ");
-    // if (firstAndLastName.length !== 2) {
-    //     throw Error("La propiedad name debe contener nombre y apellido.")
-    // }
 }
 
 const validateEmail = (email) => {
-    // if (!email) {
-    //     throw Error("Por favor ingrese un email")
-    // };
     if (typeof email !== "string") {
         throw Error("El nombre debe ser un string.")
     };
@@ -43,8 +33,6 @@ const validateEmail = (email) => {
     if (!emailRegexEnd.test(emailEnd)) {
         throw Error("El email al final del dominio no puede contener numeros");
     };
-
-
 };
 
 const validatePassword = (password) => {
@@ -54,10 +42,7 @@ const validatePassword = (password) => {
 }
 
 const validatePhone = (phone) => {
-
-    // if (!phone) {
-    //     throw Error("Por favor ingrese un telefono")
-    // }
+  
     if (typeof phone !== "string") {
         throw Error("El tipo de dato de phone debe ser un string.")
     };
@@ -110,7 +95,6 @@ module.exports = async (req, res, next) => {
     const { id } = req.params;
     const { name, email, password, phone, image, genre, description, ubication } = req.body;
     try {
-        // console.log(id)
         validateId(id);
         validateEmail(email);
         
@@ -128,7 +112,7 @@ module.exports = async (req, res, next) => {
         validateDescription(description)
         validateUbication(ubication)
     } catch (error) {
-        return res.status(400).json(error.message);
+        return res.status(401).json(error.message);
     }
     next();
 }

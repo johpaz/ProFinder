@@ -10,7 +10,6 @@ const validatePassword = (password) => {
 module.exports = async (req, res, next) => {
     const { password } = req.body;
     try {
-        // console.log(email)
         validatePassword(password);
         next();
     } catch (error) {

@@ -32,15 +32,17 @@ const getAllClientsApi = async () => {
 
     // Crear todos los clientes de una sola vez en la base de datos
     await Client.bulkCreate(normalizedClients);
-    console.log('Base de datos llenada exitosamente con los clientes.');
+    //console.log('Base de datos llenada exitosamente con los clientes.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }
 };
 
-const getAllClients= async () => {
+const getClientsBaneados= async () => {
   const clients = await Client.findAll({
-    
+    where: {
+      softDelete: true
+    },
     include: {
       model: Review,
       attributes: ["content"],
@@ -53,6 +55,6 @@ const getAllClients= async () => {
 };
 
 module.exports = {
-getAllClients,
+    getClientsBaneados,
   getAllClientsApi,
 }
