@@ -19,7 +19,11 @@ const createPostProfesional = async (title, image, content, ProfesionalId, categ
   // Paso 2: Verificar si el profesional está inactivo y ya tiene un post existente
   if (!profesional.active) {
     const existingPost = await PostProfesional.findOne({
-      where: { ProfesionalId },
+      where: { 
+        ProfesionalId,
+        softDelete: false,
+      },
+      
     });
 
     if (existingPost) {
