@@ -20,20 +20,13 @@ const validateName = (name) => {
 }
 
 const validateEmail = (email) => {
-    if (typeof email !== "string") {
-        throw Error("El nombre debe ser un string.")
-    };
-    const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
-    const emailEnd = email.split(".")[1];
-    let regexEmail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-
-    if (!regexEmail.test(email)) {
-        throw Error("Ingrese un email valido, Ej : usuario@gmail.com");
-    }
-    if (!emailRegexEnd.test(emailEnd)) {
-        throw Error("El email al final del dominio no puede contener numeros");
-    };
-};
+    if(!email) throw Error(`La propiedad email es obligatoria`);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
+    if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
+    if(email.trim() === "") throw Error(`El email no puede estar vacío`);
+    if(!emailRegex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
+    //if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
+  };
 
 const validatePassword = (password) => {
     // if (!password) {
