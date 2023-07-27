@@ -15,7 +15,6 @@ const validateName = (name) => {
 };
 
 const validateEmail = (email) => {
-  if(!email) throw Error(`La propiedad email es obligatoria`);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
   if(email.trim() === "") throw Error(`El email no puede estar vacío`);
