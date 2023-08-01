@@ -164,7 +164,7 @@ const getAllProfesionals = async () => {
       profesional.PostProfesionals = filteredPosts;
       return profesional;
     });
-    console.log(profesionals);
+  
     const cleanedArray = cleanArray(profesionals);
 
     // return profesionals
