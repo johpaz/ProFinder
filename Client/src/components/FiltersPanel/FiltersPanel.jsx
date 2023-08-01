@@ -89,7 +89,7 @@ export default function FiltersPanel ({ setCurrentPage }) {
           <Text>
             {`Resultados para
             ${categorySelected === 'Categorias' || categorySelected === 'Todas' ? '' : categorySelected + ' 🔹'} 
-            ${ocupationSelected === 'Ocupacion' || ocupationSelected === '' ? '' : ocupationSelected + ' 🔹'}
+            ${ocupationSelected === 'Ocupacion' || ocupationSelected === '' || ocupationSelected === 'Selecciona una categoria' ? '' : ocupationSelected + ' 🔹'}
             ${ratingSelected === 'Rating' || ratingSelected === 'Aleatorio' ? '' : ratingSelected + ' 🔹'}
             ${genreSelected === 'Genero' || genreSelected === 'todos' ? '' : genreSelected}`}
           </Text>

@@ -16,11 +16,8 @@ export const CLIENT = Object.freeze({
 })
 
 export const getActualDate = () => {
-  const tiempoTranscurrido = Date.now();
-  const hoy = new Date(tiempoTranscurrido);
-  // const fecha = new Date();
-  // const day = fecha.getDate();
-  // const month = fecha.getMonth() + 1;
+  const tiempoTranscurrido = Date.now()
+  const hoy = new Date(tiempoTranscurrido)
 
-  return hoy.toLocaleDateString();
+  return hoy.toLocaleDateString()
 }

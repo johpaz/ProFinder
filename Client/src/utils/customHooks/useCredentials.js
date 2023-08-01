@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useSessionState } from '../../services/zustand/useSession'
 import { useToast } from '@chakra-ui/toast'
 export const useCredentials = () => {
-  const navigate = useNavigate()
-  const setSessionState = useSessionState((state) => state.setSessionState)
+  const { setSessionState, getUserInfo } = useSessionState((state) => state)
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
   const toast = useToast()
   const userTypes = [
     { name: 'Cliente' },
@@ -37,6 +37,7 @@ export const useCredentials = () => {
         isClosable: true
       })
       setSessionState(session)
+      getUserInfo()
       window.scroll({
         top: 0,
         left: 0,

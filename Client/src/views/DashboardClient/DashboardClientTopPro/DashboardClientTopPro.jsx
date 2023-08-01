@@ -3,7 +3,7 @@ import TopPro from '../../../components/Home/TopPro/TopPro';
 import SidebarClient from '../../../components/DashboardClient/SidebarClient/SidebarClient';
 
 const DashboardClient = () => {
-  const backgroundColor = useColorModeValue('gray.500', 'gray.800');
+  const backgroundColor = useColorModeValue('gray.100', 'gray.800');
 
   return (
     <Flex bg={backgroundColor}>

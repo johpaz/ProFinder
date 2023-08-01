@@ -10,11 +10,9 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
   Text,
-  VStack,
   Image,
   Grid,
   Button,
-  Flex,
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -24,14 +22,14 @@ import "slick-carousel/slick/slick-theme.css";
 
 const PostsSuppliers = () => {
   const session = useSessionState((state) => state.session);
-  // console.log(session);
+ // console.log(session);
 
   const profesionales = useSelector((state) => state.profesionales);
+  //console.log(profesionales);
   const filteredPosts = profesionales.filter((post) => post.id === session.id);
-  //console.log(filteredPosts);
+ console.log(filteredPosts.posts);
 
   const dispatch = useDispatch();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showFullContent, setShowFullContent] = useState(false);
 
   useEffect(() => {
@@ -114,29 +112,29 @@ const PostsSuppliers = () => {
                     />
                   ))}
                 </Slider>
-
-                {/* Botón Leer más / Ver menos */}
-                {post.content.length > 100 && (
-                  <Button
-                    colorScheme="blue"
-                    size="sm"
-                    mt={2}
-                    onClick={handleToggleContent}
-                    bg="teal.400"
-                    color="white"
-                    _hover={{ bg: "teal.500" }}
-                  >
-                    {showFullContent ? "Ver menos" : "Leer más"}
-                  </Button>
-                )}
-
-                {/* Contenido del post */}
-                <Text color={"gray.500"}>
-                  {showFullContent
-                    ? post.content
-                    : post.content.substring(0, 100)}
-                </Text>
               </Box>
+              {/* Botón Leer más / Ver menos */}
+              {post.content.length > 100 && (
+                <Button
+                  colorScheme="blue"
+                  size="sm"
+                  mt={2}
+                  onClick={handleToggleContent}
+                  bg="teal.400"
+                  color="white"
+                  _hover={{ bg: "teal.500" }}
+                >
+                  {showFullContent ? "Ver menos" : "Leer más"}
+                </Button>
+              )}
+
+              {/* Contenido del post */}
+              <Text color={"gray.500"}>
+                {showFullContent
+                  ? post.content
+                  : post.content.substring(0, 100)}
+              </Text>
+
               <Box justifyContent="flex-end">
                 <Link to={`/dashboardSuppliers/updatepost/${post.id}`}>
                   <EditIcon cursor="pointer" bg="gray.500" />

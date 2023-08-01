@@ -11,6 +11,7 @@ import SidebarContent from './SidebarContent'
 import MobileNav from './MobileNav'
 import ProfesionalManagement from '../UsersManagement/ProfesionalManagement'
 import ClientManagement from '../UsersManagement/ClientManagement'
+import PostManagement from '../UsersManagement/PostManagement'
 
 export default function Sidebar () {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -67,7 +68,9 @@ export default function Sidebar () {
           ? <ProfesionalManagement />
           : (pathname === '/dashboardAdmin/manageClient')
               ? <ClientManagement />
-              : null
+              : (pathname === '/dashboardAdmin/managePost')
+                  ? <PostManagement />
+                  : null
       }
       </Box>
     </Box>

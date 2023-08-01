@@ -75,7 +75,7 @@ const TestimonialAvatar = ({ src, name, title }) => {
       <Avatar src={src} alt={name} mb={2} />
       <Stack spacing={-1} align='center'>
         <Text fontWeight={600}>
-          <Text as='span' color='gray.100'>
+          <Text as='span' color={useColorModeValue('gray.800', 'gray.100')}>
             {name}
           </Text>
         </Text>
@@ -89,13 +89,15 @@ const TestimonialAvatar = ({ src, name, title }) => {
 
 export default function TestimonialCarrousel() {
   const { colorMode } = useColorMode();
-  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.500';
+  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.100';
   const textColor = useColorModeValue('blue.900', 'blue.400');
+
+
   return (
     <Box h='100%' w='100%' backgroundColor={backgroundColor}>
       <Container py={16} as={Flex} justify='center' align='center' direction='column' w='100%' maxW='100%'>
         <Stack spacing={0} align='center' mb={12}>
-          <Heading color={useColorModeValue('gray.100', 'white')}>Nuestros usuarios opinan!</Heading>
+          <Heading color={useColorModeValue('gray.900', 'white')}>NUESTROS USUARIOS OPINAN!</Heading>
           <Text color={textColor}>
             Tenemos usuarios alrededor de todo el mundo
           </Text>

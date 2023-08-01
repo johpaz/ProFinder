@@ -4,21 +4,30 @@
 import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/toast'
 import { Button } from '@chakra-ui/button'
-import { useDispatch } from 'react-redux'
-import { loginSessionGoogle } from '../services/redux/actions/actions'
+// import { useDispatch } from 'react-redux'
+// import { loginSessionGoogle } from '../services/redux/actions/actions'
 import jwt_decode from 'jwt-decode'
 
-export default function GoogleAuthButton ({ setValue }) {
-  const dispatch = useDispatch()
+export default function GoogleAuthButton ({ setValue, getUserData }) {
+  // const dispatch = useDispatch()
   const toast = useToast()
 
   async function handleCallbackResponse (response) {
-    dispatch(loginSessionGoogle())
+    // dispatch(loginSessionGoogle())
     const userObject = jwt_decode(response.credential)
 
     setValue('name', userObject.name)
     setValue('email', userObject.email)
     setValue('password', `${userObject.given_name.toLowerCase()}GOOAT0`)
+
+    const userData = {
+      name: userObject.name,
+      email: userObject.email,
+      password: `${userObject.given_name.toLowerCase()}GOOAT0`
+    }
+
+    getUserData(userData)
+    
     userObject && toast({
       title: 'Cuenta vinculada',
       description: 'Completa los demas campos para finalizar el registro',

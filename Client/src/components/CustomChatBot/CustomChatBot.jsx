@@ -36,6 +36,13 @@ const CustomChatBot = () => {
         { value: "opcion1", label: "Eres Profesional ?", trigger: "5" },
         { value: "opcion2", label: "Buscas un Profesional ? ", trigger: "6" },
         { value: "opcion3", label: "Plan Premiun", trigger: "7" },
+        // {
+        //   value: "opcion4",
+        //   label: "Ver Profesionales",
+        //   trigger: () => (
+        //     <Link to="/aboutus">Ver Profesionales</Link>
+        //   ),
+        // },
       ],
     },
     {

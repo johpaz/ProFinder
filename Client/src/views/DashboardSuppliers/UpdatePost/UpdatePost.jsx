@@ -40,7 +40,7 @@ function UpdatePost() {
   });
 
   const { id } = useParams();
-  console.log(id);
+  //console.log(id);
   const dispatch = useDispatch();
 
   useEffect(() => {

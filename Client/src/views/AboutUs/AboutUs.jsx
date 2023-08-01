@@ -40,17 +40,17 @@ const peopleData = [
     imageUrl: 'https://media.licdn.com/dms/image/D4D03AQFM8yYaQS8S4Q/profile-displayphoto-shrink_800_800/0/1666745756157?e=1695859200&v=beta&t=1JB53SXVkTq6Rshgwkt9_RU-eWXx5zAq5riuREjKrZU',
    
   }, {
-    name: 'José Alberto Brito Sevilla',
+    name: 'José Brito',
     email: 'josealbritose@gmail.com',
-    linkedinURL: 'https://www.linkedin.com/in/johndoe/',
+    linkedinURL: 'https://www.linkedin.com/in/jos%C3%A9-brito-72224025b/',
     githubURL: 'https://github.com/josebritop',
     title: 'Software Engineer',
     country: 'Argentina',
-    imageUrl: 'path/to/john_doe_image.jpg',
+    imageUrl: 'https://media.licdn.com/dms/image/D4D03AQEMMFSpnebLHQ/profile-displayphoto-shrink_800_800/0/1690386599543?e=1695859200&v=beta&t=kfi6ziSmzzW7IXjTA-RfciqVUmymEsW12BPgbCvw_ZA',
    
   }, {
     name: 'Cristian Cuesta',
-    email: 'john.doe@example.com',
+    email: 'ccdavid007@gmail.com',
     linkedinURL: 'https://www.linkedin.com/in/cristiancuestabenitez/',
     githubURL: 'https://github.com/CristianCuesta14',
     title: 'Software Engineer',
@@ -83,7 +83,7 @@ const peopleData = [
 
 const AboutUs = () => {
     const { colorMode } = useColorMode();
-    const bgColor = useColorModeValue('gray.400', 'gray.800');
+    const bgColor = useColorModeValue('gray.100', 'gray.800');
 
     const [isLargerThanSm] = useMediaQuery("(min-width: 30em)");
     const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
@@ -104,11 +104,11 @@ const AboutUs = () => {
   
         return (
           <Box py={{ base: 8, md: 18 }} px={4} textAlign="center" bg={bgColor}>
-            <Heading fontSize={{ base: "3xl", md: "4xl" }} color="teal.600" mb={4}>
-              Conoce a nuestro equipo
+            <Heading fontSize={{ base: "3xl", md: "4xl" }} color="teal.400" mb={4}>
+              CONOCE A NUESTRO EQUIPO
             </Heading>
-            <Text color="gray.600" fontSize={{ base: "lg", md: "xl" }} maxW="600px" mx="auto" mb={8}>
-              Esta página está elaborada por un equipo interdiciplinario, comprometido a realizar desarrollo FullStack de calidad
+            <Text color={useColorModeValue('blue.900', 'blue.400')} fontSize={{ base: "lg", md: "xl" }} maxW="600px" mx="auto" mb={8}>
+              Esta página está elaborada por un equipo interdisciplinario, comprometido a realizar desarrollo FullStack de calidad.
             </Text>
       
             <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' }} gap={6}>

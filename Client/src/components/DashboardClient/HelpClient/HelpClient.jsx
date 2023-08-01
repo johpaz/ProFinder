@@ -1,16 +1,16 @@
 
-import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, useColorMode } from '@chakra-ui/react';
+import { Box, Text, Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, useColorMode, useColorModeValue } from '@chakra-ui/react';
 
 const HelpClient = () => {
   const { colorMode } = useColorMode();
-  const bgColor = { light: 'gray.400', dark: 'gray.800' };
+  const bgColor = { light: 'gray.100', dark: 'gray.800' };
   const titleColor = { light: 'gray.100', dark: 'gray.100' };
   const descriptionColor = { light: 'blue.900', dark: 'blue.400' };
 
 
   return (
     <Box width="100%" bg={bgColor[colorMode]} >
-      <Text fontSize="3xl" fontWeight="bold" textAlign="center" color={titleColor[colorMode]}>
+      <Text fontSize="3xl" fontWeight="bold" textAlign="center" color={useColorModeValue('gray.900','gray.100')}>
         Ayuda y Q & A
       </Text>
       <Text fontSize="md" textAlign="center" color={descriptionColor[colorMode]} my={4}>

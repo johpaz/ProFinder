@@ -61,6 +61,58 @@ function FormServicio() {
   const profile = dataSuppliers.find((user) => user.id === session.id);
   // console.log(profile.active);
   const [value, setValue] = useState("");
+  // const [selectedFiles, setSelectedFiles] = useState([]);
+  // const handleImageChange = (event) => {
+  //   const files = event.target.files;
+  //   setSelectedFiles((prevFiles) => [...prevFiles, ...Array.from(files)]);
+  // };
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const handleImageChange = async (event) => {
+    const files = event.target.files;
+    let newImageFiles = [];
+    let fileErrors = "";
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+
+      // Check if the file format is accepted
+      const acceptedFormats = [".jpg", ".jpeg", ".png"];
+      const fileExtension = file.name.substring(file.name.lastIndexOf("."));
+      if (!acceptedFormats.includes(fileExtension)) {
+        fileErrors += `${file.name} no es un formato de archivo válido. `;
+        continue;
+      }
+
+      newImageFiles.push(file);
+    }
+
+    // If there are file errors, display them
+    if (fileErrors) {
+      setError("images", {
+        type: "fileFormat",
+        message: fileErrors,
+      });
+    }
+
+    setUploadedFiles((prevUploadedFiles) => [
+      ...prevUploadedFiles,
+      ...newImageFiles,
+    ]);
+
+    // Reset the image input validation error if no file errors
+    if (!fileErrors) {
+      reset({
+        ...errors,
+        images: null,
+      });
+    }
+  };
+
+  const handleRemoveFile = (index) => {
+    const updatedFiles = [...uploadedFiles];
+    updatedFiles.splice(index, 1);
+    setUploadedFiles(updatedFiles);
+  };
 
   const envioCategoria = (value) => {
     setSelectedCategory(value);
@@ -71,8 +123,8 @@ function FormServicio() {
   };
 
   const onSubmit = async (data) => {
-    const imageUrls = await uploadFiles2(data.images);
-
+    // const imageUrls = await uploadFiles2(data.images);
+    const imageUrls = await uploadFiles2(uploadedFiles);
     const newData = {
       title: data.title,
       image: imageUrls,
@@ -93,11 +145,11 @@ function FormServicio() {
       minH="100vh"
       align="center"
       justify="center"
-      bg={useColorModeValue("gray.800", "gray.800")}
+  
     >
       <Box
         rounded="lg"
-        bg={useColorModeValue("blackAlpha.800", "gray800")}
+        bg={useColorModeValue("blackAlpha.800", "blackAlpha.800")}
         boxShadow="lg"
         p={8}
         color="gray.300"
@@ -120,28 +172,33 @@ function FormServicio() {
 
             <FormControl>
               <FormLabel>Fotos de trabajos</FormLabel>
-              <Input
+              <Stack>
+                {uploadedFiles.map((file, index) => (
+                  <Flex key={index} alignItems="center">
+                    <Input
+                      type="text"
+                      value={file.name}
+                      readOnly
+                      isDisabled
+                      flex="1"
+                    />
+                    <Button
+                      variant="outline"
+                      colorScheme="red"
+                      size="sm"
+                      onClick={() => handleRemoveFile(index)}
+                    >
+                      Eliminar
+                    </Button>
+                  </Flex>
+                ))}
+              </Stack>
+              <input
                 type="file"
-                multiple // Allow multiple file selection
-                {...register("images", {
-                  required: "Solo se permiten archivos de imagen JPEG o PNG",
-                  validate: {
-                    isImage: (value) => {
-                      if (value) {
-                        const acceptedFormats = [".jpg", ".jpeg", ".png"];
-                        for (const file of value) {
-                          const fileExtension = file.name.substring(
-                            file.name.lastIndexOf(".")
-                          );
-                          if (!acceptedFormats.includes(fileExtension)) {
-                            return false;
-                          }
-                        }
-                      }
-                      return true;
-                    },
-                  },
-                })}
+                onChange={handleImageChange}
+                accept=".jpg, .jpeg, .png"
+                multiple
+                style={{ marginTop: "5px" }}
               />
               {errors.images && (
                 <span style={{ color: "red" }}>{errors.images.message}</span>
@@ -195,10 +252,8 @@ function FormServicio() {
                     Enviar
                   </Button>
                   <Box display="inline" fontSize="lg" color="red.500" ml={2}>
-                    {/* Mostrar el mensaje */}
                     {profile.active === false &&
                       "Se terminaron tus publicaciones"}{" "}
-                    {/* Mostrar mensaje alternativo */}
                   </Box>
                 </>
               ) : null}
@@ -220,12 +275,20 @@ function FormServicio() {
                 </Button>
               </Link>
             ) : null}
-          {isSubmitted && (
-            <Alert status="success"  size="sm" maxW="xs" borderRadius="md"color="gray.800" mt={4} bg= "gray.200" >
-              <AlertIcon  />
-              ¡Publicado!
-            </Alert>
-          )}
+            {isSubmitted && (
+              <Alert
+                status="success"
+                size="sm"
+                maxW="xs"
+                borderRadius="md"
+                color="gray.800"
+                mt={4}
+                bg="gray.200"
+              >
+                <AlertIcon />
+                ¡Publicado!
+              </Alert>
+            )}
           </form>
         </Stack>
       </Box>

@@ -8,7 +8,8 @@ import NavItem from './NavItem'
 export default function SidebarContent ({ onClose, ...rest }) {
   const LinkItems = [
     { name: 'Profesionales', icon: EditIcon, linkRoute: '/dashboardAdmin/manageProfesional' },
-    { name: 'Clientes', icon: EditIcon, linkRoute: '/dashboardAdmin/manageClient' }
+    { name: 'Clientes', icon: EditIcon, linkRoute: '/dashboardAdmin/manageClient' },
+    { name: 'Posteos', icon: EditIcon, linkRoute: '/dashboardAdmin/managePost' }
   ]
 
   const bgElement = useColorModeValue('white', 'gray.800')

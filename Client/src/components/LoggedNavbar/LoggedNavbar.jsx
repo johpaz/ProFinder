@@ -15,13 +15,15 @@ import {
   useColorModeValue,
   Stack,
   Image,
-  useToast
+  useToast,
+  useColorMode
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { useNavigate } from 'react-router-dom'
 import { useSessionState } from '../../services/zustand/useSession'
 import NavLink from '../../singleComponents/NavLink'
 import Logo from '../../assets/categoriesIcons/Logo.png'
+import logodark from "../../assets/categoriesIcons/logodark.png";
 import SinFoto from '../../assets/defaultImages/sinfoto.webp'
 import DarkModeToggle from '../../utils/Darkmode/DarkmodeToggle'
 import { useSelector } from "react-redux";
@@ -31,12 +33,12 @@ export default function LoggedNavbar () {
   const navigate = useNavigate()
   const toast = useToast()
   const session = useSessionState(state => state.session)
-
+  const { colorMode } = useColorMode();
   const removeSessionState = useSessionState(state => state.removeSessionState)
   const profesionalesimg = useSelector((state) => state.profesionales);
 
-   const filteredImage = profesionalesimg.filter((image) => image.id === session.id);
-   console.log(filteredImage);
+  // const filteredImage = profesionalesimg.filter((image) => image.id === session.id);
+  // console.log(filteredImage)
 
   function handleLogout () {
     removeSessionState()
@@ -89,9 +91,9 @@ export default function LoggedNavbar () {
           >
             <Box onClick={() => navigate('/')} _hover={{ cursor: 'pointer' }}>
               <Image
-                src={Logo}
-                width={{ base: '70%', md: '100%', lg: '100%' }}
-                height='70px'
+                src={colorMode === "light" ? Logo : logodark}
+               width={{ base: "50%", md: "100%", lg: "100%" }}
+               height="70px"
               />
             </Box>
             <HStack
@@ -121,7 +123,7 @@ export default function LoggedNavbar () {
               >
                 <Avatar
                   size={{ base: 'md', md: 'lg', lg: 'lg' }}
-                  src={filteredImage.image && session.image || SinFoto}
+                  src={ session.image || SinFoto}
                 />
               </MenuButton> 
               <MenuList>
@@ -156,7 +158,7 @@ export default function LoggedNavbar () {
                 <NavLink textLink='¿Como funciona?' routeLink='/comofunciona' />
                 <NavLink textLink='Profesionales' routeLink='/categories' />
                 <NavLink textLink='Contacto' routeLink='/feedback' />
-                <NavLink textLink='Acerca de' routeLink='/' />
+                <NavLink textLink='Acerca de' routeLink='/aboutus' />
               </Stack>
             </Box>
             )

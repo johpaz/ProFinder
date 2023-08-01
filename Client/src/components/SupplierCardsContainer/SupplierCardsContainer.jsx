@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { lazy, Suspense } from 'react'
 import { Flex, Stack } from '@chakra-ui/layout'
-import { Skeleton } from '@chakra-ui/skeleton'
+import { Spinner } from '@chakra-ui/spinner'
 const SupplierCard = lazy(() => import('../SupplierCard/SupplierCard'))
+const NoResults = lazy(() => import('../../singleComponents/NoResults'))
 
 export default function SupplierCardsContainer ({ visibleSuppliers }) {
   return (
@@ -19,7 +20,7 @@ export default function SupplierCardsContainer ({ visibleSuppliers }) {
         px={4}
         py={12}
       >
-        {visibleSuppliers
+        {visibleSuppliers.length !== 0
           ? (
               visibleSuppliers.map(
                 ({
@@ -32,7 +33,7 @@ export default function SupplierCardsContainer ({ visibleSuppliers }) {
                   description,
                   professions
                 }) => (
-                  <Suspense key={id} fallback={<Skeleton height='500px' />}>
+                  <Suspense key={id} fallback={<Spinner />}>
                     <SupplierCard
                       key={id}
                       id={id}
@@ -49,7 +50,9 @@ export default function SupplierCardsContainer ({ visibleSuppliers }) {
               )
             )
           : (
-            <h2 />
+            <Suspense fallback={<Spinner />}>
+              <NoResults />
+            </Suspense>
             )}
       </Flex>
     </Stack>

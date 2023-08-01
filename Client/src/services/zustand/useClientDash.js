@@ -87,6 +87,5 @@ const getCounts = (countsGraphic, data) => {
   countsGraphic.clientsActive = filterStatus(data, { status: 'Activo' }).length
   countsGraphic.clientsBanned = filterStatus(data, { status: 'Baneado' }).length
 
-  console.info(countsGraphic)
   return countsGraphic
 }

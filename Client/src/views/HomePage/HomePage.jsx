@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux';
 import { getAllCategories } from '../../services/redux/actions/actions';
 import { Box, Divider, useColorMode } from '@chakra-ui/react';
 import Footer from '../../components/Footer/Footer';
+
 import TopPro from '../../components/Home/TopPro/TopPro'
 import FeaturesGrid from '../../components/Home/FeaturesGrid/FeaturesGrid'
 import TestimonialCarrousel from '../../components/Home/TestimonialCarrousel/TestimonialCarrousel'
 import HowItWorks from '../../components/Home/HowItWorks/HowItWorks'
 import CategoriesSection from '../../components/Home/CategoriesSection/CategoriesSection'
-import MapSection from '../../components/Home/MapSection/MapSection';
+import Map from '../../components/Home/MapSection/Map';
 
 
 const HomePage = () => {
@@ -20,7 +21,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   // Define the general background color according to the color mode
-  const backgroundColor = colorMode === 'dark' ? 'gray.800' : 'gray.500';
+  const backgroundColor = colorMode === 'dark' ? 'gray.800' : 'gray.100';
 
   // Define the colors for the dividers in both modes
   const dividerColor = colorMode === 'dark' ? 'gray.100' : 'black';
@@ -82,10 +83,16 @@ const HomePage = () => {
 
         <Divider height="3px" borderColor={dividerColor} width="80%" mx="auto" />
         <TopPro />
-        
+        {/* <Divider height="3px" borderColor={dividerColor} width="80%" mx="auto" /> */}
       </Box>
+    
+      {<Box 
       
-     
+      backgroundColor={backgroundColor}>
+      <Map />
+      
+      </Box>
+       }
       <Footer />
     </Box>
   );

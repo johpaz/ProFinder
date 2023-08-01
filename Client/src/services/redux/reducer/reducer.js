@@ -10,10 +10,15 @@ import {
   DELETE_POST,
   UPDATE_POST,
   GET_ID_PROFESIONAL,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
+  GET_FAVORITES,
+  CLEAN_DETAIL,
 } from "../actionsTypes/actionsType";
 import { filterSuppliers } from "../filters/reduxFilters";
 
 const initialState = {
+  location: [],
   suppliers: [],
   ocupations: [],
   backup: [],
@@ -28,11 +33,12 @@ const initialState = {
   error: null,
   filters: {
     category: "Categorias",
-    ocupation: "Ocupacion",
+    ocupation: "Selecciona una categoria",
     rating: "Rating",
     genre: "Genero",
   },
   session: [],
+  favorites: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -77,6 +83,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         professionals: action.payload,
+      };
+    case CLEAN_DETAIL:
+      return {
+        ...state,
+        profesionalId:[],
       };
 
     case "GET_ALL_CLIENTS":
@@ -141,6 +152,41 @@ const reducer = (state = initialState, action) => {
         }
       );
       return { ...state, profesionales: updatedProfesionalesForDelete };
+    }
+    // Agregar un profesional como favorito
+    case ADD_FAVORITE: {
+      console.log(action.payload);
+      const { profesionalId } = action.payload;
+      if (!state.favorites.includes(profesionalId)) {
+        return {
+          ...state,
+          favorites: [...state.favorites, profesionalId],
+        };
+      }
+      return state;
+    }
+    // Remover un profesional como favorito
+    case REMOVE_FAVORITE: {
+      //
+      console.log("Que me llega en remove");
+      console.log(action.payload);
+      const profesionalId = action.payload;
+      return {
+        ...state,
+        favorites: [...state.favorites.filter((id) => id !== profesionalId)],
+      };
+    }
+    // Obtener los profesionales favoritos del cliente
+    case GET_FAVORITES: {
+      const favoritesList = action.payload;
+      // console.log("" + favoritesList)
+      console.log("---");
+      console.log(favoritesList.map((fav) => fav.id));
+      // console.log(favoritesList.map((fav) => fav.id));
+      return {
+        ...state,
+        favorites: favoritesList,
+      };
     }
     //! caso por default
     default:

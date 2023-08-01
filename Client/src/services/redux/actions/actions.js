@@ -13,13 +13,16 @@ import {
   DELETE_POST,
   UPDATE_POST,
   GET_ID_PROFESIONAL,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
+  GET_FAVORITES,
 } from "../actionsTypes/actionsType";
 
 //! Action para obtener a todos los Proveedores/Profesionales
 const getAllSuppliers = () => {
-  //const URL = `${API.LOCALHOST}/profesional`
-  const URL = `${API.DBONLINE}/profesional`;
-  console.log(URL);
+   const URL = `${API.LOCALHOST}/profesional`
+  //const URL = `${API.DBONLINE}/profesional`;
+
   return function(dispatch) {
     axios
       .get(URL)
@@ -34,6 +37,7 @@ const getAllSuppliers = () => {
 
 const getProfesionalIdOnline = (id) => {
   const URL = `${API.DBONLINE}/profesional/${id}`;
+  // const URL = `${API.LOCALHOST}/profesional/${id}`;
 
   return function(dispatch) {
     axios
@@ -65,8 +69,8 @@ const getAllCategories = () => {
 
 //! action para buscar por nombre de profesion //*****Revisar si aun se esta usando si no borrar */
 const searchProfessionals = (name) => {
-  // const URL = `${API.LOCALHOST}/ocupationsp/?name=${name}`
-  const URL = `${API.DBONLINE}/ocupationsp?name=${name}`;
+   const URL = `${API.LOCALHOST}/ocupationsp/?name=${name}`
+  //const URL = `${API.DBONLINE}/ocupationsp?name=${name}`;
 
   return function(dispatch) {
     if (name) {
@@ -109,8 +113,8 @@ const applyFilters = (objFilters) => {
 
 //! post servicio
 const postServicio = (info) => {
-  // const URL = `${API.LOCALHOST}/postprofesional`
-  const URL = `${API.DBONLINE}/postprofesional`;
+   const URL = `${API.LOCALHOST}/postprofesional`
+  //const URL = `${API.DBONLINE}/postprofesional`;
 
   return async function() {
     try {
@@ -144,8 +148,8 @@ const postProveedor = (info) => {
     info.id = user.id;
   }
 
-  // const URL = `${API.LOCALHOST}/profesional/${info.id}`
-  const URL = `${API.DBONLINE}/profesional/${info.id}`;
+   const URL = `${API.LOCALHOST}/profesional/${info.id}`
+ // const URL = `${API.DBONLINE}/profesional/${info.id}`;
 
   return async function() {
     try {
@@ -210,8 +214,8 @@ const postCliente = (info) => {
 };
 
 const loginSessionGoogle = () => {
-  // const URL = `${API.LOCALHOST}/auth/google`
-  const URL = `${API.DBONLINE}/auth/google`;
+  const URL = `${API.LOCALHOST}/auth/google`
+   // const URL = `${API.DBONLINE}/auth/google`;
 
   return async function() {
     await fetch(URL)
@@ -261,8 +265,8 @@ const postSessionUser = (dataSession) => {
     body: JSON.stringify(dataSession),
   };
 
-  // const URL = `${API.LOCALHOST}/register`
-  const URL = `${API.DBONLINE}/register`;
+  const URL = `${API.LOCALHOST}/register`
+  //const URL = `${API.DBONLINE}/register`;
 
   return async function() {
     try {
@@ -280,8 +284,8 @@ const postSessionUser = (dataSession) => {
 
 //! Traigo profesionales  para renderizar sus post
 const getProfesionals = () => {
-  // const URL = `${API.LOCALHOST}/profesional`
-  const URL = `${API.DBONLINE}/profesional`;
+   const URL = `${API.LOCALHOST}/profesional`
+  //const URL = `${API.DBONLINE}/profesional`;
 
   return async function(dispatch) {
     try {
@@ -301,9 +305,10 @@ const getProfesionals = () => {
 
 //! Actualizar Profesionales
 const updateProfesionals = (data, id) => {
-  // console.log(id);  // el id llega bien***** falta la data
-  // const URL = `${API.LOCALHOST}/profesional/${id}`
-  const URL = `${API.DBONLINE}/profesional/${id}`;
+   console.log(id);
+   console.log(data);  // el id llega bien***** falta la data
+   const URL = `${API.LOCALHOST}/profesional/${id}`
+  //const URL = `${API.DBONLINE}/profesional/${id}`;
 
   return async function(dispatch) {
     try {
@@ -325,14 +330,14 @@ const updateProfesionals = (data, id) => {
 
 // Action para obtener todos los clientes
 const getAllClients = () => {
-  // const URL = `${API.LOCALHOST}/client`
-  const URL = `${API.DBONLINE}/client`;
+  const URL = `${API.LOCALHOST}/client`
+  //const URL = `${API.DBONLINE}/client`;
 
   return function(dispatch) {
     axios
       .get(URL)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch({ type: "GET_ALL_CLIENTS", payload: response.data });
       })
       .catch((error) => {
@@ -349,8 +354,8 @@ const updateClient = (clientId, newData) => {
     newData.id = userSession.id;
   }
 
-  // const URL = `${API.LOCALHOST}/client/${newData.id}`
-  const URL = `${API.DBONLINE}/client/${newData.id}`;
+  const URL = `${API.LOCALHOST}/client/${newData.id}`
+  //const URL = `${API.DBONLINE}/client/${newData.id}`;
 
   return function(dispatch) {
     axios
@@ -365,8 +370,8 @@ const updateClient = (clientId, newData) => {
 };
 
 export const getPostProfesional = () => {
-  // const URL = `${API.LOCALHOST}/profesional`
-  const URL = `${API.DBONLINE}/profesional`;
+  const URL = `${API.LOCALHOST}/profesional`
+  //const URL = `${API.DBONLINE}/profesional`;
 
   return async function(dispatch) {
     try {
@@ -385,6 +390,7 @@ const updateFeedback = (feedbackData) => {
       // Llamar a la API o endpoint correspondiente para enviar el feedback
       const response = await axios.post(
         "https://backprofinder-production.up.railway.app/review",
+        // "http://localhost:3001/review",
         feedbackData
       );
 
@@ -458,6 +464,94 @@ const deletePost = (id) => async (dispatch) => {
   }
 };
 
+const addFavorite = (profesionalId) => async (dispatch) => {
+  try {
+    const userSession = window.localStorage.getItem("userSession");
+    if (!userSession) {
+      throw new Error("Usuario no autenticado");
+    }
+    const user = JSON.parse(userSession);
+    const userId = user.id;
+    // const URL = `http://localhost:3001/relation/${userId}`;
+    const URL = `https://backprofinder-production.up.railway.app/relation/${userId}`;
+
+    await axios.post(URL, { profesionalId: profesionalId });
+    console.log(
+      `Se agregará a favoritos el profesional de id: ${profesionalId}`
+    );
+    dispatch({ type: ADD_FAVORITE, payload: profesionalId });
+  } catch (error) {
+    console.error(error.response.data.error);
+  }
+};
+
+const removeFavorite = (profesionalId) => async (dispatch) => {
+  try {
+    const userSession = window.localStorage.getItem("userSession");
+    if (!userSession) {
+      throw new Error("Usuario no autenticado");
+    }
+    const user = JSON.parse(userSession);
+    const userId = user.id;
+    const URL = `https://backprofinder-production.up.railway.app/relation/${userId}`;
+
+    await axios.put(URL, { profesionalId: profesionalId });
+    console.log(
+      `Se removerá de favoritos el profesional de id: ${profesionalId}`
+    );
+    dispatch({ type: REMOVE_FAVORITE, payload: profesionalId });
+  } catch (error) {
+    console.error(error.response.data.error);
+  }
+};
+
+const getFavorites = () => async (dispatch) => {
+  try {
+    const userSession = window.localStorage.getItem("userSession");
+    if (!userSession) {
+      throw new Error("Usuario no autenticado");
+    }
+    const user = JSON.parse(userSession);
+    const userId = user.id;
+
+    // const URL = `http://localhost:3001/relation/${userId}`;
+    const URL = `https://backprofinder-production.up.railway.app/relation/${userId}`;
+    const response = await axios.get(URL);
+    const favoritesList = response.data; // Asegúrate de que response.data sea la lista de favoritos en el backend
+    // console.log(response.data)
+    // console.log(response.data.map((fav)=>fav.id))
+    dispatch({
+      type: GET_FAVORITES,
+      payload: favoritesList,
+    });
+  } catch (error) {
+    console.log(error.response.data.error);
+  }
+};
+
+// const getFavorites = (info) => {
+//   const userSession = window.localStorage.getItem("userSession");
+//   if (userSession) {
+//     const user = JSON.parse(userSession);
+//     info.id = user.id;
+//   }
+//   // const URL =`https://backprofinder-production.up.railway.app/relation/${info.id}`
+//   const URL =`http://localhost:3001/relation/${info.id}`
+//   return async function(dispatch) {
+//     try {
+//       let response = await axios.get(`${URL}`);
+//       //  console.log(response.data);
+//       if (response.data) {
+//         return dispatch({
+//           type: GET_INFO_PROFESIONALS,
+//           payload: response.data,
+//         });
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// }
 // const deletePosts = (info) => {
 //   // const URL = `${API.LOCALHOST}/postprofesional`
 //   const URL = 'https:backprofinder-production.up.railway.app/postProfesional';
@@ -488,7 +582,14 @@ const deletePost = (id) => async (dispatch) => {
 //   };
 // };
 
+const cleanDetail = () => {
+  return {
+    type: "CLEAN_DETAIL",
+  };
+};
+
 export {
+  cleanDetail,
   getAllSuppliers,
   getAllCategories,
   getAllClients,
@@ -510,4 +611,7 @@ export {
   deletePost,
   updatePosts,
   getProfesionalIdOnline,
+  addFavorite,
+  removeFavorite,
+  getFavorites,
 };

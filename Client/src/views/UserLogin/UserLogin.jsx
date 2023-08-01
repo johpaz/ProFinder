@@ -13,7 +13,8 @@ import {
   useColorModeValue,
   FormErrorMessage,
   Divider,
-  useToast
+  useToast,
+  useBoolean
 } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react-use-disclosure'
 import { useEffect, useState } from 'react'
@@ -28,6 +29,7 @@ import ModalForgotPassword from '../../components/ModalForgotPassword/ModalForgo
 import jwt_decode from 'jwt-decode'
 
 export default function UserLogin () {
+  const [loading, setLoading] = useBoolean()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [usuario, setUsuario] = useState('Tipo de usuario')
@@ -36,7 +38,7 @@ export default function UserLogin () {
   const toast = useToast()
   const dispatch = useDispatch()
 
-  const bgColor = useColorModeValue('gray.100', 'gray.900')
+  const bgColor = useColorModeValue('gray.100', 'gray.800')
   const bgElement = useColorModeValue('white', 'gray.800')
   const txtColor = useColorModeValue('gray.600', 'gray.100')
 
@@ -64,6 +66,7 @@ export default function UserLogin () {
 
   const customSubmit = async (data) => {
     if (rol !== '' || data.email === 'profinder943@gmail.com') {
+      setLoading.on()
       setErrorRol(false)
       const dataSession = {
         email: data.email,
@@ -71,6 +74,7 @@ export default function UserLogin () {
         usuario: (data.email === 'profinder943@gmail.com') ? 'a' : rol
       }
       await dispatch(getSessionUser(dataSession))
+      setLoading.off()
       handleUserSession('Sesion iniciada', 'Algo salio mal')
     } else setErrorRol(true)
   }
@@ -205,7 +209,7 @@ export default function UserLogin () {
                     bg='teal.400'
                     color='white'
                     _hover={{ bg: 'teal.500' }}
-                    loadingText='Ingresando'
+                    isLoading={loading}
                     type='submit'
                     onClick={handleSubmit(customSubmit)}
                   >

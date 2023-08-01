@@ -3,15 +3,15 @@ import { MdHelp, MdStar } from 'react-icons/md';
 
 const IntroductionDash = () => {
   const iconColor = useColorModeValue('teal.500', 'teal.300');
-  const headingColor = useColorModeValue('gray.100', 'teal.300'); // Updated color for the heading
+  const headingColor = useColorModeValue('gray.900', 'gray.100'); // Updated color for the heading
   const textColor2 = useColorModeValue('blue.900', 'blue.400');
   
   return (
     <Box
       width="100%"
-      bg={useColorModeValue('gray.500', 'gray.800')}
-      boxShadow="base"
-      borderRadius="md"
+      bg={useColorModeValue('gray.100', 'gray.800')}
+     
+    
       p={4}
     >
       <Center>
@@ -21,7 +21,7 @@ const IntroductionDash = () => {
             ¡Bienvenido al Panel de Administración de Cliente!
           </Heading>
           <Spacer />
-          <Text fontSize="lg" textAlign="center" color="gray.200">
+          <Text fontSize="lg" textAlign="center" color={useColorModeValue('gray.900','gray.100')}>
             Aquí podrás realizar las siguientes acciones:
           </Text>
           <Box>

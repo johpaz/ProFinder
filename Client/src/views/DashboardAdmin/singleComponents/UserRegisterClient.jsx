@@ -31,7 +31,8 @@ export default function UserRegister ({ id, name, email, image, softDelete }) {
         spacingY={3}
         columns={{
           base: 1,
-          md: 4
+          md: 3,
+          lg: 4
         }}
         w='full'
         py={2}

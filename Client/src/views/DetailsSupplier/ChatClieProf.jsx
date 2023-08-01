@@ -1,24 +1,36 @@
 import ChatBot from "react-simple-chatbot";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, css } from "styled-components";
+import React from "react";
+import styled from "styled-components";
+
 
 const theme = {
-  background: "#F2F2F2", // este es el fondo del chat
-  fontFamily: "Arial, sans-serif", // Fuente de los textos
-  // botBubbleColor: "#41BFB3", // Color de fondo de los mensajes del bot
-  headerBgColor: "#255959", //este es el bg del encabezado
-  headerFontColor: "#ffffff", // este es el color del texto del encabezado
-  botBubbleColor: "#37A69B", // Color de fondo de los mensajes del bot
-  botFontColor: "#000000", // Color del texto de los mensajes del bot
-  userBubbleColor: "#506266", // Color de fondo de los mensajes del usuario
-  userFontColor: "#000000", // Color del texto de los mensajes del usuario
+  background: "#F2F2F2",
+  fontFamily: "Arial, sans-serif",
+  headerBgColor: "#255959",
+  headerFontColor: "#ffffff",
+  botBubbleColor: "#37A69B",
+  botFontColor: "#000000",
+  userBubbleColor: "#506266",
+  userFontColor: "#000000",
+
+  chatBotContainerStyles: `
+    position: fixed;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    right: 20px; /* Adjust the distance from the right as needed */
+    z-index: 9999; /* Set a high z-index to make sure it overlays other content */
+  `,
 };
 
+const ChatBotContainer = styled.div`
+  ${(props) => props.styles}
+`;
+
 const ClieProfChatBot = ({ profesionalId }) => {
-  // Definimos los pasos del chatbot
   const steps = [
     {
       id: "1",
-      message: ` ¡Hola! Soy ${profesionalId.name} ¿Cómo te llamas?`,
+      message: ` ¡Hola!  ¿Cómo te llamas?`,
       trigger: "2",
     },
     {
@@ -68,7 +80,7 @@ const ClieProfChatBot = ({ profesionalId }) => {
     },
     {
       id: "byee",
-      message: `Gracias, ${profesionalId.name}`,
+      message: `Gracias`,
       trigger: "restartChatbot",
     },
     {
@@ -84,11 +96,13 @@ const ClieProfChatBot = ({ profesionalId }) => {
       ],
     },
   ];
-  const chatbotHeaderTitle = `${profesionalId.name}`;
+  const chatbotHeaderTitle = "Profinder";
 
   return (
     <ThemeProvider theme={theme}>
-      <ChatBot steps={steps} headerTitle={chatbotHeaderTitle} />
+      <ChatBotContainer styles={css(theme.chatBotContainerStyles)}>
+        <ChatBot steps={steps} headerTitle={chatbotHeaderTitle} />
+      </ChatBotContainer>
     </ThemeProvider>
   );
 };

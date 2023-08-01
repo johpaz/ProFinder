@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Button } from '@chakra-ui/button'
 import { useToast } from '@chakra-ui/toast'
+import { useBoolean } from '@chakra-ui/hooks'
 import { useProfesionalDash } from '../../../services/zustand/useProfesionalDash'
 import { URL } from '../constants'
 
-export default function ActivePremiumButton ({ id }) {
+export default function ActivePremiumButton ({ id, loadingState }) {
+  const [loading, setLoading] = useBoolean()
   const toast = useToast()
   const {
     postPremiumProfesional,
@@ -12,8 +14,10 @@ export default function ActivePremiumButton ({ id }) {
   } = useProfesionalDash()
 
   async function handleActivePremium () {
+    setLoading.on()
     await postPremiumProfesional(id)
     await getProfesional(URL.GET_PROFESIONAL)
+    setLoading.off()
     toast({
       title: 'Premium Activado',
       description: 'La cuenta ahora tiene plan premium',
@@ -30,6 +34,7 @@ export default function ActivePremiumButton ({ id }) {
       variant='solid'
       colorScheme='yellow'
       onClick={handleActivePremium}
+      isLoading={loading}
     >
       Activar Premium
     </Button>

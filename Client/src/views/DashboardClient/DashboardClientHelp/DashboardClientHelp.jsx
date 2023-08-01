@@ -8,7 +8,7 @@ const DashboardClient = () => {
     <Flex h="100vh">
       <SidebarClient />
       <Spacer />
-      <HelpClient />
+      <HelpClient maxH="100%"  />
     </Flex>
 //   <Box display={{ base: 'grid', lg: 'flex' }} height="100vh">
   //   <Grid templateRows="5% 95%" display={{ base: 'grid', sm: 'grid',md: 'flex', lg: 'flex'}} width='100%'>

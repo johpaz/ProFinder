@@ -41,13 +41,16 @@ export default function FeaturesGrid() {
   const { colorMode } = useColorMode();
 
   // Definir el color de fondo según el modo de color
-  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.500';
+  const backgroundColor = colorMode === 'dark' ? undefined : 'gray.100';
   const textColor = useColorModeValue('blue.900', 'blue.400');
+  const colorText = useColorModeValue('blue.900', 'gray.100');
+  const titleColor = useColorModeValue('gray.900','gray.100');
+
 
   return (
     <Box p={4} h='100%' width='100%' backgroundColor={backgroundColor}>
-      <Stack spacing={4} as={Container} maxW='3xl' textAlign='center' color="gray.100">
-        <Heading fontSize='3xl'>Una solucion para cada necesidad.</Heading>
+      <Stack spacing={4} as={Container} maxW='3xl' textAlign='center' color={titleColor}>
+        <Heading fontSize='3xl'>UNA SOLUCIÓN PARA CADA NECESIDAD</Heading>
         <Text color={textColor} fontSize='xl'>
           Esta página ofrece muchas ventajas. Nuestro servicio se encarga de hacer el match perfecto para la solucion a tus problemas.
         </Text>
@@ -61,10 +64,10 @@ export default function FeaturesGrid() {
                 <Icon as={CheckIcon} />
               </Box>
               <VStack align='start'>
-                <Text fontWeight={600} color='gray.100'>
+                <Text fontWeight={600} color={colorText}>
                   {feature.title}
                 </Text>
-                <Text color='gray.100'>{feature.text}</Text>
+                <Text color={useColorModeValue('gray.600', 'white')}>{feature.text}</Text>
               </VStack>
             </HStack>
           ))}

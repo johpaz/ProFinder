@@ -22,7 +22,8 @@ export default function HowItWorks() {
   // Set the border color for Finder in dark mode
 
   // Definir el color de fondo según el modo de color
-  const backgroundColor = colorMode === 'dark' ? 'gray.800' : 'gray.500';
+  const backgroundColor = colorMode === 'dark' ? 'gray.800' : 'gray.100';
+  const colorText = useColorModeValue('black', 'white');
 
   return (
     <Flex
@@ -60,7 +61,7 @@ export default function HowItWorks() {
               Finder
             </Text>
           </Heading>
-          <Text fontSize={{ base: 'md', lg: 'lg' }} color="gray.100">
+          <Text fontSize={{ base: 'md', lg: 'lg' }} color={colorText}>
             Este sitio es un nexo entre problemas y soluciones. Tienes una
             necesidad, contactas con quien pueda solucionar y listo! Problema
             resuelto!!

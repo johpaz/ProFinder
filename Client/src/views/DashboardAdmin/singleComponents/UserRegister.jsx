@@ -33,7 +33,8 @@ export default function UserRegister ({ id, name, email, image, active, softDele
         spacingY={3}
         columns={{
           base: 1,
-          md: 4
+          md: 3,
+          lg: 4
         }}
         w='full'
         py={2}
@@ -52,7 +53,9 @@ export default function UserRegister ({ id, name, email, image, active, softDele
       }
 
         <span>{name}</span>
-        <Flex>
+        <Flex
+          noOfLines={1}
+        >
           {email}
         </Flex>
         <Flex

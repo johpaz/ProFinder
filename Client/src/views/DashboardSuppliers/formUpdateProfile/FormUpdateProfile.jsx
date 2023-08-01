@@ -1,78 +1,67 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
-  getAllCategories,
-  updateProfesionals,
-} from "../../../services/redux/actions/actions";
-import {
-  Flex,
-  Box,
   FormControl,
   FormLabel,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Stack,
   Button,
-  useColorModeValue,
-  Radio,
-  RadioGroup,
+  VStack,
+  Avatar,
+  Spacer,
   Select,
-  CircularProgress,
+  Box,
+  Center,
+  Alert,
+  AlertIcon,
+  CloseButton,
+  useColorMode,
+  Heading,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import SelectCategories from "../../../singleComponents/SelectCategories";
-import { uploadFile } from "../../../utils/Firebase/config";
-import { useSessionState } from "../../../services/zustand/useSession";
 
+import {
+  getAllClients,
+  updateProfesionals,
+} from "../../../services/redux/actions/actions";
+import { uploadFiles3 } from "../../../utils/Firebase/config";
 
 function FormUpdateProfile() {
-  const session =  useSessionState((state) => state.session);
-  //console.log(session);
-  // const profile  = useSelector(state=> state.profesionales)
-  // const userById = profile.filter((user)=> user.id === session.id);
-  // console.log(userById);
- 
-
-  const [genre, setGenre] = useState("male");
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      name: session.name,
-      email: session.email,
-      image: [],
-      genre: "",
-      years_exp: "",
-      password: session.password,
-      countryId: "",
-      locationId: "",
-      phone: "",
-      categories: [],
-      ocupations: [],
-    },
-  });
-
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
-
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [selectedOccupations, setSelectedOccupations] = useState([]);
+  const { colorMode } = useColorMode();
+  const bgColor = colorMode === "dark" ? "gray.800" : "gray.100";
+  const textColor = colorMode === "dark" ? "gray.100" : "blue.900";
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [genre, setGenre] = useState("");
+  const [countryId, setCountryId] = useState("");
+  const [locationId, setLocationId] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [countries, setCountries] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const placeholderTextColorLight = "gray.200";
+  const placeholderTextColor =
+    colorMode === "light" ? placeholderTextColorLight : undefined;
+
+  const userSession = JSON.parse(localStorage.getItem("userSession"));
+
+  console.log(userSession);
 
   useEffect(() => {
+    if (userSession) {  
+      setName(userSession.name);
+      setEmail(userSession.email);
+      setPhone(userSession.phone);
+      setGenre(userSession.genre);
+      setCountryId(userSession.CountryId);
+      setLocationId(userSession.LocationId);
+      setDescription(userSession.description);
+      setImageUrl(userSession.image);
+    }
+
     fetch("https://backprofinder-production.up.railway.app/country")
       .then((response) => response.json())
       .then((data) => {
@@ -82,8 +71,25 @@ function FormUpdateProfile() {
       .catch((error) => console.log(error));
   }, []);
 
-  const handleCountryChange = (countryId) => {
-    setSelectedCountry(countryId);
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleGenreChange = (e) => {
+    setGenre(e.target.value);
+  };
+
+  const handleCountryChange = (e) => {
+    const countryId = e.target.value;
+    setCountryId(countryId);
 
     if (countryId) {
       fetch(
@@ -112,231 +118,238 @@ function FormUpdateProfile() {
     }
   };
 
-  const envioCategoria = (value) => {
-    setSelectedCategory([value]);
+  const handleLocationChange = (e) => {
+    setLocationId(e.target.value);
   };
 
-  const envioOcupaciones = (value) => {
-    setSelectedOccupations(value);
+  const handleImageUrlChange = (e) => {
+    setImageUrl(e.target.files[0]);
   };
 
-  const onSubmit = async (data) => {
-    const imageData = await uploadFile(data.image);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const selectedCountryObj = countries.find(
-      (country) => country.id === parseInt(data.country)
-    );
-    const selectedLocationObj = locations.find(
-      (location) => location.id === parseInt(data.location)
-    );
+    try {
+      setIsLoading(true);
 
-    const newData = {
-      name: data.name,
-      email: data.email,
-      image: imageData,
-      genre: genre,
-      years_exp: data.years_exp,
-      password: data.password,
-      CountryId: selectedCountryObj?.id,
-      LocationId: selectedLocationObj?.id,
-      phone: data.phone,
-      ocupations: [selectedOccupations],
-      categories: selectedCategory,
-    };
+      const imageUrls = await uploadFiles3([imageUrl]);
 
-    const sessionData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      usuario: "p",
-    };
+      const newData = {
+        name: name,
+        email: email,
+        password: "",
+        image: imageUrls,
+        phone: phone,
+        description: description,
+        genre: genre,
+        CountryId: countryId,
+        LocationId: locationId,
+      };
 
-    //console.log(newData);
+      dispatch(updateProfesionals( newData,userSession.profesionaId));
 
-    await dispatch(updateProfesionals(newData, session.id));
-    localStorage.removeItem("userSession");
-    localStorage.setItem("userSession", JSON.stringify(sessionData));
-    const userSesion = localStorage.getItem("userSession");
-    console.log(userSesion);
+      // Actualiza la sesión en localStorage con los nuevos datos
+      const updatedSession = {
+        ...userSession,
+        name: newData.name,
+        email: newData.email,
+        phone: newData.phone,
+        genre: newData.genre,
+        CountryId: newData.CountryId,
+        LocationId: newData.LocationId,
+        description: newData.description,
+        image: newData.image,
+      };
+      localStorage.setItem("userSession", JSON.stringify(updatedSession));
+
+      setIsLoading(false);
+      setShowSuccessAlert(true);
+      console.log(updatedSession);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error updating client information:", error);
+      alert(
+        "An error occurred while updating client information. Please try again later."
+      );
+    }
   };
+
+  const profesionales = useSelector((state) => state.profesionales);
+  const profesional = profesionales.find((p) => p.id === userSession.id);
+
+  useEffect(() => {
+    const response = dispatch(getAllClients());
+    //console.log(response);
+  }, []);
+
+  useEffect(() => {
+    if (profesional) {
+      setName(profesional.name);
+      setEmail(profesional.email);
+      setPhone(profesional.phone);
+      setGenre(profesional.genre);
+      setCountryId(profesional.CountryId);
+      setLocationId(profesional.LocationId);
+      setDescription(profesional.description);
+      setImageUrl(profesional.image);
+    }
+  }, [profesional]);
 
   return (
-    <Flex
-    minH="100vh"
-    align="center"
-    justify="center"
-    bg={useColorModeValue("gray.800", "gray.800")}
-    width="100%"
-  >
-    <Box
-      rounded="lg"
-      boxShadow="lg"
-      p={8}
-      color="gray.300"
-      width={{ base: "90%", sm: "80%", md: "70%", lg: "500px" }}
-    >
-      <Stack spacing={4}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl>
-            <FormLabel>Nombre y apellido</FormLabel>
-            <Input
-              type="text"
-              {...register("name", {
-                required: "El campo nombre es requerido",
-              })}
-            />
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              {...register("email", {
-                required: "El campo email es requerido",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/i,
-                  message: "El formato del email es incorrecto",
-                },
-              })}
-            />
-            {errors.email && <p>{errors.email.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Telefono</FormLabel>
-            <Input
-              type="number"
-              {...register("phone", {
-                required: "El campo telefono es requerido",
-              })}
-            />
-            {errors.phone && <p>{errors.phone.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>País</FormLabel>
-            <Select
-              {...register("country", {
-                required: "El campo país es requerido",
-              })}
-              borderWidth="1px"
-              onChange={(e) => handleCountryChange(parseInt(e.target.value))}
-            >
-              <option value="">Seleccionar país</option>
-              {countries.map((country) => (
-                <option key={country.id} value={country.id}>
-                  {country.name}
-                </option>
-              ))}
-            </Select>
-            {errors.country && <p>{errors.country.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Provincia/Estado</FormLabel>
-            <Select
-              {...register("location", {
-                required: "El campo provincia/estado es requerido",
-              })}
-              borderWidth="1px"
-            >
-              <option value="">Seleccionar provincia/estado</option>
-              {locations.map((location) => (
-                <option key={location.id} value={location.id}>
-                  {location.name}
-                </option>
-              ))}
-            </Select>
-            {errors.location && <p>{errors.location.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Foto de perfil</FormLabel>
-            <Input
-              type="file"
-              {...register("image", {
-                required: "El campo imagen es requerido",
-                validate: {
-                  isImage: (value) =>
-                    ["image/jpeg", "image/png"].includes(value[0]?.type) ||
-                    "Solo se permiten archivos de imagen JPEG o PNG",
-                },
-              })}
-            />
-            {errors.image && <p>{errors.image.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Género</FormLabel>
-            <RadioGroup onChange={setGenre} value={genre}>
-              <Stack direction="row">
-                <Radio value="female">Femenino</Radio>
-                <Radio value="male">Masculino</Radio>
-              </Stack>
-            </RadioGroup>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Años de experiencia</FormLabel>
-            <NumberInput defaultValue={0} min={0} max={100}>
-              <NumberInputField
-                {...register("years_exp", { required: true })}
-              />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Categorías</FormLabel>
-            <SelectCategories
-              fnSelectCategory={envioCategoria}
-              fnSelectOcupation={envioOcupaciones}
-            />
-          </FormControl>
-
-          <FormControl>
-            <FormLabel>Contraseña</FormLabel>
-            <Input
-              type="password"
-              {...register("password", {
-                required: "El campo contraseña es requerido",
-                minLength: {
-                  value: 8,
-                  message: "La contraseña debe tener minimo 8 caracteres",
-                },
-              })}
-            />
-            {errors.password && <p>{errors.password.message}</p>}
-          </FormControl>
-
-          <FormControl>
-            <FormLabel />
-            {isLoading ? (
-              <CircularProgress isIndeterminate size="24px" color="blue.500" />
-            ) : (
-              <>
-                <Button
-                  type="submit"
-                  loadingText="Creando cuenta"
-                  size="lg"
-                  bg="blue.400"
-                  color="white"
-                  _hover={{
-                    bg: "blue.500",
-                  }}
-                >
-                  Actualizar
-                </Button>
-              </>
+    <Center p={4} h="100vh" w="100%" bg={bgColor}>
+      <Box mx="auto" maxW="5xl" w="100%">
+        <Heading color={useColorModeValue("gray.900", "white")} align="center">
+          EDITA TU PERFIL
+        </Heading>
+        <br />
+        <Center>
+          <VStack
+            as="form"
+            alignItems="center"
+            textAlign="center"
+            onSubmit={handleSubmit}
+            bg={bgColor}
+            color={textColor}
+            spacing={4}
+            px={8}
+            py={6}
+            w={{ base: "100%", sm: "90%", md: "80%", lg: "70%" }}
+            borderRadius="lg"
+            boxShadow="lg"
+          >
+            <FormControl>
+              <Box>
+                <FormLabel>Foto de perfil</FormLabel>
+                <Avatar
+                  size="xl"
+                  name="Nombre y apellido"
+                  src={imageUrl || undefined}
+                />
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUrlChange}
+                />
+              </Box>
+            </FormControl>
+            {showSuccessAlert && (
+              <Alert status="success" mt={4} w="100%">
+                <AlertIcon />
+                Perfil Actualizado
+                <CloseButton
+                  ml="auto"
+                  onClick={() => setShowSuccessAlert(false)}
+                />
+              </Alert>
             )}
-          </FormControl>
-        </form>
-      </Stack>
-    </Box>
-  </Flex>
+            <FormControl>
+              <Box>
+                <FormLabel>Nombre y apellido</FormLabel>
+                <Input
+                  variant="unstyled"
+                  placeholder="Nombre y apellido"
+                  value={name}
+                  onChange={handleNameChange}
+                  bg={bgColor}
+                  color={textColor}
+                  placeholderTextColor={placeholderTextColor}
+                />
+              </Box>
+            </FormControl>
+            <FormControl>
+              <Box>
+                <FormLabel>Correo electrónico</FormLabel>
+                <Input
+                  variant="unstyled"
+                  type="email"
+                  placeholder="Correo electrónico"
+                  value={email}
+                  onChange={handleEmailChange}
+                  bg={bgColor}
+                  color={textColor}
+                  placeholderTextColor={placeholderTextColor}
+                />
+              </Box>
+            </FormControl>
+            <FormControl>
+              <Box>
+                <FormLabel>Teléfono</FormLabel>
+                <Input
+                  variant="unstyled"
+                  type="tel"
+                  placeholder="Teléfono"
+                  value={phone}
+                  onChange={handlePhoneChange}
+                  bg={bgColor}
+                  color={textColor}
+                  placeholderTextColor={placeholderTextColor}
+                />
+              </Box>
+            </FormControl>
+            <FormControl>
+              <Box>
+                <FormLabel>Género</FormLabel>
+                <Select
+                  value={genre}
+                  onChange={handleGenreChange}
+                  bg={bgColor}
+                  color={textColor}
+                >
+                  <option value="male">Masculino</option>
+                  <option value="female">Femenino</option>
+                </Select>
+              </Box>
+            </FormControl>
+            <FormControl>
+              <Box>
+                <FormLabel>País</FormLabel>
+                <Select
+                  placeholder="País"
+                  value={countryId}
+                  onChange={handleCountryChange}
+                  bg={bgColor}
+                  color={textColor}
+                >
+                  <option value="">Seleccionar país</option>
+                  {countries.map((country) => (
+                    <option key={country.id} value={country.id}>
+                      {country.name}
+                    </option>
+                  ))}
+                </Select>
+              </Box>
+            </FormControl>
+            <FormControl>
+              <Box>
+                <FormLabel>Provincia/Estado</FormLabel>
+                <Select
+                  placeholder="Provincia/Estado"
+                  value={locationId}
+                  onChange={handleLocationChange}
+                  bg={bgColor}
+                  color={textColor}
+                >
+                  <option value="">Seleccionar provincia/estado</option>
+                  {locations.map((location) => (
+                    <option key={location.id} value={location.id}>
+                      {location.name}
+                    </option>
+                  ))}
+                </Select>
+              </Box>
+            </FormControl>
+            <Spacer />
+            <Button type="submit" colorScheme="blue" size="lg" w="100%">
+              Actualizar
+            </Button>{" "}
+          </VStack>
+        </Center>
+      </Box>
+    </Center>
   );
 }
 

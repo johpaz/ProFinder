@@ -9,6 +9,7 @@ import {
   ListIcon,
   Button,
   useColorModeValue,
+  Spinner,
 } from "@chakra-ui/react";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -23,9 +24,10 @@ function PasarelaPagos() {
   const dataSuppliers = useSelector((state) => state.profesionales);
   // const userSession = JSON.parse(localStorage.getItem("userSession"));
   const session = useSessionState((state) => state.session);
+  const [isLoading, setIsLoading] = useState(false);
 
   const profile = dataSuppliers.find((user) => user.id === session.id);
-  console.log(session.id);
+  // console.log(session.id);
 
   const dispatch = useDispatch();
 
@@ -56,10 +58,12 @@ function PasarelaPagos() {
   };
 
   const handleBuy = async () => {
+    setIsLoading(true);
     const id = await createPreference();
     if (id) {
       setPreferenceId(id);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -77,7 +81,7 @@ function PasarelaPagos() {
         boxShadow={"2xl"}
         rounded={"md"}
         overflow={"hidden"}
-        maxW={"500px"}
+        maxW={{ base: "full", md: "500px" }}
         w={{ base: "full", md: "auto" }}
         py={6}
       >
@@ -139,7 +143,7 @@ function PasarelaPagos() {
         boxShadow={"2xl"}
         rounded={"md"}
         overflow={"hidden"}
-        maxW={"500px"}
+        maxW={{ base: "full", md: "500px" }}
         w={{ base: "full", md: "auto" }}
         py={6}
       >
@@ -195,6 +199,15 @@ function PasarelaPagos() {
               marginTop="5"
               onClick={handleBuy}
             >
+              {isLoading && !preferenceId ? (
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="lg"
+                />
+              ) : null}
               Obtene premium
             </Button>
             {preferenceId && <Wallet initialization={{ preferenceId }} />}

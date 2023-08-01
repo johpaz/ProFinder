@@ -1,199 +1,172 @@
-import profesion from '../../assets/categoriesIcons/fontanero.png'
-import leer from '../../assets/categoriesIcons/mecanico.png'
-import styles from './HowDoesItWork.module.css'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { Box, Flex, Heading, Text, Center, VStack } from '@chakra-ui/layout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { Image } from '@chakra-ui/image'
-import { Button } from '@chakra-ui/button'
+import { Box, VStack } from '@chakra-ui/layout';
+import {
+  Button,
+  Collapse,
+  Flex,
+  Heading,
+  Image,
+  useColorMode,
+  useColorModeValue
+} from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import profesion from '../../assets/categoriesIcons/fontanero.png';
+import leer from '../../assets/categoriesIcons/mecanico.png';
+import SimpleAccordion from './simpleAcordion';
 
 const HowDoesItWork = () => {
-  // aqui empiezo el estado local y la logica para el renderizado condicional
-  const [showClientSection, setShowClientSection] = useState(false) // section para clientes
-  const [showProfesionalSection, setShowProfesionalSection] = useState(false) // section para profesionales
-  const [changeViewBtn, setChangeViewBtn] = useState(false) // cambiar el btn segun ..... ver mas o ver menos
+  const { colorMode } = useColorMode();
 
-  //   const handleChangeClick = () => {
-  //     setChangeViewBtn(!changeViewBtn);
-  //   };
-  //   console.log(changeViewBtn);
 
-  const handleProfesionalClick = () => {
-    setShowProfesionalSection(!showProfesionalSection)
-    setChangeViewBtn(!changeViewBtn)
-  }
+  // Set text color based on the color mode
+  const textAcordionColor = useColorModeValue('black', "white")
 
-  const handleClientClick = () => {
-    setShowClientSection(!showClientSection)
-    setChangeViewBtn(!changeViewBtn)
-  }
+  // Set the border color for Finder in dark mode
+
+  // Definir el color de fondo según el modo de color
+  const backgroundColor = colorMode === 'dark' ? 'gray.800' : 'gray.100';
+  const acordionColor = colorMode === 'dark' ? 'gray.600' : 'white';
+  const [showDetails, setShowDetails] = useState(null) // section para profesionales
 
   return (
     <Flex // Section completa
       direction='column'
-      bg={useColorModeValue('gray.800', 'gray.800')}
-      px={8}
-      py={6}
+      backgroundColor={backgroundColor}
     >
       <Flex // container de las tarjetas
         direction='row'
         justify='center'
-        gap='5rem'
+        margin="1rem"
+        gap='5rem' flexWrap="wrap" gridGap={6}
       >
-        <Flex // card  Eres Profesional
-          bg={useColorModeValue('blackAlpha.800', 'gray.800')}
-          boxShadow='lg'
-          p={8}
-          rounded='lg'
-          direction='column'
-          align='center'
-          width='390px'
-          height='390px'
-        >
-          <Heading
-            fontSize='3xl'
-            bgGradient='linear(to-l, teal.300, green.400)'
-            bgClip='text'
-            textAlign='center'
-          >
-            ¿Eres Profesional?
-          </Heading>
-          <Link>
-            <Box overflow='hidden'>
-              <Image
-                src={profesion}
-                boxSize='250px'
-                transform='scale(1.0)'
-                alt='Icono profesional'
-                objectFit='cover'
-                transition='0.3s ease-in-out'
-                _hover={{
-                  transform: 'scale(1.05)'
-                }}
-              />
-            </Box>
-          </Link>
-          <Button
-            width='80%'
-            bg='blue.600'
-            color='white'
-            _hover={{ bg: 'blue.700' }}
-            onClick={() => {
-              handleProfesionalClick()
-            }}
-          >
-            {changeViewBtn ? 'Ver Menos' : 'Ver Más'}
-          </Button>
-        </Flex>
-        {showProfesionalSection && (
-          <Box
-            className={styles.sectionClient}
-            p={8}
-            bg='blackAlpha.800'
-            boxShadow='lg'
-            rounded='lg'
-          >
-            <Heading as='h2' size='xl' color='gray.800' marginBottom='4'>
-              ¿Eres un profesional y quieres ofrecer tus servicios?
-            </Heading>
-            <VStack spacing='4' alignItems='flex-start'>
-              <Heading as='h3' size='md' color='blue.600'>
-                Regístrate
-              </Heading>
-              <Heading as='h3' size='md' color='blue.600'>
-                Inicia sesión
-              </Heading>
-              <Heading as='h3' size='md' color='blue.600'>
-                Adquiere tu suscripción premium ( Opcional )
-              </Heading>
-              <Heading as='h3' size='md'>
-                Haz tu publicación, ofrece tus servicios y contacta con miles de
-                usuarios.
-              </Heading>
-            </VStack>
-          </Box>
-        )}
-        <Flex // card  buscas un profesional
-          bg={useColorModeValue('blackAlpha.800', 'gray.800')}
-          boxShadow='lg'
-          p={8}
-          rounded='lg'
-          direction='column'
-          align='center'
-          width='400px'
-          height='390px'
-        >
-          <Heading
-            fontSize='3xl'
-            bgGradient='linear(to-l, teal.300, green.400)'
-            bgClip='text'
-            textAlign='center'
-          >
-            ¿Buscas un Profesional?
-          </Heading>
-          <Link>
-            <Box overflow='hidden'>
-              <Image
-                src={leer}
-                boxSize='250px'
-                transform='scale(1.0)'
-                alt='Icono busqueda profesional'
-                objectFit='cover'
-                transition='0.3s ease-in-out'
-                _hover={{
-                  transform: 'scale(1.05)'
-                }}
-              />
-            </Box>
-          </Link>
-          <Button
-            bg='blue.600'
-            width='80%'
-            color='white'
-            _hover={{ bg: 'blue.700' }}
-            onClick={() => {
-              handleClientClick()
-            }}
-          >
-            {changeViewBtn ? 'Ver Menos' : 'Ver Más'}
-          </Button>
-        </Flex>
-        {showClientSection && (
-          <Box
-            className={styles.sectionClient}
-            p={8}
-            bg='blackAlpha.800'
-            boxShadow='lg'
-            rounded='lg'
-          >
-            <Text color='gray.300' fontSize='lg'>
-              aca va toda la informacion de como funciona la plataforma para
-              personas que buscan un servicio <br /> <br />
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
-              iusto quae minus cumque voluptate ipsum, ex pariatur corporis
-              repellendus consectetur dolorem ducimus, aut provident culpa
-              dignissimos itaque quod ut optio. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Possimus, sequi dolores harum
-              laborum unde voluptatum odit perferendis quis nostrum a dolorum
-              commodi, nam optio voluptate ducimus reprehenderit eos molestias
-              in!
-            </Text>
-          </Box>
-        )}
+
+        <ProfesionalCard id={1} showDetails={showDetails === 1} setShowDetails={setShowDetails} title='¿Eres un Profesional?' subtitle='¿Eres un profesional y quieres ofrecer tus servicios?' body='Haz tu publicación, ofrece tus servicios y contacta con miles de usuarios.' imageSrc={profesion} />
+
+        <ProfesionalCard id={2} showDetails={showDetails === 2} setShowDetails={setShowDetails} title='¿Buscas un Profesional?' subtitle="¿Eres un cliente y quieres buscar servicios?" body='
+        Encuentra al profesional ideal, da tu opinión y contacta fácilmente. ¡Todo en un solo lugar!' imageSrc={leer} />
+
+      </Flex>
+      <Flex p={5}>
+        <SimpleAccordion backgroundColor={backgroundColor} acordionColor={acordionColor} textAcordionColor={textAcordionColor} />
       </Flex>
 
-      <Center marginTop='20px'>
-        <Button
-          bg='blue.600'
-          width='20%'
-          color='white'
-          _hover={{ bg: 'blue.700' }}
-        >
-          Obtén más información sobre el plan premium
-        </Button>
-      </Center>
     </Flex>
   )
 }
 export default HowDoesItWork
+
+
+function ProfesionalCard({ title, subtitle, body, imageSrc, showDetails, setShowDetails, id }) {
+
+  const cardBgColor = useColorModeValue('gray.50', 'gray.800');
+  const textColor = useColorModeValue('gray.600', 'gray.300');
+  const linkColor = useColorModeValue('teal.400', 'teal.400');
+  const detailRef = useRef(null)
+
+  useEffect(() => {
+    if (detailRef.current) {
+      setTimeout(() => {
+        detailRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        })
+      }, 50)
+    }
+  }, [showDetails])
+
+
+  return (<Flex // card  Eres Profesional
+    maxW={{ base: "max", sm: '400px' }}
+    boxShadow='lg'
+    p={8}
+    rounded='lg'
+    direction='column'
+    align='center'
+    width='400px'
+    height='fit-content'
+    w="full"
+    borderWidth="1px"
+    borderRadius="lg"
+    overflow="hidden"
+    bg={cardBgColor}
+    color={textColor}
+  >
+    <Heading
+      fontSize='3xl'
+      bgGradient='linear(to-l, teal.300, green.400)'
+      bgClip='text'
+      textAlign='center'
+    >
+      {title}
+    </Heading>
+    <Link>
+      <Box overflow='hidden'>
+        <Image
+          src={imageSrc}
+          boxSize='250px'
+          transform='scale(1.0)'
+          alt='Icono profesional'
+          objectFit='cover'
+          transition='0.3s ease-in-out'
+          _hover={{
+            transform: 'scale(1.05)'
+          }}
+        />
+      </Box>
+    </Link>
+    <Button
+      width='80%'
+      bg='blue.600'
+      color='white'
+      _hover={{ bg: 'blue.700' }}
+      onClick={() => {
+        if (!showDetails) {
+          setShowDetails(id)
+        } else {
+          setShowDetails(null)
+        }
+      }}
+    >
+      {showDetails ? 'Ver Menos' : 'Ver Más'}
+    </Button>
+    <Collapse in={showDetails} animateOpacity>
+      {showDetails && (
+        <Box
+          id='asdasd123'
+          ref={detailRef}
+          mt={4}
+          maxW={{ base: 'full', sm: '275px' }}
+          w="full"
+          borderWidth="1px"
+          borderRadius="lg"
+          overflow="hidden"
+          p={7}
+          bg={cardBgColor}
+          color={textColor}
+          boxShadow="2xl"
+        // 
+        >
+          <Heading as='h2' size='xl' marginBottom='4' color={linkColor}>
+            {subtitle}
+          </Heading>
+          <VStack spacing='4' alignItems='flex-start'>
+
+            <Button as={Link} to={id === 1 ? "/registerProvider" : "/registerCliente"} variant="link" color='blue.600' size="lg">
+              ¡Regístrate!
+            </Button>
+
+            <Button as={Link} to="/userLogin" variant="link" color='blue.600' size="lg">
+              Inicia sesión
+            </Button>
+            <Heading as='h3' size='md'>
+              {body}
+            </Heading>
+          </VStack>
+        </Box>
+      )
+      }
+    </Collapse>
+
+  </Flex>
+  )
+}

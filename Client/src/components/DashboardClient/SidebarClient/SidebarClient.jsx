@@ -1,7 +1,7 @@
 // import { AiOutlineUsergroupAdd} from 'react-icons/ai'
 import { Box, Stack, Text, useColorModeValue, IconButton, Collapse, useMediaQuery, Tooltip} from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, EditIcon, StarIcon, QuestionOutlineIcon, ChatIcon, SearchIcon} from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, EditIcon, StarIcon, QuestionOutlineIcon, ChatIcon} from '@chakra-ui/icons';
 import { useState } from 'react';
 
 const SidebarClient = () => {
@@ -12,6 +12,9 @@ const SidebarClient = () => {
     setIsOpen(!isOpen);
   };
 
+  if(isLargerThanMd && isOpen){
+    setIsOpen(!isOpen)
+  }
   const linkStyle = {
     display: 'block',
     padding: '10px',
@@ -20,6 +23,7 @@ const SidebarClient = () => {
     _hover: {
       bg: useColorModeValue('gray.200', 'gray.700'),
     },
+    
   };
 
   return (
@@ -27,7 +31,7 @@ const SidebarClient = () => {
       md: "100px",
       lg:"200px"
     }} 
-    h="100vh" bg={useColorModeValue('gray.100', 'gray.900')} py={4} px={2} >
+    h="100vh" bg={useColorModeValue("gray.200", "gray.900")} py={4} px={2}  >
       {!isLargerThanMd ? (
         // Flex y tenía el iconButton y todo Collapse
         <IconButton
@@ -37,6 +41,7 @@ const SidebarClient = () => {
           onClick={toggleCollapse}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           alignSelf="flex-end"
+         
         />
       ) : (
         <Stack spacing={4}>
@@ -56,6 +61,9 @@ const SidebarClient = () => {
             activeClassName="active"
           >
             <Text>Profesionales</Text>
+          </NavLink> */}
+          {/* <NavLink to="/dashboardClient/favorites" style={linkStyle} activeClassName='active'>
+            <Text>Favoritos</Text>
           </NavLink> */}
           <NavLink
             to="/dashboardClient/feedbackform"
@@ -80,12 +88,16 @@ const SidebarClient = () => {
               <EditIcon />
             </Tooltip>
           </NavLink>
-
           <NavLink to="/dashboardClient/recomended" style={linkStyle} activeClassName="active">
             <Tooltip label="Recomendados" aria-label="Recomendados">
               <StarIcon />
             </Tooltip>
           </NavLink>
+          {/* <NavLink to="/dashboardClient/favorites" style={linkStyle} activeClassName= "active">
+            <Tooltip label="Favoritos" aria-label="Favoritos">
+              <StarIcon />
+            </Tooltip>
+          </NavLink> */}
           {/* <NavLink to="/categories" style={linkStyle} activeClassName="active">
             <Tooltip label="Profesionales" aria-label="Profesionales">
               <SearchIcon/>

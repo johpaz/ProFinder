@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   FormControl,
@@ -16,7 +17,9 @@ import {
   Alert,
   AlertIcon,
   CloseButton,
-  useColorMode
+  useColorMode,
+  Heading,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 import {
@@ -28,8 +31,8 @@ import { uploadFiles3 } from "../../../utils/Firebase/config";
 function EditClient() {
   const dispatch = useDispatch();
   const { colorMode } = useColorMode();
-  const bgColor = colorMode === "dark" ? "gray.800" : "gray.500";
-  const textColor = colorMode === "dark" ? "gray.100" : "blue.1000";
+  const bgColor = colorMode === "dark" ? "gray.800" : "gray.100";
+  const textColor = colorMode === "dark" ? "gray.100" : "blue.900";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -42,7 +45,9 @@ function EditClient() {
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
+  const placeholderTextColorLight = "gray.200";
+  const placeholderTextColor = colorMode === "light" ? placeholderTextColorLight : undefined;
+  
   const userSession = JSON.parse(localStorage.getItem("userSession"));
 
   useEffect(() => {
@@ -204,8 +209,12 @@ function EditClient() {
   }, [client]);
 
   return (
+    
     <Center p={4} h="100vh" w="100%" bg={bgColor}>
+      
       <Box mx="auto" maxW="5xl" w="100%">
+      <Heading color={useColorModeValue('gray.900', 'white')} align='center'>EDITA TU PERFIL</Heading>
+      <br />
         <Center>
           <VStack
             as="form"
@@ -250,6 +259,7 @@ function EditClient() {
                   onChange={handleNameChange}
                   bg={bgColor}
                   color={textColor}
+                  placeholderTextColor={placeholderTextColor}
                 />
               </Box>
             </FormControl>
@@ -259,11 +269,13 @@ function EditClient() {
                 <Input
                   variant="unstyled"
                   type="email"
+                  
                   placeholder="Correo electrónico"
                   value={email}
                   onChange={handleEmailChange}
                   bg={bgColor}
                   color={textColor}
+                  placeholderTextColor={placeholderTextColor}
                 />
               </Box>
             </FormControl>
@@ -278,6 +290,7 @@ function EditClient() {
                   onChange={handlePhoneChange}
                   bg={bgColor}
                   color={textColor}
+                  placeholderTextColor={placeholderTextColor}
                 />
               </Box>
             </FormControl>
@@ -299,6 +312,7 @@ function EditClient() {
               <Box>
                 <FormLabel>País</FormLabel>
                 <Select
+                
                   placeholder="País"
                   value={countryId}
                   onChange={handleCountryChange}
@@ -337,11 +351,14 @@ function EditClient() {
               <Box>
                 <FormLabel>Descripción</FormLabel>
                 <Textarea
+                  resize='none'
                   placeholder="Descripción"
                   value={description}
                   onChange={handleDescriptionChange}
                   bg={bgColor}
                   color={textColor}
+                  placeholderTextColor={placeholderTextColor}
+                  maxLength={100}
                 />
               </Box>
             </FormControl>

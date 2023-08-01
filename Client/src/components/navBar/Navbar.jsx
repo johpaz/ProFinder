@@ -10,11 +10,13 @@ import {
   useColorModeValue,
   HStack,
   Button,
+  useColorMode
 } from "@chakra-ui/react";
 import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import DarkModeToggle from "../../utils/Darkmode/DarkmodeToggle";
 import Logo from "../../assets/categoriesIcons/Logo.png";
+import logodark from "../../assets/categoriesIcons/logodark.png";
 //import SearchBar from '../SearchBar/SearchBar'
 import NavLink from "../../singleComponents/NavLink";
 
@@ -22,7 +24,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   // const location = useLocation()
   const navbarBgColor = useColorModeValue("gray.200", "gray.900");
-
+  const { colorMode } = useColorMode();
   // variable para controlar la renderizacion de la searchbar"
   // const isCategoriesRoute = location.pathname === '/categories'
 
@@ -53,9 +55,9 @@ const Navbar = () => {
         <HStack spacing={8} alignItems="center">
           <Box onClick={() => navigate("/")} _hover={{ cursor: "pointer" }}>
             <Image
-              src={Logo}
-              width={{ base: "50%", md: "100%", lg: "100%" }}
-              height="70px"
+               src={colorMode === "light" ? Logo : logodark}
+               width={{ base: "50%", md: "100%", lg: "100%" }}
+               height="70px"
             />
           </Box>
           <HStack
@@ -97,7 +99,7 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem
                 color={useColorModeValue("gray.900", "gray.100")}
-                onClick={() => navigate("/")}
+                onClick={() => navigate("/aboutus")}
               >
                 Acerca de
               </MenuItem>
