@@ -47,7 +47,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const location = await Location.findByPk(LocationId);
 
- 
 
   const profesionalFormat = { 
     name,
@@ -57,7 +56,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
-    active: true,
     pro: true
   };
 
@@ -76,19 +74,20 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
 
-  return {
-    id: newProfesional.id,
-    name: newProfesional.name,
-    email: newProfesional.email,
-    image: newProfesional.image,
-    password: newProfesional.password,
-    genre: newProfesional.genre,
-    years_exp: newProfesional.years_exp,
-    phone:newProfesional.phone,
-    country:country.name,
-    location: location.name,
-    categories: resolvedCategories
-  };
-};
+//   return {
+//     id: newProfesional.id,
+//     name: newProfesional.name,
+//     email: newProfesional.email,
+//     image: newProfesional.image,
+//     password: newProfesional.password,
+//     genre: newProfesional.genre,
+//     years_exp: newProfesional.years_exp,
+//     phone:newProfesional.phone,
+//     country:country.name,
+//     location: location.name,
+//     categories: resolvedCategories
+//   };
+return newProfesional;
+ };
 
 module.exports = createProfesional;

@@ -66,6 +66,15 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
   profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
   profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
+  if (LocationId) {
+    const locationInBDD = await Location.findByPk(LocationId);
+    if (!locationInBDD) throw Error(`No existe la ubicación con ID: ${LocationId} en la base de datos`);
+    profesionalInBDD.geolocation = [
+      locationInBDD.latitude,
+      locationInBDD.longitude
+    ];
+  }
+
   await profesionalInBDD.save();
 
   // Set associations
@@ -94,21 +103,21 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   await profesionalInBDD.setCountry(countryBDD.id);
   await profesionalInBDD.setLocation(locationBDD.id);
 
-  // Return updated professional
+  return  profesionalInBDD
 
-  return {
-    id: profesionalInBDD.id,
-    name: profesionalInBDD.name,
-    email: profesionalInBDD.email,
-    image: profesionalInBDD.image,
-    genre: profesionalInBDD.genre,
-    years_exp: profesionalInBDD.years_exp,
-    description: profesionalInBDD.description,
-    phone:profesionalInBDD.phone,
-    country:countryBDD.name,
-    location: locationBDD.name,
-    categories: resolvedCategories
-  };
+  // return {
+  //   id: profesionalInBDD.id,
+  //   name: profesionalInBDD.name,
+  //   email: profesionalInBDD.email,
+  //   image: profesionalInBDD.image,
+  //   genre: profesionalInBDD.genre,
+  //   years_exp: profesionalInBDD.years_exp,
+  //   description: profesionalInBDD.description,
+  //   phone:profesionalInBDD.phone,
+  //   country:countryBDD.name,
+  //   location: locationBDD.name,
+  //   categories: resolvedCategories
+  // };
 };
 
 module.exports = updateProfesional;
