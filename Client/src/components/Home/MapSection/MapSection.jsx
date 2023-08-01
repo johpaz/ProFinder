@@ -114,7 +114,7 @@ const MapSection = () => {
             </div>
           </Popup>
         </Marker>
-        <Marker position={[-46.7637 ,  -58.2114  ]} icon={customFemaleIcon}>
+        <Marker position={[-46.7637 ,  -68.2114  ]} icon={customFemaleIcon}>
           <Popup autoClose={false}>
             <div>
             <h2>Maria Olaechea</h2>
@@ -142,7 +142,7 @@ const MapSection = () => {
           </Popup>
         </Marker>
 
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {/* Agrega los marcadores y popups para cada proveedor */}
         {suppliers.map((supplier) => (
           <Marker key={supplier.id} position={supplier.geolocation} icon={customIcon}>
