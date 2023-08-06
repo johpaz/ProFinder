@@ -115,7 +115,10 @@ const getAllProfesionals = async () => {
           model: Review,
           attributes: ["id","content", "rating"]
         }
-      ]
+      ],
+      where:{
+        softDelete:null,
+      },
     });
 
     if (profesionals.length === 0) {
@@ -152,7 +155,10 @@ const getAllProfesionals = async () => {
             model: Review,
             attributes: ["id","content", "rating"]
           }
-        ]
+        ],
+        where:{
+          softDelete:null,
+        },
       });
     }
 
