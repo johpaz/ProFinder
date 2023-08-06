@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
       rating: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: null,
+        defaultValue: 0,
       },
       years_exp: {
         type: DataTypes.STRING, // Podría ser INTEGER pero string en caso que no tenga experiencia?

@@ -38,7 +38,7 @@ router.use('/category', categoryRouter); //Categorias
 
 router.use('/ocupations', ocupationsRouter); // Ocupaciones
 
-router.use('/ocupationsp', ocupationspRouter); // profesionales por Ocupacion
+router.use('/profesionals-by-ocupation', ocupationspRouter); // profesionales por Ocupacion
 
 router.use("/review", reviewRouter); // Posts del cliente
 

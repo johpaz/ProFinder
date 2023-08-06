@@ -47,54 +47,56 @@ Category.belongsToMany(Profesional, { through: "ProfesionalCategory" });
 Profesional.belongsToMany(Ocupation, { through: "ProfesionalOcupations" });
 Ocupation.belongsToMany(Profesional, { through: "ProfesionalOcupations" });
 
-// Relacionar los modelos 1:n
+//? Profesional - Clients n:n
+Profesional.belongsToMany(Client, { through: "ProfesionalClientRelation" });
+Client.belongsToMany(Profesional, { through: "ProfesionalClientRelation" });
 
+// Relacionar los modelos 1:n
+//? Cliente - Review
 Client.hasMany(Review);
 
 Review.belongsTo(Client);
 
+//? Profesional - Review
 Profesional.hasMany(Review);
-
-Profesional.hasMany(DocumentsProfesional);
 
 Review.belongsTo(Profesional);
 
+Profesional.hasMany(DocumentsProfesional);
+
+//? Profesional - PostProfesional 
 Profesional.hasMany(PostProfesional);
 
 PostProfesional.belongsTo(Profesional);
 
+//? Category - Ocupation
 Category.hasMany(Ocupation);
-
 Ocupation.belongsTo(Category);
 
+//? Country - Location 
 Country.hasMany(Location);
 Location.belongsTo(Country);
 
+//? Country - Profesional
 Country.hasMany(Profesional);
 Profesional.belongsTo(Country);
 
+//? Location - Profesional
 Location.hasMany(Profesional);
 Profesional.belongsTo(Location);
 
+//? Country - Client 
 Country.hasMany(Client);
 Client.belongsTo(Country);
 
+//? Location - Client 
 Location.hasMany(Client);
 Client.belongsTo(Location);
 
-// Relacionar ambos modelos:
-
-Profesional.belongsToMany(Client, { through: "ProfesionalClientRelation" });
-Client.belongsToMany(Profesional, { through: "ProfesionalClientRelation" });
-
-
-  // Asociación Profesional con Premium
-Profesional.hasOne(Premium); // Un profesional tiene una suscripción Premium
-Premium.belongsTo(Profesional); // Una suscripción Premium pertenece a un profesional
-
-
-// Relacionar 1:1:
-User.hasOne(Profesional)
+  // Relacionar 1:1:
+  User.hasOne(Profesional)
+  Profesional.hasOne(Premium);
+  Premium.belongsTo(Profesional); 
 
 module.exports = {
   sequelize,
