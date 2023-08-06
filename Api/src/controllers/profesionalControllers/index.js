@@ -1,7 +1,7 @@
 const createProfesional = require('./01 - createProfesional');
 const {getAllProfesionals, getAllProfesionalApi} = require('./02 - getAllProfesionals')
 const getProfesionalById = require('./03 - getProfesionalById');
-const getPresionalsByName = require('./04 - getProfesionalsByName');
+const getProfesionalsByName = require('./04 - getProfesionalsByName');
 const updateProfesional = require('./05 - putProfesional')
 const ratingProfesional = require("./07 - ratingProfesional")
 const putProfileProfesional = require('./08 - putProfileProfesional')
@@ -11,7 +11,7 @@ module.exports = {
   getAllProfesionals,
   getAllProfesionalApi,
   getProfesionalById,
-  getPresionalsByName,
+  getProfesionalsByName,
   updateProfesional,
   ratingProfesional,
   putProfileProfesional

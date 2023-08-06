@@ -12,7 +12,7 @@ const cleanArray = require('../helpers/cleanArrayProfesionals')
 const { searchUserProfesional, getProfById, getProfByIdActive, getProfByIdReverse, getProfByIdNotActive } = require("../controllers/profesionalControllers/profesionalsControllers")
 
 
-const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional, getAllProfesionalsDelete, ratingProfesional,putProfileProfesional } = require('../controllers/profesionalControllers/index');
+const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getProfesionalsByName, updateProfesional, getAllProfesionalsDelete, ratingProfesional,putProfileProfesional } = require('../controllers/profesionalControllers/index');
 
 
 
@@ -216,22 +216,9 @@ const getProfesionalsNotDelete = async (req, res) => {
 const getProfesionals = async (req, res) => {
   const { name } = req.query
   try {
-    let profesionals = await getAllProfesionals();
-    if (name) {
-      profesionals = await getPresionalsByName(name)
-    }
-
-    if (!profesionals || profesionals.length === 0) {
-      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
-      await getAllProfesionalApi();
-
-      // Obtener los clientes actualizados
-      profesionals = await getAllProfesionals();
-    }
-
+    const profesionals = name ? await getProfesionalsByName(name) : await getAllProfesionals();
     return res.status(200).json(profesionals);
   } catch (error) {
- 
     return res.status(404).json({ error: error.message });
   }
 };
